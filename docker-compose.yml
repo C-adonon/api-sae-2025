@@ -1,0 +1,23 @@
+services:
+
+  db:
+    container_name: db
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: userprojet
+      POSTGRES_PASSWORD: 123456789
+      POSTGRES_DB: labdb
+    volumes:
+      - ./conteneur/initdb:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/postgresql
+    networks:
+      - lab_net
+
+
+networks:
+  lab_net:
+    driver: bridge
+
+
+volumes:
+  db_data:
