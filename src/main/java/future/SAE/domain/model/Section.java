@@ -25,11 +25,11 @@ public class Section {
         this.ouverte = estOuverte;
     }
 
-    public void fermerSection(){
+    public void fermerSection() {
         setOuverte(false);
     }
 
-    public void ouvrirSection(){
+    public void ouvrirSection() {
         setOuverte(true);
     }
 
@@ -67,7 +67,11 @@ public class Section {
         this.ouverte = isOuverte;
     }
 
-    public String toString(){
-        return "Section " + this.ordre+ ": " + this.titre;
+    public String toString() {
+        String str = "Section " + this.ordre + ": " + this.titre + "(" + this.ouverte + ")";
+        if (this.texte != null) {
+            str += "\n" + this.texte;
+        }
+        return str;
     }
 }
