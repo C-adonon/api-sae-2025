@@ -1,3 +1,4 @@
+package future.SAE.domain.model;
 import java.util.Locale;
 
 public class Utilisateur
@@ -28,11 +29,6 @@ public class Utilisateur
             return false;
         }
     }
-
-    /*public boolean deconnexion()
-    {
-
-    }*/
 
     public String getNom()
     {
