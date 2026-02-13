@@ -49,5 +49,6 @@ public class SuiviCours {
     @Override
     public String toString() {
         // à faire
+        return "";
     }
 }
