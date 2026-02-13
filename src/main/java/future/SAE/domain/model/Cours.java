@@ -1,16 +1,16 @@
 package future.SAE.domain.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Cours {
     private String nom;
     private String description;
     private Professeur professeur;
-    private ArrayList<Section> sections;
+    private ArrayList<Section> sections = new ArrayList<>();
     private boolean publique = true;
-    private LocalDate dateCreation = LocalDate.now();
-    private LocalDate dateModification;
+    private LocalDateTime dateCreation = LocalDateTime.now();
+    private LocalDateTime dateModification;
 
     // Constructeurs
     public Cours(String unNom, Professeur unProfesseur) {
@@ -60,11 +60,11 @@ public class Cours {
         return this.publique;
     }
 
-    public LocalDate getDateCreation() {
+    public LocalDateTime getDateCreation() {
         return this.dateCreation;
     }
 
-    public LocalDate getDateModification() {
+    public LocalDateTime getDateModification() {
         return this.dateModification;
     }
 
@@ -89,11 +89,7 @@ public class Cours {
         this.publique = isPublique;
     }
 
-    public void setDateCreation(LocalDate uneDateCreation) {
-        this.dateCreation = uneDateCreation;
-    }
-
-    public void setDateModification(LocalDate uneDateModification) {
+    public void setDateModification(LocalDateTime uneDateModification) {
         this.dateModification = uneDateModification;
     }
 }
