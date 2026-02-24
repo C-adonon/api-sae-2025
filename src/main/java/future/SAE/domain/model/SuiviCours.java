@@ -5,13 +5,12 @@ import java.time.LocalDateTime;
 
 public class SuiviCours {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
     private float progressionGlobale;
     private LocalDateTime dateDernierAcces;
 
-    @ManyToOne
+
     private Eleve eleve;
 
     public SuiviCours(Eleve unEleve){
@@ -46,7 +45,7 @@ public class SuiviCours {
         this.eleve = eleve;
     }
 
-    @Override
+
     public String toString() {
         // à faire
         return "";
