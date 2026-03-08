@@ -9,8 +9,4 @@ public class Eleve extends Utilisateur
         super(unNom, unPrenom, id, unEmail);
     }
 
-    public Formation inscriptionFormation(Formation formation)
-    {
-        return this.formation = formation;
-    }
 }
