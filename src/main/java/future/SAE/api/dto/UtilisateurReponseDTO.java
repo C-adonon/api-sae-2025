@@ -1,11 +1,9 @@
 package future.SAE.api.dto;
-
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class UtilisateurReponseDTO
 {
-    import java.time.LocalDateTime;
-import java.util.UUID;
-
     @Getter
     @Setter
     public class UtilisateurResponseDTO {
