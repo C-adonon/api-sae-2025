@@ -12,3 +12,4 @@ public class UtilisateurRequeteDTO {
     private Role role;
     private UUID formationId;
 }
+
