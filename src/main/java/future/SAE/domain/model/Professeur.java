@@ -24,11 +24,11 @@ public class Professeur extends Utilisateur
     // }
     // // if (this.cours.add(eleve))
     // // {
-    // // return true;
+    // //       return true;
     // // }
     // // else
     // // {
-    // // return false;
+    // //       return false;
     // // }
     // }
 
@@ -36,11 +36,11 @@ public class Professeur extends Utilisateur
     // {
     // // if (this.cours.remove(eleve))
     // // {
-    // // return true;
+    // //      return true;
     // // }
     // // else
     // // {
-    // // return false;
+    // //       return false;
     // // }
     // }
 
