@@ -6,8 +6,8 @@ public class UtilisateurReponseDTO
 {
     @Getter
     @Setter
-    public class UtilisateurResponseDTO {
-
+    public class UtilisateurResponseDTO
+    {
         private UUID id;
         private int identifiant;
         private String nom;
@@ -16,6 +16,5 @@ public class UtilisateurReponseDTO
         private Role role;
         private UUID formationId;
         private LocalDateTime dateCreation;
-
     }
 }
