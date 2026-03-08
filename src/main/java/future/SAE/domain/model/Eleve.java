@@ -18,3 +18,9 @@ public class Eleve extends Utilisateur
         super(unNom, unPrenom, identifiant, unEmail, unMdp, Role.ELEVE);
         this.formation = uneFormation;
     }
+
+    public Formation getIdFormation()
+    {
+        return this.formation;
+    }
+
