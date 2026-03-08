@@ -3,7 +3,8 @@ import java.util.UUID;
 @Getter
 @Setter
 
-public class UtilisateurRequeteDTO {
+public class UtilisateurRequeteDTO
+{
     private int identifiant;
     private String nom;
     private String prenom;
