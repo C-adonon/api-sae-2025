@@ -44,7 +44,8 @@ public class Professeur extends Utilisateur
     // // }
     // }
 
-    public List<Cours> getCours() {
+    public List<Cours> getCours()
+    {
         return this.coursDispenses;
     }
 
