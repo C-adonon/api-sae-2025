@@ -24,3 +24,9 @@ public class Eleve extends Utilisateur
         return this.formation;
     }
 
+    public void setIdFormation(Formation uneFormation)
+    {
+        this.formation = uneFormation;
+    }
+
+
