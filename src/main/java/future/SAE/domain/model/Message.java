@@ -3,62 +3,45 @@ package future.SAE.domain.model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.UUID;
 
+import jakarta.persistence.StoredProcedureParameter;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Message {
-
+    private UUID idMessage;
     private String objet;
-    private String message;
-    private LocalDateTime date;
-    private List<Utilisateur> destinataires;
+    private String texte;
+    private List<Utilisateur> destinataires = new ArrayList<>();
     private Utilisateur expediteur;
-    private List<Message> commentaires;
+    private Message messageParent;
+    private List<Message> commentaires = new ArrayList<>();
+    private LocalDateTime date;
 
-    public Message(String objet, String message, List<Utilisateur> destinataires, Utilisateur expediteur) {
-        this.objet = objet;
-        this.message = message;
-        this.destinataires = destinataires;
-        this.expediteur = expediteur;
+    public Message() {
+
+    }
+
+    public Message(String unObjet, String unMessage, ArrayList<Utilisateur> listeDestinataires,
+            Utilisateur unExpediteur) {
+        this.objet = unObjet;
+        this.texte = unMessage;
+        this.destinataires = listeDestinataires;
+        this.expediteur = unExpediteur;
         this.date = LocalDateTime.now();
-        this.commentaires = new ArrayList<>();
     }
 
-    // getters
-    public String getObjet() {
-        return objet;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public List<Utilisateur> getDestinataires() {
-        return destinataires;
-    }
-
-    public Utilisateur getExpediteur() {
-        return expediteur;
-    }
-
-    public List<Message> getCommentaires() {
-        return commentaires;
-    }
-
-    // setters
-    public void setObjet(String texte) {
-        this.objet = texte;
-    }
-
-    public void setMessage(String texte) {
-        this.message = texte;
-    }
-
-    public void setDestinataires(List<Utilisateur> destinataires) {
-        this.destinataires = destinataires;
+    public Message(String unObjet, String unMessage, Message unMessageParent, ArrayList<Utilisateur> listeDestinataires,
+            Utilisateur unExpediteur) {
+        this.objet = unObjet;
+        this.texte = unMessage;
+        this.messageParent = unMessageParent;
+        this.destinataires = listeDestinataires;
+        this.expediteur = unExpediteur;
+        this.date = LocalDateTime.now();
     }
 
     public boolean commenter() {
@@ -75,6 +58,6 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Message: " + this.objet + " (de " + this.expediteur + ")";
+        return "Message: " + this.objet + "de" + this.expediteur;
     }
 }
