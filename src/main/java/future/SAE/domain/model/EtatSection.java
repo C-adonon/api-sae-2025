@@ -1,9 +1,12 @@
 package future.SAE.domain.model;
+
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
+import lombok.Setter;
+import lombok.Getter;
 
-
+@Setter
+@Getter
 public class EtatSection {
 
 
