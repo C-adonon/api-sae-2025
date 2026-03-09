@@ -1,32 +1,13 @@
 package future.SAE.domain.model;
+import java.util.ArrayList;
+import java.util.List;
+
 import future.SAE.domain.valueObject.Role;
+import lombok.Getter;
+import lombok.Setter;
 
-public class Eleve extends Utilisateur
+@Getter
+@Setter
+public class Eleve
 {
-    private Formation formation;
-
-    // constructeur
-    public Eleve(String unNom, String unPrenom, int identifiant, String unEmail, String unMdp) {
-        super(unNom, unPrenom, identifiant, unEmail, unMdp, Role.ELEVE);
-    }
-
-    // ajouter constructeur avec l'id de la formation
-    public Eleve(String unNom, String unPrenom, int identifiant, String unMdp, String unEmail, Formation uneFormation)
-    {
-        super(unNom, unPrenom, identifiant, unEmail, unMdp, Role.ELEVE);
-        this.formation = uneFormation;
-    }
-
-    public Formation getIdFormation()
-    {
-        return this.formation;
-    }
-
-    public void setIdFormation(Formation uneFormation)
-    {
-        this.formation = uneFormation;
-    }
-
 }
-
-
