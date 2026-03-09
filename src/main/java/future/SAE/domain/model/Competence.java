@@ -1,53 +1,38 @@
 package future.SAE.domain.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Competence {
 
-    int numero;
-    String libelle;
-    String description;
+    private long idCompetence;
+    private int numero;
+    private String libelle;
+    private String description;
+    private Formation formation;
 
-    public Competence(int unNumero, String unLibelle){
-
-        this.numero = unNumero;
-        this.libelle = unLibelle;
-
+    public Competence(){
     }
 
-    public Competence(int unNumero, String unLibelle, String uneDescription){
+    public Competence(int unNumero, String unLibelle, Formation uneFormation){
+        this.numero = unNumero;
+        this.libelle = unLibelle;
+        this.formation = uneFormation;
+    }
 
+    public Competence(int unNumero, String unLibelle, Formation uneFormation, String uneDescription){
         this.numero = unNumero;
         this.libelle = unLibelle;
         this.description = uneDescription;
-
+        this.formation = uneFormation;
     }
 
-    public int getNumero() {
-        return this.numero;
-    }
-
-    public String getLibelle() {
-        return this.libelle;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setNumero(int unNumero) {
-        this.numero = unNumero;
-    }
-
-    public void setLibelle(String unLibelle) {
-        this.libelle = unLibelle;
-    }
-
-    public void setDescription(String uneDescription) {
-        this.description = uneDescription;
-    }
 
     public String toString() {
-        return "Compétence C" + this.numero + "\n"
-                + "Libellé : " + this.libelle + "\n"
-                + "Description : " + "\n";
+        return "Compétence C" + this.getNumero() + "\n"
+                + "Libellé : " + this.getLibelle() + "\n"
+                + "Description : " + this.getDescription() + "\n";
     }
 }
