@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 public class EtatSection {
 
 
-    private Long id;
+    private Long idEtatSection;
     private boolean estTerminee = false;
     private LocalDateTime dateCompletion;
     private Eleve eleve;
