@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 
 public class ProfesseurJPA extends UtilisateurJPA {
-    @OneToMany(mappedBy = "professeur")
+    @OneToMany(mappedBy = "Professeur")
     private List<CoursJPA> coursDispenses = new ArrayList<>();
 
     private ProfesseurJPA() {

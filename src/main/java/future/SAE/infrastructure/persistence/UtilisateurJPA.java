@@ -20,6 +20,9 @@ public class UtilisateurJPA {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idUser;
 
+    @Column(nullable = false, unique = true)
+    private int identifiant;
+
     @Column(nullable = false)
     private String nom;
 
