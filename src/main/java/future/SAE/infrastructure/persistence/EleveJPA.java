@@ -1,4 +1,5 @@
 package future.SAE.infrastructure.persistence;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,7 @@ import lombok.Setter;
 @DiscriminatorValue("ELEVE")
 @Getter
 @Setter
-public class EleveJPA extends UtilisateurJPA
-{
+public class EleveJPA extends UtilisateurJPA {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_formation")
     private FormationJPA formation;
@@ -25,8 +25,7 @@ public class EleveJPA extends UtilisateurJPA
     @OneToMany(mappedBy = "eleve", cascade = CascadeType.ALL, orphanRemoval = false)
     private List<InscriptionCoursJPA> inscriptions = new ArrayList<>();
 
-    public EleveJPA()
-    {
+    public EleveJPA() {
         super();
     }
 
