@@ -21,6 +21,7 @@ public class CompetenceJPA {
     @Column(nullable = false)
     private String libelle;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
