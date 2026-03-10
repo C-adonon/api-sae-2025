@@ -8,7 +8,7 @@ public class TestEleve
     @Test
     public void TestEleve()
     {
-        Eleve e = new Eleve("BENDJEBBOUR", "Yasmine", 12301458, "yasmine.bendjebbour@edu.univ.fr", "Y@smine2005");
+        Eleve e = new Eleve("BENDJEBBOUR", "Yasmine", 12301458, "yasmine.bendjebbour@edu.univ.fr", "Y@smine2005.");
         System.out.println(e.toString());
 
         Formation f = new Formation("informatique");
