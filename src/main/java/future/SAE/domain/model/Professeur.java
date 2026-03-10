@@ -1,42 +1,33 @@
 package future.SAE.domain.model;
 import java.util.ArrayList;
+import java.util.List;
 
+import future.SAE.domain.valueObject.Role;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Professeur extends Utilisateur
 {
-    private Eleve eleve;
-    private ArrayList <Cours> cours;
+    private List<Cours> coursDispenses = new ArrayList<>();
 
-    public Professeur(String unNom, String unPrenom, int id, String unEmail)
+    //constructeur avec héritage
+    public Professeur(String unNom, String unPrenom, int unIdentifiant, String unEmail, String unMdp)
     {
-        super(unNom, unPrenom, id, unEmail);
+        super(unNom, unPrenom, unIdentifiant, unEmail, unMdp, Role.PROFESSEUR);
     }
 
-    public boolean inscriptionEleve(Eleve eleve)
+    public void ajouterCours(Cours unCours)
     {
-        if (this.cours.add(eleve))
+        if(unCours != null)
         {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public boolean desinscriptionEleve(Eleve eleve)
-    {
-        if (this.cours.remove(eleve))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
+            this.coursDispenses.add(unCours);
         }
     }
 
     public String toString()
     {
-        return "Professeur" +super.toString();
+        return "Prfesseur" + super.toString();
     }
 }

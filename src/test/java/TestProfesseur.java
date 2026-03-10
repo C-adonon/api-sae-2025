@@ -7,9 +7,10 @@ public class TestProfesseur
     @Test
     public void TestProfesseur()
     {
-        Professeur p = new Professeur("DUPOND", "David", 24882357, "david.dupond@lipn.fr");
+        Cours c = new Cours("informatique");
+        Professeur p = new Professeur("DUPOND", "David", 24882357, "david.dupond@lipn.fr", "D@vid1994");
         System.out.println(p.toString());
-        System.out.println(p.inscriptionEleve(e);
-        System.out.println(p.desinscriptionEleve(e);
+        System.out.println(p);
+        System.out.println(p.ajouterCours(c));
     }
 }

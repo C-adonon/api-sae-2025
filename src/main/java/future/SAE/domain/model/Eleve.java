@@ -1,16 +1,40 @@
 package future.SAE.domain.model;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Eleve extends Utilisateur
+import future.SAE.domain.valueObject.Role;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class Eleve
 {
     private Formation formation;
+    private List<InscriptionCours> inscriptions = new ArrayList<>();
 
-    public Eleve(String unNom, String unPrenom, int id, String unEmail)
+    //constructeur avec heritage
+    public Eleve()
     {
-        super(unNom, unPrenom, id, unEmail);
+        super();
     }
 
-    public Formation inscriptionFormation(Formation formation)
+    //constructeur d'un utilisateur ayant pour role ELEVE
+    public Eleve(String unNom, String unPrenom, int unIdentifiant, String unEmail, String unMdp)
     {
-        return this.formation = formation;
+        super(unNom, unPrenom, unIdentifiant, unEmail, unMdp, Role.ELEVE);
+    }
+
+    //constructeur d'un utilisateur ayant pour role ELEVE qui est relie a une formation et une liste
+    public Eleve(String unNom, String unPrenom, int unIdentifiant, String unEmail, String unMdp, Formation uneFormation, List<InscriptionCours> listeInscriptionCours)
+    {
+        super(unNom, unPrenom, unIdentifiant, unEmail, unMdp, Role.ELEVE);
+        this.formation = uneFormation;
+        this.inscriptions = listeInscriptionCours;
+    }
+
+    public String toString()
+    {
+        return "Eleve " + super.toString() + " fait partie de la formation " + this.formation + " et de la liste " + this.inscriptions;
     }
 }

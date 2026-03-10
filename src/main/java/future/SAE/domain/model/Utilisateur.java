@@ -1,91 +1,56 @@
 package future.SAE.domain.model;
-import java.util.Locale;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
+import future.SAE.domain.valueObject.Role;
+import lombok.Getter;
+import lombok.Getter;
+
+@Getter
+@Setter
 public class Utilisateur
 {
+    private UUID idUser;
+    private int identifiant;
     private String nom;
     private String prenom;
-    private int identifiant;
     private String email;
     private String motDePasse;
+    private Role role;
+    private LocalDateTime dateCreation = LocalDateTime.now();
 
-    public Utilisateur(String unNom, String unPrenom, int id, String unEmail)
+    //constructeur vide
+    public Utilisateur()
+    {
+
+    }
+    //constructeur d'un utilisateur avec un role: professeur ou eleve
+    public Utilisateur(String unNom, String unPrenom, int unIdentifiant, String unEmail, String unMdp, Role unRole)
     {
         this.nom = unNom;
         this.prenom = unPrenom;
-        this.identifiant = id;
+        this.identifiant = unIdentifiant;
         this.email = unEmail;
+        this.motDePasse = unMdp;
+        this.role = unRole;
     }
 
-    public boolean connexion(int id, String mdp)
+    //constructeur d'un utilisateur sans role
+    public Utilisateur(String unNom, String unPrenom, int unIdentifiant, String unEmail, String unMdp)
     {
-        if(this.identifiant == id && this.motDePasse == mdp)
-        {
-            return true;
-        }
-        else
-        {
-            String s = "identifiant ou mot de passe incorrect";
-            return false;
-        }
+        this.nom = unNom;
+        this.prenom = unPrenom;
+        this.identifiant = unIdentifiant;
+        this.email = unEmail;
+        this.motDePasse = unMdp;
     }
-
-    public String getNom()
-    {
-        return this.nom;
-    }
-
-    public String getPrenom()
-    {
-        return prenom;
-    }
-
-    public int getIdentifiant()
-    {
-        return identifiant;
-    }
-
-    public String getEmail()
-    {
-        return email;
-    }
-
-    public String setNom(String nom)
-    {
-        return this.nom = nom;
-    }
-
-    public String setPrenom(String prenom)
-    {
-        return this.prenom = prenom;
-    }
-
-    public String setEmail(String email)
-    {
-        return this.email = email;
-    }
-
-    public String setMdp(String mdp)
-    {
-        return this.motDePasse = mdp;
-    }
-
-
-    public boolean modifierMdp()
-    {
-        if(setMdp(this.motDePasse) == this.motDePasse)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
+    // affichage de l'utilisateur lors des test
     public String toString()
     {
         return "L'utilisateur " + this.nom + this.prenom + " a pour identifiant " + this.identifiant + ". Son mail est " + this.email;
     }
-
 }
+
+
+
+
