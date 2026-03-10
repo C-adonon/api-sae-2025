@@ -8,7 +8,7 @@ import lombok.Getter;
 
 @Getter
 @Setter
-public abstract class Utilisateur
+public class Utilisateur
 {
     private UUID idUser;
     private int identifiant;
