@@ -29,8 +29,8 @@ public class SuiviCoursJPA {
     @Column(name = "progression_globale")
     private float progressionGlobale;
 
-    @Column(name = "date_completion")
-    private LocalDateTime dateCompletion = LocalDateTime.now;
+    @Column(name = "dateDernierAcces")
+    private LocalDateTime dateDernierAcces = LocalDateTime.now();
 
     public SuiviCoursJPA(){
     }
