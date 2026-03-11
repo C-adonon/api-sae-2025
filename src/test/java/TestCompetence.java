@@ -1,4 +1,5 @@
-import future.SAE.domain.model.*;
+import future.SAE.domain.model.Formation;
+import future.SAE.domain.model.Competence;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.*;
