@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import future.SAE.domain.valueObject.Role;
 import lombok.Getter;
-import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
