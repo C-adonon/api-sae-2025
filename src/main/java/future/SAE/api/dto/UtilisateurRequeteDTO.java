@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class UtilisateurRequeteDTO
 {
-    private int identifiant;
+    private UUID id;
     private String nom;
     private String prenom;
     private String email;
