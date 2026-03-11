@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class Competence {
 
-    private long idCompetence;
+    private Long idCompetence;
     private int numero;
     private String libelle;
     private String description;
