@@ -23,6 +23,7 @@ public class SuiviCours {
 
     public SuiviCours(Eleve unEleve){
         this.eleve = unEleve;
+        this.dateDernierAcces = LocalDateTime.now();
     }
 
 
