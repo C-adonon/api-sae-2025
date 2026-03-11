@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Eleve
+public class Eleve extends Utilisateur
 {
     private Formation formation;
     private List<InscriptionCours> inscriptions = new ArrayList<>();

@@ -28,6 +28,6 @@ public class Professeur extends Utilisateur
 
     public String toString()
     {
-        return "Prfesseur" + super.toString();
+        return "Professeur" + super.toString();
     }
 }

@@ -47,7 +47,7 @@ public class Utilisateur
     // affichage de l'utilisateur lors des test
     public String toString()
     {
-        return "L'utilisateur " + this.nom + this.prenom + " a pour identifiant " + this.identifiant + ". Son mail est " + this.email;
+        return "L'utilisateur " + this.nom + this.prenom + " a pour identifiant " + this.identifiant + " et son mail est " + this.email;
     }
 }
 
