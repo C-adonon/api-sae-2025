@@ -2,8 +2,6 @@ package future.SAE.infrastructure.persistence;
 
 import java.time.LocalDateTime;
 
-import org.springframework.data.util.Lazy;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
