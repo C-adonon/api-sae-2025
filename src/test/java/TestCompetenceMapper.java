@@ -21,7 +21,7 @@ public class TestCompetenceMapper {
     void testToDomain(){
 
         CompetenceJPA jpa = new CompetenceJPA();
-        jpa.setIdCompetence(1);
+        jpa.setIdCompetence(1L);
         jpa.setNumero(1);
         jpa.setLibelle("Développement d'application");
         jpa.setDescription("Java");

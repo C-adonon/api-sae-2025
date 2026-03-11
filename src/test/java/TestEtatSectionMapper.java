@@ -20,16 +20,41 @@ public class TestEtatSectionMapper {
     EtatSectionMapper etatSectionMapper;
 
     @Test
-    @DisplayName("Devrait mapper correctement une Competence vers la persistence")
+    @DisplayName("Devrait mapper correctement un EtatSection en Entity")
     void testToEntity(){
 
         EtatSection domain = new EtatSection();
+        domain.setIdEtatSection(1L);
         domain.setDateCompletion(LocalDateTime.now());
 
         EtatSectionJPA jpa = etatSectionMapper.toEntity(domain);
 
+        assertNotNull(jpa);
+        assertEquals(domain.getIdEtatSection(), jpa.getIdEtatSection());
         assertEquals(domain.getDateCompletion(), jpa.getDateCompletion());
+    }
+
+    @Test
+    @DisplayName("Devrait mapper une liste d'EtatSection en JPA")
+    void testToEntityList(){
+        EtatSection domain1 = new EtatSection();
+        domain1.setIdEtatSection(1L);
+        domain1.setDateCompletion(LocalDateTime.now());
+
+        EtatSection domain2 = new EtatSection();
+        domain2.setIdEtatSection(2L);
+        domain2.setDateCompletion(LocalDateTime.now().minusDays(1));
+
+        List<EtatSectionJPA> jpaList = etatSectionMapper.toEntityList(List.of(domain1, domain2));
+
+        assertEquals(2, jpaList.size());
+        assertEquals(domain1.getIdEtatSection(), jpaList.getFirst().getIdEtatSection());
+        assertEquals(domain1.getDateCompletion(), jpaList.get(1).getDateCompletion());
+        assertEquals(domain2.getIdEtatSection(), jpaList.getFirst().getIdEtatSection());
+        assertEquals(domain2.getDateCompletion(), jpaList.get(2).getDateCompletion());
 
     }
+
+
 
 }
