@@ -11,7 +11,7 @@ import future.SAE.infrastructure.persistence.EleveJPA;
 import future.SAE.infrastructure.persistence.UtilisateurJPA;
 
 @Repository
-public interface Utilisateur extends JpaRepository<UtilisateurJPA, UUID>
+public interface UtilisateurRepository extends JpaRepository<UtilisateurJPA, UUID>
 {
     Optional<UtilisateurJPA> findByEmail(String email);
     Optional<UtilisateurJPA> findByIdentifiant(int identifiant);
