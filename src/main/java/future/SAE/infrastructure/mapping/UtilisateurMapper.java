@@ -3,6 +3,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
+import java.util.List;
+
 import future.SAE.domain.model.Eleve;
 import future.SAE.domain.model.Professeur;
 import future.SAE.domain.model.Utilisateur;
