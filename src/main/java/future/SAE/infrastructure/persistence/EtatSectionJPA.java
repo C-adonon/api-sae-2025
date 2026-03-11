@@ -16,7 +16,7 @@ public class EtatSectionJPA {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_etat_section", nullable = false, updatable = false)
-    private long idEtatSection;
+    private Long idEtatSection;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_eleve", nullable = false)

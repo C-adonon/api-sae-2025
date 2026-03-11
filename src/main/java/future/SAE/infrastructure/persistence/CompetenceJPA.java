@@ -13,7 +13,7 @@ public class CompetenceJPA {
     @Id
     @Column(name = "id_competence", nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idCompetence;
+    private Long idCompetence;
 
     @Column(nullable = false)
     private int numero;
