@@ -10,7 +10,7 @@ public class TestEtatSection {
 
     @Test
     @DisplayName("Un nouvel objet EtatSection doit etre marqué comme non terminé")
-    void testInitialisation(){
+    void testConstructeur(){
 
         Eleve eleve = new Eleve();
         Section section = new Section();
