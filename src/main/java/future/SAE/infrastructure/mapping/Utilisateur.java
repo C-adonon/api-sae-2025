@@ -15,7 +15,6 @@ import future.SAE.infrastructure.persistence.UtilisateurJPA;
 @Mapper(componentModel = "spring", uses = { FormationMapper.class})
 public interface UtilisateurMapper
 {
-    //Dispatch manuel : jpa -> domaine
     default UtilisateurMapper mapUtilisateurToDomain(UtilisateurJPA jpa)
     {
         if(jpa == null)
@@ -27,7 +26,6 @@ public interface UtilisateurMapper
         return null;
     }
 
-    //Dispatch manuel : domaine -> manuel
     default UtilisateurJPA mapUtilisateurToEntity(Utilisateur domain)
     {
         if(domain == null)
@@ -39,11 +37,9 @@ public interface UtilisateurMapper
         return null;
     }
 
-    //Mapping des classes Eleve
     Eleve toDomain(EleveJPA eleveJPA);
     EleveJPA toEntity(Eleve eleve);
 
-    //Mapping des classes Professeur
     Professeur toDomain(ProfesseurJPA professeurJPA);
 
     @Named("toDomainSansCours")
