@@ -1,12 +1,26 @@
 package future.SAE.domain.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Section {
+    private Long idSection;
     private int ordre;
     private String titre;
     private String texte;
     private boolean ouverte = false;
+    private Cours cours;
+    private List<Fichier> fichiers = new ArrayList<>();
 
     // Constructeurs
+    public Section() {
+    }
+
     public Section(int unOrdre, String unTitre) {
         this.ordre = unOrdre;
         this.titre = unTitre;
@@ -26,52 +40,10 @@ public class Section {
     }
 
     public void fermerSection() {
-        setOuverte(false);
+        this.ouverte = false;
     }
 
     public void ouvrirSection() {
-        setOuverte(true);
-    }
-
-    // Getters
-    public String getTitre() {
-        return this.titre;
-    }
-
-    public int getOrdre() {
-        return this.ordre;
-    }
-
-    public String getTexte() {
-        return this.texte;
-    }
-
-    public boolean getOuverte() {
-        return this.ouverte;
-    }
-
-    // setters
-    public void setTitre(String unTitre) {
-        this.titre = unTitre;
-    }
-
-    public void setOrdre(int unOrdre) {
-        this.ordre = unOrdre;
-    }
-
-    public void setTexte(String unTexte) {
-        this.texte = unTexte;
-    }
-
-    public void setOuverte(boolean isOuverte) {
-        this.ouverte = isOuverte;
-    }
-
-    public String toString() {
-        String str = "Section " + this.ordre + ": " + this.titre + "(" + this.ouverte + ")";
-        if (this.texte != null) {
-            str += "\n" + this.texte;
-        }
-        return str;
+        this.ouverte = true;
     }
 }
