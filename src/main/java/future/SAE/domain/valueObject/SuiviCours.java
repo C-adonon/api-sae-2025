@@ -21,15 +21,16 @@ public class SuiviCours {
     public SuiviCours(){
     }
 
-    public SuiviCours(Eleve unEleve){
+    public SuiviCours(Eleve unEleve, Cours unCours){
         this.eleve = unEleve;
+        this.cours = unCours;
         this.dateDernierAcces = LocalDateTime.now();
     }
 
 
     public String toString() {
 
-        return "Dernier accès au cours : " + this.getDateDernierAcces() + "\n" +
+        return "Dernier accès au cours \"" + this.getCours() +"\" : " + this.getDateDernierAcces() + "\n" +
                 "Progression Globale : " + this.getProgressionGlobale() + " %";
     }
 }
