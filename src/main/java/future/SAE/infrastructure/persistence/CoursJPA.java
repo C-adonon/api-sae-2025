@@ -31,7 +31,7 @@ public class CoursJPA {
     private ProfesseurJPA professeur;
 
     @ManyToOne
-    @JoinColumn(name = "id_professeur", nullable = false)
+    @JoinColumn(name = "id_formation", nullable = false)
     private FormationJPA formation;
 
     @OneToMany(mappedBy = "cours", cascade = CascadeType.ALL, orphanRemoval=true)
