@@ -13,7 +13,6 @@ import lombok.Setter;
 @DiscriminatorValue("PROFESSEUR")
 @Getter
 @Setter
-
 public class ProfesseurJPA extends UtilisateurJPA {
     @OneToMany(mappedBy = "professeur")
     private List<CoursJPA> coursDispenses = new ArrayList<>();
