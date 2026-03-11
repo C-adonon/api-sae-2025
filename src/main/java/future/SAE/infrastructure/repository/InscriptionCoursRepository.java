@@ -14,6 +14,8 @@ public interface InscriptionCoursRepository extends JpaRepository<InscriptionCou
 
     InscriptionCoursJPA findByCoursIdCoursAndEleveIdUser(Long idCours, UUID idUser);
 
+    boolean existsByCoursIdCoursAndEleveIdUser(Long idCours, UUID idUser);
+
     int countByCoursIdCours(Long idCours);
 
     int countByEleveIdUser(UUID idUser);
