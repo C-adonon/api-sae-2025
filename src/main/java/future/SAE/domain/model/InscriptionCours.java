@@ -2,25 +2,22 @@ package future.SAE.domain.model;
 
 import java.time.LocalDateTime;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class InscriptionCours {
+    private Long idInscriptionCours;
     private Cours cours;
-    private Etudiant etudiant;
+    private Eleve eleve;
     private LocalDateTime dateInscription = LocalDateTime.now();
 
-    public InscriptionCours(Cours unCours, Etudiant unEtudiant) {
+    public InscriptionCours() {
+    }
+
+    public InscriptionCours(Cours unCours, Eleve unEleve) {
         this.cours = unCours;
-        this.etudiant = unEtudiant;
-    }
-
-    public Cours getCours() {
-        return this.cours;
-    }
-
-    public Etudiant getEtudiant() {
-        return this.etudiant;
-    }
-
-    public LocalDateTime getDateInscription() {
-        return dateInscription;
+        this.eleve = unEleve;
     }
 }
