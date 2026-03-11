@@ -21,7 +21,7 @@ public class EleveJPA extends UtilisateurJPA {
     @JoinColumn(name = "id_formation")
     private FormationJPA formation;
 
-    @OneToMany(mappedBy = "Eleve")
+    @OneToMany(mappedBy = "eleve")
     private List<InscriptionCoursJPA> inscriptions = new ArrayList<>();
 
     public EleveJPA() {

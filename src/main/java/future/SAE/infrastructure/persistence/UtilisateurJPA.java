@@ -16,7 +16,7 @@ import lombok.Setter;
 @DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 public class UtilisateurJPA {
     @Id
-    @Column(name = "id_user", columnDefinition = "uuid", updatable = false, nullable = false)
+    @Column(name = "id_user", columnDefinition = "UUID", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idUser;
 
