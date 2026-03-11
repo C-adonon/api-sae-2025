@@ -4,6 +4,9 @@ import future.SAE.domain.valueObject.Semestre;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,25 +16,31 @@ import java.util.List;
 @Setter
 public class FormationJPA {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_formation")
-    private Long id;
+    @Column(name = "id_formation", nullable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idFormation;
 
     @Column(nullable = false)
     private String nom;
 
+    @Column(nullable = false)
     private int annee;
 
     @Enumerated(EnumType.STRING)
     private Semestre semestre;
 
-    @ManyToOne
-    @JoinColumn(name = "id_responsable")
-    private UtilisateurJPA responsable;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_responsable", nullable = false)
+    private ProfesseurJPA responsable;
 
-    @ManyToMany
-    @JoinTable(name = "formation_competence", joinColumns = @JoinColumn(name = "id_formation"), inverseJoinColumns = @JoinColumn(name = "id_competence"))
+    @OneToMany(mappedBy = "formation", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CompetenceJPA> competences = new ArrayList<>();
+
+    @Column(name = "date_creation", nullable = false)
+    private LocalDateTime dateCreation = LocalDateTime.now();
+
+    @Column(name = "date_modification")
+    private LocalDateTime dateModification;
 
     public FormationJPA() {
 
