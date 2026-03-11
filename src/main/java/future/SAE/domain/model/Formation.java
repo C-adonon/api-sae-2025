@@ -20,7 +20,6 @@ public class Formation {
     private List<Competence> competences = new ArrayList<>();
     private LocalDateTime dateCreation = LocalDateTime.now();
     private LocalDateTime dateModification;
-}
 
     public Formation() {
 
@@ -33,7 +32,8 @@ public class Formation {
         this.responsable = unResponsable;
     }
 
-@Override
-public String toString(){
-    return "Formation: " + this.nom + " (" + this.semestre + ")";
+    @Override
+    public String toString() {
+        return "Formation: " + this.nom + " (" + this.semestre + ")";
+    }
 }
