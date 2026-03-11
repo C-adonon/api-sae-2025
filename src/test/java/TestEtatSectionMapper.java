@@ -24,12 +24,12 @@ public class TestEtatSectionMapper {
     void testToEntity(){
 
         EtatSection domain = new EtatSection();
-        domain.setIdEtatSection(1);
         domain.setDateCompletion(LocalDateTime.now());
 
-        etatSectionMapper.toEntity(domain);
+        EtatSectionJPA jpa = etatSectionMapper.toEntity(domain);
 
-        assert
+        assertEquals(domain.getDateCompletion(), jpa.getDateCompletion());
+
     }
 
 }
