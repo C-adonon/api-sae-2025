@@ -1,14 +1,10 @@
 package future.SAE.infrastructure.persistence;
 
-import future.SAE.domain.valueObject.Semestre;
+import future.SAE.domain.valueObject.Type;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Table(name = "fichier")
 @Getter

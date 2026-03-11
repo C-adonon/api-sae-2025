@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.Setter;
 import lombok.Getter;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @Entity
 @Table(name = "etat_section", uniqueConstraints = {
