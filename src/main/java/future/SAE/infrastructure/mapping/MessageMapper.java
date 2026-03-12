@@ -8,7 +8,7 @@ import future.SAE.domain.model.Message;
 import future.SAE.infrastructure.persistence.MessageJPA;
 
 @Mapper(componentModel = "spring", uses = { UtilisateurMapper.class })
-public class MessageMapper {
+public interface MessageMapper {
 
     Message toDomain(MessageJPA messageJPA);
 
