@@ -5,7 +5,11 @@ import org.springframework.stereotype.Repository;
 
 import future.SAE.infrastructure.persistence.CompetenceJPA;
 
+import java.util.List;
+
 @Repository
 public interface CompetenceRepository extends JpaRepository<CompetenceJPA, Long> {
 
+    void removeByIdCompetence(Long idCompetence);
+    List<CompetenceJPA> findByFormation_Id(Long idFormation);
 }
