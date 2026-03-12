@@ -1,3 +1,4 @@
+import future.SAE.SaeApplication;
 import future.SAE.infrastructure.mapping.EtatSectionMapper;
 import future.SAE.domain.valueObject.EtatSection;
 import future.SAE.infrastructure.persistence.EleveJPA;
@@ -5,6 +6,7 @@ import future.SAE.infrastructure.persistence.EtatSectionJPA;
 import future.SAE.infrastructure.persistence.SectionJPA;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -13,11 +15,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@SpringBootTest(classes = SaeApplication.class)
 public class TestEtatSectionMapper {
 
     @Autowired
-    EtatSectionMapper etatSectionMapper;
+    private EtatSectionMapper etatSectionMapper;
 
     @Test
     @DisplayName("Devrait mapper correctement un EtatSection en Entity")

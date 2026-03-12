@@ -3,6 +3,7 @@ import future.SAE.domain.model.Competence;
 import future.SAE.infrastructure.persistence.CompetenceJPA;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -10,11 +11,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+
 public class TestCompetenceMapper {
 
-    @Autowired
-    private CompetenceMapper competenceMapper;
+
+    private final CompetenceMapper competenceMapper = Mappers.getMapper(CompetenceMapper.class);
 
     @Test
     @DisplayName("Devrait mapper correctement une CompetenceJPA vers le domaine")
@@ -26,7 +27,7 @@ public class TestCompetenceMapper {
         jpa.setLibelle("Développement d'application");
         jpa.setDescription("Java");
 
-        Competence domain = competenceMapper.toDomain(jpa);
+        Competence domain = this.competenceMapper.toDomain(jpa);
 
         assertNotNull(domain);
         assertEquals(jpa.getIdCompetence(), domain.getIdCompetence());

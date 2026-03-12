@@ -8,11 +8,11 @@ import future.SAE.infrastructure.persistence.CoursJPA;
 
 @Repository
 public interface CoursRepository extends JpaRepository<CoursJPA, Long> {
-    List<CoursJPA> findByProfesseurIdUSer(UUID idUser);
+    List<CoursJPA> findByProfesseur_IdUser(UUID idUser);
 
-    List<CoursJPA> findByFormationIdFormation(Long idFormation);
+    List<CoursJPA> findByFormation_Id(Long idFormation);
 
     List<CoursJPA> findByPubliqueTrue();
 
-    List<CoursJPA> findByInscriptionEleveIdUser(UUID idUser);
+    List<CoursJPA> findByInscriptions_Eleve_IdUser(UUID idUser);
 }
