@@ -55,6 +55,42 @@ public class TestEtatSectionMapper {
 
     }
 
+    @Test
+    @DisplayName("Devrait mapper correctement un EtatSection en Entity")
+    void testToDomain(){
+
+        EtatSectionJPA jpa = new EtatSectionJPA();
+        jpa.setIdEtatSection(1L);
+        jpa.setDateCompletion(LocalDateTime.now());
+
+        EtatSection domain = etatSectionMapper.toDomain(jpa);
+
+        assertNotNull(domain);
+        assertEquals(jpa.getIdEtatSection(), domain.getIdEtatSection());
+        assertEquals(jpa.getDateCompletion(), domain.getDateCompletion());
+    }
+
+    @Test
+    @DisplayName("Devrait mapper une liste d'EtatSection en JPA")
+    void testToDomainList(){
+        EtatSectionJPA jpa1 = new EtatSectionJPA();
+        jpa1.setIdEtatSection(1L);
+        jpa1.setDateCompletion(LocalDateTime.now());
+
+        EtatSectionJPA jpa2 = new EtatSectionJPA();
+        jpa2.setIdEtatSection(2L);
+        jpa2.setDateCompletion(LocalDateTime.now().minusDays(1));
+
+        List<EtatSection> domainList = etatSectionMapper.toDomainList(List.of(jpa1, jpa2));
+
+        assertEquals(2, domainList.size());
+        assertEquals(jpa1.getIdEtatSection(), domainList.getFirst().getIdEtatSection());
+        assertEquals(jpa1.getDateCompletion(), domainList.get(1).getDateCompletion());
+        assertEquals(jpa2.getIdEtatSection(), domainList.getFirst().getIdEtatSection());
+        assertEquals(jpa2.getDateCompletion(), domainList.get(2).getDateCompletion());
+
+    }
+
 
 
 }
