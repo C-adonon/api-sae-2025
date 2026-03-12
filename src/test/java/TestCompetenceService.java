@@ -30,7 +30,7 @@ public class TestCompetenceService {
         jpa.setIdCompetence(1L);
         when(competenceRepository.findById(1L)).thenReturn(Optional.of(jpa));
 
-        Competence result = competenceService.getById(1L);
+        Competence result = competenceService.getCompetenceById(1L);
 
         assertNotNull(result);
         verify(competenceRepository).findById(1L);
