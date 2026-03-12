@@ -5,6 +5,7 @@ import future.SAE.infrastructure.mapping.CompetenceMapper;
 import future.SAE.infrastructure.persistence.CompetenceJPA;
 import future.SAE.infrastructure.persistence.FormationJPA;
 import future.SAE.infrastructure.repository.CompetenceRepository;
+import future.SAE.infrastructure.repository.FormationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class CompetenceService {
 
     public Competence getCompetenceById(Long id){
         CompetenceJPA competenceJPA = competenceRepository.findById(id)
-                .orElseThrow(throw new RuntimeException("Cette compétence avec l'id " + id + " n'existe pas."));
+                .orElseThrow(() -> new RuntimeException("Cette compétence avec l'id " + id + " n'existe pas."));
         return competenceMapper.toDomain(competenceJPA);
     }
 
@@ -45,7 +46,7 @@ public class CompetenceService {
         return competenceMapper.toDomainList(competencesJPA);
     }
 
-    public void updateCompetence(Long id, Competence newCompetence){
+    public Competence updateCompetence(Long id, Competence newCompetence){
         CompetenceJPA competenceExistante = competenceRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Impossible de modifier : la compétence avec l'ID " + id + " n'existe pas."));
 
@@ -53,7 +54,7 @@ public class CompetenceService {
         competenceExistante.setLibelle(newCompetence.getLibelle());
         competenceExistante.setDescription(newCompetence.getDescription());
 
-        if (newCompetence.getFormation() !null){
+        if (newCompetence.getFormation() != null){
             Long idFormation = newCompetence.getFormation().getIdFormation();
 
             FormationJPA formationExistante = formationRepository.findById(idFormation)
