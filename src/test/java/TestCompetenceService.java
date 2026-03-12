@@ -31,8 +31,12 @@ public class TestCompetenceService {
     void testGetById(){
 
         CompetenceJPA jpa = new CompetenceJPA();
+        Competence domain = new Competence();
         jpa.setIdCompetence(1L);
+        domain.setIdCompetence(1L);
+
         when(this.competenceRepository.findById(1L)).thenReturn(Optional.of(jpa));
+        when(competenceMapper.toDomain(jpa)).thenReturn(domain);
 
         Competence result = this.competenceService.getCompetenceById(1L);
 
