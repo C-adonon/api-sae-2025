@@ -15,7 +15,7 @@ import future.SAE.infrastructure.persistence.UtilisateurJPA;
 @Mapper(componentModel = "spring", uses = { FormationMapper.class})
 public interface UtilisateurMapper
 {
-    default UtilisateurMapper mapUtilisateurToDomain(UtilisateurJPA jpa)
+    default Utilisateur mapUtilisateurToDomain(UtilisateurJPA jpa)
     {
         if(jpa == null)
             return null;
