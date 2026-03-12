@@ -36,7 +36,7 @@ public class TestCompetenceMapper {
     }
 
     @Test
-    @DisplayName("Devrait mapper une liste de Competences")
+    @DisplayName("Devrait mapper une liste de CompetenceJPA vers le domaine")
     void testToDomainList() {
 
         CompetenceJPA jpa1 = new CompetenceJPA();
@@ -53,6 +53,46 @@ public class TestCompetenceMapper {
         assertEquals(2, domainList.size());
         assertEquals(jpa1.getLibelle(), domainList.getFirst().getLibelle());
         assertEquals(jpa2.getLibelle(), domainList.get(1).getLibelle());
+
+    }
+
+    @Test
+    @DisplayName("Devrait mapper correctement une Competence vers la persistence")
+    void testToEntity(){
+
+        Competence domain = new Competence();
+        domain.setIdCompetence(1L);
+        domain.setNumero(1);
+        domain.setLibelle("Développement d'application");
+        domain.setDescription("Java");
+
+        CompetenceJPA jpa = competenceMapper.toEntity(domain);
+
+        assertNotNull(jpa);
+        assertEquals(domain.getIdCompetence(), jpa.getIdCompetence());
+        assertEquals(domain.getNumero(), jpa.getNumero());
+        assertEquals(domain.getLibelle(), jpa.getLibelle());
+        assertEquals(domain.getDescription(), jpa.getDescription());
+    }
+
+    @Test
+    @DisplayName("Devrait mapper une liste de Competence vers la persistence")
+    void testToEntityList() {
+
+        Competence domain1 = new Competence();
+        domain1.setLibelle("Competence 1");
+
+
+        Competence domain2 = new Competence();
+        domain2.setLibelle("Competence 2");
+
+        List<Competence> domainList = List.of(domain1, domain2);
+
+        List<CompetenceJPA> jpaList = competenceMapper.toEntityList(domainList);
+
+        assertEquals(2, jpaList.size());
+        assertEquals(domain1.getLibelle(), jpaList.getFirst().getLibelle());
+        assertEquals(domain2.getLibelle(), jpaList.get(1).getLibelle());
 
     }
 
