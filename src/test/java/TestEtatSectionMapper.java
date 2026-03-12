@@ -35,7 +35,7 @@ public class TestEtatSectionMapper {
     }
 
     @Test
-    @DisplayName("Devrait mapper une liste d'EtatSection en JPA")
+    @DisplayName("Devrait mapper une liste d'EtatSection en Entity")
     void testToEntityList(){
         EtatSection domain1 = new EtatSection();
         domain1.setIdEtatSection(1L);
@@ -56,7 +56,7 @@ public class TestEtatSectionMapper {
     }
 
     @Test
-    @DisplayName("Devrait mapper correctement un EtatSection en Entity")
+    @DisplayName("Devrait mapper correctement un EtatSectionJPA vers le domain")
     void testToDomain(){
 
         EtatSectionJPA jpa = new EtatSectionJPA();
@@ -71,7 +71,7 @@ public class TestEtatSectionMapper {
     }
 
     @Test
-    @DisplayName("Devrait mapper une liste d'EtatSection en JPA")
+    @DisplayName("Devrait mapper une liste d'EtatSectionJPA vers le domain")
     void testToDomainList(){
         EtatSectionJPA jpa1 = new EtatSectionJPA();
         jpa1.setIdEtatSection(1L);
