@@ -49,9 +49,9 @@ public class TestEtatSectionMapper {
 
         assertEquals(2, jpaList.size());
         assertEquals(domain1.getIdEtatSection(), jpaList.getFirst().getIdEtatSection());
-        assertEquals(domain1.getDateCompletion(), jpaList.get(1).getDateCompletion());
-        assertEquals(domain2.getIdEtatSection(), jpaList.getFirst().getIdEtatSection());
-        assertEquals(domain2.getDateCompletion(), jpaList.get(2).getDateCompletion());
+        assertEquals(domain1.getDateCompletion(), jpaList.getFirst().getDateCompletion());
+        assertEquals(domain2.getIdEtatSection(), jpaList.get(1).getIdEtatSection());
+        assertEquals(domain2.getDateCompletion(), jpaList.get(1).getDateCompletion());
 
     }
 
@@ -85,9 +85,9 @@ public class TestEtatSectionMapper {
 
         assertEquals(2, domainList.size());
         assertEquals(jpa1.getIdEtatSection(), domainList.getFirst().getIdEtatSection());
-        assertEquals(jpa1.getDateCompletion(), domainList.get(1).getDateCompletion());
-        assertEquals(jpa2.getIdEtatSection(), domainList.getFirst().getIdEtatSection());
-        assertEquals(jpa2.getDateCompletion(), domainList.get(2).getDateCompletion());
+        assertEquals(jpa1.getDateCompletion(), domainList.getFirst().getDateCompletion());
+        assertEquals(jpa2.getIdEtatSection(), domainList.get(1).getIdEtatSection());
+        assertEquals(jpa2.getDateCompletion(), domainList.get(1).getDateCompletion());
 
     }
 
