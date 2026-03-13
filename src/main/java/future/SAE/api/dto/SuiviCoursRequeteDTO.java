@@ -1,6 +1,6 @@
 package future.SAE.api.dto;
-import future.SAE.infrastructure.persistence.CoursJPA;
-import future.SAE.infrastructure.persistence.EleveJPA;
+import future.SAE.domain.model.Cours;
+import future.SAE.domain.model.Eleve;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 public class SuiviCoursRequeteDTO
 {
-    private CoursJPA cours;
-    private EleveJPA eleve;
+    private Cours cours;
+    private Eleve eleve;
 }

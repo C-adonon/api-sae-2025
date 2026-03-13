@@ -1,6 +1,8 @@
 package future.SAE.api.dto;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
+
 import lombok.Setter;
 import lombok.Getter;
 
@@ -12,7 +14,7 @@ public class CoursReponseDTO
     private String nom;
     private String description;
     private boolean publique;
-    private Long professeurId;
+    private UUID professeurId;
     private Long formationId;
     private List<SectionReponseDTO> section;
     private LocalDateTime dateCreation;

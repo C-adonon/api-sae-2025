@@ -1,5 +1,7 @@
 package future.SAE.api.dto;
 import java.time.LocalDateTime;
+
+import future.SAE.domain.valueObject.Type;
 import lombok.Getter;
 import lombok.Setter;
 

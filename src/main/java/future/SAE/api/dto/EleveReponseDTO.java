@@ -1,6 +1,8 @@
 package future.SAE.api.dto;
 import java.util.UUID;
 import java.util.List;
+
+import future.SAE.domain.model.InscriptionCours;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,5 +14,5 @@ public class EleveReponseDTO
     private String prenom;
     private String email;
     private UUID formationId;
-    private List<InscriptionCoursJPA> inscriptions;
+    private List<InscriptionCours> inscriptions;
 }

@@ -1,6 +1,6 @@
 package future.SAE.api.dto;
-import future.SAE.infrastructure.persistence.EleveJPA;
-import future.SAE.infrastructure.persistence.SectionJPA;
+import future.SAE.domain.model.Eleve;
+import future.SAE.domain.model.Section;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class EtatSectionRequeteDTO
 {
-    private EleveJPA eleve;
-    private SectionJPA section;
+    private Eleve eleve;
+    private Section section;
     private boolean estTerminee;
 }
