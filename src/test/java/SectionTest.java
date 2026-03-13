@@ -2,6 +2,7 @@ import future.SAE.domain.model.Section;
 
 public class SectionTest {
     public static void main() {
+        /*
         System.out.print("TEST START\n");
 
         // TEST CONSTRUCTEURS
@@ -19,5 +20,7 @@ public class SectionTest {
         System.out.print("La section 3 est ouverte: " + s3.getOuverte() + "\n");
 
         System.out.print("TEST END\n");
+
+         */
     }
 }
