@@ -1,6 +1,9 @@
 package future.SAE.api.controller;
 
-import com.nimbusds.oauth2.sdk.Response;
+import future.SAE.api.dto.FormationReponseDTO;
+import future.SAE.api.dto.FormationRequeteDTO;
+import future.SAE.application.mapping.FormationDTOMapper;
+import future.SAE.application.service.FormationService;
 import future.SAE.domain.model.Formation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,26 +23,26 @@ public class FormationController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<FormationDTO>> getAllFormations(){
+    public ResponseEntity<List<FormationReponseDTO>> getAllFormations(){
         List<Formation> formations = this.formationService.getAllFormations();
         return ResponseEntity.ok(this.formationDTOMapper.toDTOList(formations));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FormationDTO> getFormationById(@PathVariable Long id){
+    public ResponseEntity<FormationReponseDTO> getFormationById(@PathVariable Long id){
         Formation formation = this.formationService.getFormationById(id);
         return ResponseEntity.ok(this.formationDTOMapper.toDTO(formation));
     }
 
     @PostMapping
-    public ResponseEntity<FormationDTO> createFormation(@RequestBody FormationDTO formationDTO){
+    public ResponseEntity<FormationReponseDTO> createFormation(@RequestBody FormationRequeteDTO formationDTO){
         Formation formation = this.formationDTOMapper.toDomain(formationDTO);
         Formation formationCreated = this.formationService.createFormation(formation);
         return ResponseEntity.status(201).body(this.formationDTOMapper.toDTO(formationCreated));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FormationDTO> updateFormation(@PathVariable Long id, @RequestBody FormationDTO formationDTO){
+    public ResponseEntity<FormationReponseDTO> updateFormation(@PathVariable Long id, @RequestBody FormationRequeteDTO formationDTO){
         Formation newFormation = this.formationDTOMapper.toDomain(formationDTO);
         Formation formationUpdated = this.formationService.updateFormation(id, newFormation);
         return ResponseEntity.ok(this.formationDTOMapper.toDTO(formationUpdated));
