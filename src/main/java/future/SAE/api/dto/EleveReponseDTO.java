@@ -13,6 +13,6 @@ public class EleveReponseDTO
     private String nom;
     private String prenom;
     private String email;
-    private UUID formationId;
+    private Long formationId;
     private List<InscriptionCours> inscriptions;
 }

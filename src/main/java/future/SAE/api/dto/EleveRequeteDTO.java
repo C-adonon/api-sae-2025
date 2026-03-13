@@ -11,5 +11,5 @@ public class EleveRequeteDTO
     private String prenom;
     private String email;
     private String motDePasse;
-    private UUID formationId;
+    private Long formationId;
 }

@@ -14,7 +14,7 @@ import future.SAE.domain.model.Cours;
 
 @Mapper(componentModel = "spring", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface CoursDTOMapper {
-    @Mapping(target = "idCours", source = "idCours")
+    @Mapping(target = "id", source = "idCours")
     @Mapping(target = "professeur", source = "professeur.idUser")
     @Mapping(target = "formation", source = "formation.idFormation")
     @Mapping(target = "dateCreation", source = "dateCreation")
