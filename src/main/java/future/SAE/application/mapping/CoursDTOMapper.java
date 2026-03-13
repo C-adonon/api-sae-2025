@@ -14,16 +14,16 @@ import future.SAE.domain.model.Cours;
 
 @Mapper(componentModel = "spring", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface CoursDTOMapper {
-    @Mapping(target = "idCours", source = "idCours")
-    @Mapping(target = "professeur", source = "professeur.idUser")
-    @Mapping(target = "formation", source = "formation.idFormation")
+    @Mapping(target = "id", source = "idCours")
+    @Mapping(target = "professeurId", source = "professeur.idUser")
+    @Mapping(target = "formationId", source = "formation.idFormation")
     @Mapping(target = "dateCreation", source = "dateCreation")
     CoursReponseDTO toDTO(Cours cours);
 
 
     @Mapping(target = "idCours", ignore = true)
-    @Mapping(target = "professeur.idUser", source = "idProfesseur")
-    @Mapping(target = "formation.idFormation", source = "idFormation")
+    @Mapping(target = "professeur.idUser", ignore = true)
+    @Mapping(target = "formation.idFormation", source = "formationId")
     @Mapping(target = "inscriptions", ignore = true)
     @Mapping(target = "sections", ignore = true)
     @Mapping(target = "dateCreation", ignore = true)
