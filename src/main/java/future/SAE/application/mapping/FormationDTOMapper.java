@@ -10,7 +10,7 @@ import future.SAE.domain.model.Formation;
 
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface FormationDTOMapper {
 
     FormationReponseDTO toDTO(Formation domain);

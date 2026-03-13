@@ -1,5 +1,4 @@
 package future.SAE.api.dto;
-import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,5 +10,5 @@ public class EleveRequeteDTO
     private String prenom;
     private String email;
     private String motDePasse;
-    private UUID formationId;
+    private Long formationId;
 }

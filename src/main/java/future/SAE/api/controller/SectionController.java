@@ -1,5 +1,9 @@
 package future.SAE.api.controller;
 
+import future.SAE.api.dto.SectionReponseDTO;
+import future.SAE.api.dto.SectionRequeteDTO;
+import future.SAE.application.mapping.SectionDTOMapper;
+import future.SAE.application.service.SectionService;
 import future.SAE.domain.model.Section;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,34 +24,34 @@ public class SectionController {
 
 
     @GetMapping("/")
-    public ResponseEntity<List<SectionDTO>> getAllSections(){
+    public ResponseEntity<List<SectionReponseDTO>> getAllSections(){
         List<Section> sections = this.sectionService.getAllSections();
-        List<SectionDTO> sectionsDTO = this.sectionDTOMapper.toDTOList(sections);
+        List<SectionReponseDTO> sectionsDTO = this.sectionDTOMapper.toDTOList(sections);
         return ResponseEntity.ok(sectionsDTO);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<SectionDTO> getSectionByid(@PathVariable Long id) {
+    public ResponseEntity<SectionReponseDTO> getSectionByid(@PathVariable Long id) {
         Section section = this.sectionService.getSectionById(id);
-        SectionDTO dto = this.sectionDTOMapper.toDTO(section);
+        SectionReponseDTO dto = this.sectionDTOMapper.toDTO(section);
         return ResponseEntity.ok(dto);
     }
 
     @GetMapping("/cours/{idCours}")
-    public ResponseEntity<List<SectionDTO>> getSectionByCours(@PathVariable Long idCours){
-        List<Section> sections = this.sectionService.getSectionByCours_idCours(idCours);
-        List<SectionDTO> sectionsDTO = this.sectionDTOMapper.toDTOList(sections);
+    public ResponseEntity<List<SectionReponseDTO>> getSectionByCours(@PathVariable Long idCours){
+        List<Section> sections = this.sectionService.getSectionsByCoursId(idCours);
+        List<SectionReponseDTO> sectionsDTO = this.sectionDTOMapper.toDTOList(sections);
         return ResponseEntity.ok(sectionsDTO);
     }
 
     @PostMapping
-    public ResponseEntity<SectionDTO> createSection(@RequestBody SectionDTO sectionDTO){
+    public ResponseEntity<SectionReponseDTO> createSection(@RequestBody SectionRequeteDTO sectionDTO){
         Section section = this.sectionDTOMapper.toDomain(sectionDTO);
         Section createdSection = this.sectionService.createSection(section);
         return ResponseEntity.status(201).body(this.sectionDTOMapper.toDTO(createdSection));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<SectionDTO> updateSection(@PathVariable Long id,@RequestBody SectionDTO sectionDTO){
+    public ResponseEntity<SectionReponseDTO> updateSection(@PathVariable Long id,@RequestBody SectionRequeteDTO sectionDTO){
         Section newSection = this.sectionDTOMapper.toDomain(sectionDTO);
         Section sectionMaj = sectionService.updateSection(id, newSection);
         return ResponseEntity.ok(this.sectionDTOMapper.toDTO(sectionMaj));
