@@ -4,8 +4,7 @@ import future.SAE.infrastructure.persistence.CompetenceJPA;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+
 
 import java.util.List;
 

@@ -3,6 +3,8 @@ package future.SAE.infrastructure.repository;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import future.SAE.domain.valueObject.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,7 +20,8 @@ public interface UtilisateurRepository extends JpaRepository<UtilisateurJPA, UUI
     Optional<UtilisateurJPA> findByIdentifiant(int identifiant);
 
     //Les eleves d'une formation
-    List<EleveJPA> findAllElevesByFormation_Id(Long idFormation);
+    @Query("SELECT e FROM EleveJPA e WHERE e.formation.id = :idFormation")
+    List<EleveJPA> findAllElevesByFormation_Id(@Param("idFormation") Long idFormation);
 
     //Les eleves d'un cours dans l'ordre alphabetique
     @Query("SELECT i.eleve FROM InscriptionCoursJPA i WHERE i.cours.idCours = :idCours ORDER BY i.eleve.nom ASC")
@@ -33,5 +36,5 @@ public interface UtilisateurRepository extends JpaRepository<UtilisateurJPA, UUI
     List<EleveJPA> findElevesCoursNonTermine(@Param("idCours") Long idCours);
 
     //verifie si un professeur existe par son mail et son role
-    boolean existsByEmailAndRole(String email, String role);
+    boolean existsByEmailAndRole(String email, Role role);
 }
