@@ -6,13 +6,19 @@ import org.mapstruct.Mapper;
 
 
 import future.SAE.domain.model.Formation;
-import future.SAE.infrastructure.persistence.FormationJPA;
+
+
+import java.util.List;
 
 @Mapper
 public interface FormationDTOMapper {
 
     FormationReponseDTO toDTO(Formation domain);
 
-    FormationJPA toDomain(FormationRequeteDTO formationDto);
+    Formation toDomain(FormationRequeteDTO formationDto);
+
+    List<Formation> toDomainList(List<FormationRequeteDTO> formationRequeteDTOList);
+
+    List<FormationReponseDTO> toDTOList(List<Formation> formationList);
 
 }
