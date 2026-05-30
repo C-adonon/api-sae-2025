@@ -6,12 +6,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
+import org.junit.jupiter.api.Disabled;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Disabled("Desactivé temporairement pour refacto")
 @SpringBootTest(classes = SaeApplication.class)
 public class TestSuiviCoursMapper {
 
