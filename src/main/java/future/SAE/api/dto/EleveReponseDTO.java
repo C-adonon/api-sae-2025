@@ -1,5 +1,4 @@
 package future.SAE.api.dto;
-import java.util.UUID;
 import java.util.List;
 
 import future.SAE.domain.model.InscriptionCours;
