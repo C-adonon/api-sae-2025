@@ -1,6 +1,6 @@
 package future.SAE.application.service;
 
-import future.SAE.domain.valueObject.EtatSection;
+import future.SAE.domain.model.EtatSection;
 import future.SAE.infrastructure.mapping.EtatSectionMapper;
 import future.SAE.infrastructure.persistence.EtatSectionJPA;
 import future.SAE.infrastructure.repository.EtatSectionRepository;

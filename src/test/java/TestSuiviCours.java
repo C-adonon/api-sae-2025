@@ -1,6 +1,7 @@
-import future.SAE.domain.valueObject.SuiviCours;
 import future.SAE.domain.model.Cours;
 import future.SAE.domain.model.Eleve;
+import future.SAE.domain.model.SuiviCours;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
