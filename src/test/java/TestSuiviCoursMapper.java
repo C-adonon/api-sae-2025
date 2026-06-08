@@ -1,5 +1,5 @@
 import future.SAE.SaeApplication;
-import future.SAE.domain.valueObject.SuiviCours;
+import future.SAE.domain.model.SuiviCours;
 import future.SAE.infrastructure.mapping.SuiviCoursMapper;
 import future.SAE.infrastructure.persistence.SuiviCoursJPA;
 import org.junit.jupiter.api.DisplayName;

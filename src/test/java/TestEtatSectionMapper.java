@@ -1,6 +1,6 @@
 import future.SAE.SaeApplication;
+import future.SAE.domain.model.EtatSection;
 import future.SAE.infrastructure.mapping.EtatSectionMapper;
-import future.SAE.domain.valueObject.EtatSection;
 import future.SAE.infrastructure.persistence.EtatSectionJPA;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

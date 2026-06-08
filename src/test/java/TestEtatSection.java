@@ -1,6 +1,7 @@
 import future.SAE.domain.model.Eleve;
+import future.SAE.domain.model.EtatSection;
 import future.SAE.domain.model.Section;
-import future.SAE.domain.valueObject.EtatSection;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.*;

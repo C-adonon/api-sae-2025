@@ -1,9 +1,7 @@
-package future.SAE.domain.valueObject;
+package future.SAE.domain.model;
 
 import java.time.LocalDateTime;
 
-import future.SAE.domain.model.Cours;
-import future.SAE.domain.model.Eleve;
 import lombok.Getter;
 import lombok.Setter;
 

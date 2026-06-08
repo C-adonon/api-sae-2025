@@ -3,11 +3,10 @@ package future.SAE.application.mapping;
 
 import future.SAE.api.dto.EtatSectionReponseDTO;
 import future.SAE.api.dto.EtatSectionRequeteDTO;
+import future.SAE.domain.model.EtatSection;
 import future.SAE.infrastructure.mapping.SectionMapper;
 import future.SAE.infrastructure.mapping.UtilisateurMapper;
 import org.mapstruct.Mapper;
-
-import future.SAE.domain.valueObject.EtatSection;
 
 
 @Mapper(componentModel = "spring", uses = { UtilisateurMapper.class, SectionMapper.class })
