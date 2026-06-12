@@ -3,6 +3,7 @@ import future.SAE.domain.model.Formation;
 import future.SAE.domain.model.Competence;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.springframework.util.Assert;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -44,6 +45,7 @@ public class TestCompetence {
         Competence competence = new Competence(3, "Administration de systèmes", null, "Conteneurisation");
 
         String attendu = "Compétence C3\nLibellé : Administration de systèmes\nDescription : Conteneurisation\n";
+        Assert.isTrue(competence.toString().equals(attendu), "Le toString ne correspond pas à la valeur attendue");
     }
 
 

@@ -1,23 +1,24 @@
 package application.service;
+
 import future.SAE.application.service.CompetenceService;
 import future.SAE.domain.model.Competence;
 import future.SAE.infrastructure.mapping.CompetenceMapper;
 import future.SAE.infrastructure.persistence.CompetenceJPA;
 import future.SAE.infrastructure.repository.CompetenceRepository;
+import future.SAE.infrastructure.repository.FormationRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
-import org.junit.jupiter.api.Disabled;
 
-@Disabled("Desactivé temporairement pour refacto")
 @ExtendWith(MockitoExtension.class)
 public class TestCompetenceService {
 
@@ -27,11 +28,14 @@ public class TestCompetenceService {
     @Mock
     private CompetenceMapper competenceMapper;
 
+    @Mock
+    private FormationRepository formationRepository;
+
     @InjectMocks
     private CompetenceService competenceService;
 
     @Test
-    void testGetById(){
+    void testGetCompetenceById(){
 
         CompetenceJPA jpa = new CompetenceJPA();
         Competence domain = new Competence();
@@ -43,9 +47,16 @@ public class TestCompetenceService {
 
         Competence result = this.competenceService.getCompetenceById(1L);
 
-        assertNotNull(result);
+        Assert.isTrue(result != null, "La compétence ne doit pas être null");
         verify(this.competenceRepository).findById(1L);
+    }
 
+    @Test
+    void testGetCompetenceByIdNotFound(){
+        when(competenceRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> competenceService.getCompetenceById(1L));
+        verify(competenceMapper, never()).toDomain(any());
     }
 
     @Test
@@ -58,7 +69,7 @@ public class TestCompetenceService {
 
         List<Competence> result = competenceService.getAllCompetences();
 
-        assertEquals(2, result.size());
+        Assert.isTrue(result.size() == 2, "La liste doit contenir 2 compétences");
         verify(competenceRepository).findAll();
     }
 
@@ -73,7 +84,7 @@ public class TestCompetenceService {
 
         List<Competence> result = competenceService.getCompetenceByIdFormation(idFormation);
 
-        assertFalse(result.isEmpty());
+        Assert.isTrue(!result.isEmpty(), "La liste ne doit pas être vide");
         verify(competenceRepository).findByFormation_Id(idFormation);
     }
 
@@ -89,13 +100,12 @@ public class TestCompetenceService {
 
         Competence result = this.competenceService.createCompetence(competence);
 
-        assertNotNull(result);
+        Assert.isTrue(result != null, "La compétence créée ne doit pas être null");
         verify(this.competenceRepository).save(jpa);
-
     }
 
     @Test
-    void testUpdateCompetence_Success() {
+    void testUpdateCompetence() {
         Long id = 1L;
         Competence newCompetence = new Competence();
         newCompetence.setNumero(10);
@@ -110,13 +120,13 @@ public class TestCompetenceService {
 
         Competence result = competenceService.updateCompetence(id, newCompetence);
 
-        assertNotNull(result);
-        assertEquals("Nouveau", result.getLibelle());
+        Assert.isTrue(result != null, "La compétence mise à jour ne doit pas être null");
+        Assert.isTrue("Nouveau".equals(result.getLibelle()), "Le libellé doit être 'Nouveau'");
         verify(competenceRepository).save(existingJPA);
     }
 
     @Test
-    void testUpdateCompetence_NotFound() {
+    void testUpdateCompetenceNotFound() {
         Long id = 1L;
         when(competenceRepository.findById(id)).thenReturn(Optional.empty());
 
@@ -127,7 +137,7 @@ public class TestCompetenceService {
     }
 
     @Test
-    void testDeleteCompetence_Success() {
+    void testDeleteCompetence() {
         Long id = 1L;
         when(competenceRepository.existsById(id)).thenReturn(true);
 
@@ -137,7 +147,7 @@ public class TestCompetenceService {
     }
 
     @Test
-    void testDeleteCompetence_NotFound() {
+    void testDeleteCompetenceNotFound() {
         Long id = 1L;
         when(competenceRepository.existsById(id)).thenReturn(false);
 
@@ -146,5 +156,4 @@ public class TestCompetenceService {
         );
         verify(competenceRepository, never()).deleteById(any());
     }
-
 }
