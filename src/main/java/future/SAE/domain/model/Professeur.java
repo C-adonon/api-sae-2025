@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 public class Professeur extends Utilisateur
 {
+    private Formation formationSupervisee;
     private List<Cours> coursDispenses = new ArrayList<>();
 
     //constructeur avec héritage
@@ -18,7 +19,7 @@ public class Professeur extends Utilisateur
         super(unNom, unPrenom, unIdentifiant, unEmail, unMdp, Role.PROFESSEUR);
     }
 
-    public void ajouterCours(Cours unCours)
+    public void ajouterCoursDispense(Cours unCours)
     {
         if(unCours != null)
         {
