@@ -1,5 +1,8 @@
-package domain.model;
+package future.SAE.domain.model;
+
+import future.SAE.domain.model.Formation;
 import future.SAE.domain.model.Professeur;
+import future.SAE.domain.valueObject.Semestre;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -35,5 +38,11 @@ public class ProfesseurTest
         assertEquals(p.getEmail(), email);
         assertEquals(p.getMotDePasse(), mdp);
         assertEquals(p.getIdentifiant(), identifiant);
+    }
+
+    @Test
+    //à revoir
+    public void testFormationSupervisee(){
+        p.setformationSupervisee(new Formation(1, "BUT Informatique", p, Semestre.S1));
     }
 }
