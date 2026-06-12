@@ -6,25 +6,11 @@ import java.util.ArrayList;
 public class TestEleve
 {
     @Test
-    public void TestEleve()
+    public void creerEleve()
     {
-        /*
         Eleve e = new Eleve("BENDJEBBOUR", "Yasmine", 12301458, "yasmine.bendjebbour@edu.univ.fr", "Y@smine2005!");
-        System.out.println(e.toString());
-
-        Formation f = new Formation("informatique");
-
-        List<InscriptionCours> listeInscriptions = new ArrayList<>();
-        InscriptionCours i = new InscriptionCours("bd");
-        InscriptionCours i1 = new InscriptionCours("flask");
-
-        listeInscriptions.add(i);
-        listeInscriptions.add(i1);
-
-        Eleve e1 = new Eleve("ADONON", "Chloe", 12401659, "chloe.adonon@edu.univ.fr", "Chl0e2000", f, listeInscriptions );
-
-        System.out.println(e);
-        System.out.println(e1);
-         */
+        Assert.isTrue(e.getNom().equals("BENDJEBBOUR"), "Son nom est Bendjebbour");
+        Assert.isTrue(e.getPrenom().equals("Yasmine"), "Son prénom est Yasmine");
+        Assert.isTrue(e.getIdentifiant().equals("12301458"), "Son id est 12301458");
     }
 }
