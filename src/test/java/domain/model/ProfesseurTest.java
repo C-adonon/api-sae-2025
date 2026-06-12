@@ -1,12 +1,12 @@
-package future.SAE.domain.model;
-
-import future.SAE.domain.valueObject.Semestre;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import future.SAE.domain.model.Cours;
+import future.SAE.domain.model.Formation;
+import future.SAE.domain.model.Professeur;
+import future.SAE.domain.valueObject.Semestre;
 
 
 
@@ -51,11 +51,12 @@ public class ProfesseurTest
 
     @Test
     public void testAjouterCours(){
+        Formation f1 = new Formation(1, "BUT Informatique", p, Semestre.S1);
         // Vérifier que la liste est vide au départ
         assertEquals(0, p.getCoursDispenses().size());
         
         // Ajouter un cours
-        Cours cours1 = new Cours("Algorithmique", p);
+        Cours cours1 = new Cours("Algorithmique", p, f1);
         p.ajouterCoursDispense(cours1);
         
         // Vérifier que le cours a été ajouté
@@ -63,7 +64,7 @@ public class ProfesseurTest
         assertEquals(cours1, p.getCoursDispenses().get(0));
         
         // Ajouter un second cours
-        Cours cours2 = new Cours("Programmation", p);
+        Cours cours2 = new Cours("Programmation", p, f1);
         p.ajouterCoursDispense(cours2);
         assertEquals(2, p.getCoursDispenses().size());
         
