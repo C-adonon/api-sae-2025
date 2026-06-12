@@ -1,3 +1,4 @@
+package domain.model;
 import future.SAE.domain.model.Section;
 
 public class SectionTest {

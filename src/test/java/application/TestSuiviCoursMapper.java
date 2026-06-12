@@ -1,3 +1,4 @@
+package application;
 import future.SAE.SaeApplication;
 import future.SAE.domain.model.SuiviCours;
 import future.SAE.infrastructure.mapping.SuiviCoursMapper;

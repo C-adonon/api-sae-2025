@@ -1,3 +1,4 @@
+package application;
 import future.SAE.infrastructure.mapping.CompetenceMapper;
 import future.SAE.domain.model.Competence;
 import future.SAE.infrastructure.persistence.CompetenceJPA;

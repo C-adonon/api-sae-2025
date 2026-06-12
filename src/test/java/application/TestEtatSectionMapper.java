@@ -1,3 +1,4 @@
+package application;
 import future.SAE.SaeApplication;
 import future.SAE.domain.model.EtatSection;
 import future.SAE.infrastructure.mapping.EtatSectionMapper;

@@ -1,3 +1,4 @@
+package domain.model;
 import future.SAE.domain.model.Eleve;
 import future.SAE.domain.model.EtatSection;
 import future.SAE.domain.model.Section;

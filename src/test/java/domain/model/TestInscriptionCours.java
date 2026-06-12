@@ -1,3 +1,4 @@
+package domain.model;
 import future.SAE.domain.model.InscriptionCours;
 
 public class TestInscriptionCours {

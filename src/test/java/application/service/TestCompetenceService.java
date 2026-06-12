@@ -1,3 +1,4 @@
+package application.service;
 import future.SAE.application.service.CompetenceService;
 import future.SAE.domain.model.Competence;
 import future.SAE.infrastructure.mapping.CompetenceMapper;
