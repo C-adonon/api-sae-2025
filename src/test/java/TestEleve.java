@@ -11,6 +11,7 @@ public class TestEleve
         Eleve e = new Eleve("BENDJEBBOUR", "Yasmine", 12301458, "yasmine.bendjebbour@edu.univ.fr", "Y@smine2005!");
         Assert.isTrue(e.getNom().equals("BENDJEBBOUR"), "Son nom est Bendjebbour");
         Assert.isTrue(e.getPrenom().equals("Yasmine"), "Son prénom est Yasmine");
-        Assert.isTrue(e.getIdentifiant().equals("12301458"), "Son id est 12301458");
+        Assert.isTrue(e.getIdentifiant() == 12301458), "Son id est 12301458");
+        Assert.isTrue(e.getEmail().equals("yasmine.bendjebbour@edu.univ.fr"), "Adresse mail valide");
     }
 }
