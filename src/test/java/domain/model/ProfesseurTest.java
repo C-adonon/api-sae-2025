@@ -1,4 +1,4 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
+package domain.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,7 +8,7 @@ import future.SAE.domain.model.Formation;
 import future.SAE.domain.model.Professeur;
 import future.SAE.domain.valueObject.Semestre;
 
-
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class ProfesseurTest
@@ -40,15 +40,19 @@ public class ProfesseurTest
 
     @Test
     //à revoir
-    public void testFormationSupervisee(){
-        p.setformationSupervisee(new Formation(1, "BUT Informatique", p, Semestre.S1));
-        Formation f1 = p.getFormationSupervisee();
-        assertEquals(f1.getNom(), "BUT Informatique");
-        assertEquals(f1.getResponsable(), p);
-        assertEquals(f1.getSemestre(), Semestre.S1);
+    public void testDevenirResponsableFormation() {
+        // Arrange
+        Formation formation = new Formation(1, "BUT Informatique", null, Semestre.S1);
 
+        // Act - On utilise une méthode sémantique métier plutôt qu'un setter bête
+        p.nommerResponsableDe(formation);
+
+        // Assert
+        assertNotNull(p.getFormationSupervisee());
+        assertEquals("BUT Informatique", p.getFormationSupervisee().getNom());
+        // la formation doit aussi savoir que 'prof' est son responsable !
+        assertEquals(p, formation.getResponsable());
     }
-
     @Test
     public void testAjouterCours(){
         Formation f1 = new Formation(1, "BUT Informatique", p, Semestre.S1);
@@ -71,7 +75,36 @@ public class ProfesseurTest
         // Tester l'ajout d'un cours null (ne doit pas être ajouté)
         p.ajouterCoursDispense(null);
         assertEquals(2, p.getCoursDispenses().size());
+
+        Professeur autreProf = new Professeur("Dupont", "Jean", 2, "jean@example.com", "pass");
+        Cours coursDunAutre = new Cours("Base de données", autreProf, f1);
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> p.ajouterCoursDispense(coursDunAutre)
+        );
+        assertEquals("Impossible d'ajouter ce cours : il est dispensé par un autre professeur.", exception.getMessage());
     }
+
+    @Test
+    public void testModifierMotDePasse() {
+        // Act
+        boolean modifie = p.modifierMdp("motdepasse", "NouveauSuperMdp456");
+
+        // Assert
+        assertTrue(modifie);
+        assertEquals("NouveauSuperMdp456", p.getMotDePasse());
+    }
+
+    @Test
+    public void testModifierMotDePasse_AncienIncorrect() {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> p.modifierMdp("mauvaisAncienMdp", "NouveauSuperMdp456")
+        );
+        assertEquals(mdp, p.getMotDePasse()); // Invariant : le mdp n'a pas bougé
+    }
+
 
     
 }

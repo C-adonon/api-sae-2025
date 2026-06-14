@@ -1,3 +1,4 @@
+/*
 package future.SAE.infrastructure.mapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -57,3 +58,4 @@ public interface UtilisateurMapper
     List<Professeur> toDomainListFromCours(List<ProfesseurJPA> professeurJPAList);
     List<ProfesseurJPA> toEntityListFromCours(List<Professeur> professeurList);
 }
+*/

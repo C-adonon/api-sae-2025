@@ -44,13 +44,18 @@ public abstract class Utilisateur
         this.email = unEmail;
         this.motDePasse = unMdp;
     }
+
+    public boolean modifierMdp(String ancienMdp, String newMdp)
+    {
+        if(ancienMdp.equals(motDePasse)){
+            this.motDePasse = newMdp;
+            return true;
+        }
+        throw new IllegalArgumentException("L'ancien mot de passe est incorrect.");
+    }
     // affichage de l'utilisateur lors des test
     public String toString()
     {
         return "L'utilisateur " + this.nom + this.prenom + " a pour identifiant " + this.identifiant + " et son mail est " + this.email;
     }
 }
-
-
-
-

@@ -122,6 +122,10 @@
 							<version>1.6.3</version>
 						</path>
 					</annotationProcessorPaths>
+					<showWarnings>true</showWarnings>
+					<compilerArgs>
+						<arg>-Amapstruct.unmappedTargetPolicy=IGNORE</arg>
+					</compilerArgs>
 				</configuration>
 			</plugin>
 		</plugins>

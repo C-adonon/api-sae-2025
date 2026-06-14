@@ -1,3 +1,4 @@
+/*
 package future.SAE.application.service;
 
 import future.SAE.domain.model.Message;
@@ -73,4 +74,4 @@ public class MessageService {
         List<MessageJPA> messagesJPA = messageRepository.findByDestinatairesIdUserOrderByDateDesc(idDestinataire);
         return messageMapper.toDomainList(messagesJPA);
     }
-}
+}*/

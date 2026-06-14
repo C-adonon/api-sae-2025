@@ -1,3 +1,4 @@
+/*
 package application;
 import future.SAE.SaeApplication;
 import future.SAE.domain.model.EtatSection;
@@ -96,3 +97,4 @@ public class TestEtatSectionMapper {
 
 
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package future.SAE.application.service;
 
 import future.SAE.domain.model.Utilisateur;
@@ -65,4 +66,4 @@ public class UtilisateurService {
         }
         utilisateurRepository.deleteById(id);
     }
-}
+}*/

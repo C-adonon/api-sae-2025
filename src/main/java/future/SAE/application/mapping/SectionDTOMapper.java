@@ -1,3 +1,4 @@
+/*
 package future.SAE.application.mapping;
 
 
@@ -23,3 +24,4 @@ public interface SectionDTOMapper {
 
      List<SectionReponseDTO> toDTOList(List<Section> sectionList);
 }
+*/

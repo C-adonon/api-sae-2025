@@ -1,3 +1,4 @@
+/*
 package future.SAE.infrastructure.mapping;
 
 import java.util.List;
@@ -20,3 +21,4 @@ public interface FichierMapper {
     List<FichierJPA> toEntityList(List<Fichier> fichierList);
 
 }
+*/

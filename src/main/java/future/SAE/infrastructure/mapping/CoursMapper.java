@@ -1,3 +1,4 @@
+/*
 package future.SAE.infrastructure.mapping;
 
 import java.util.List;
@@ -21,3 +22,4 @@ public interface CoursMapper {
     List<CoursJPA> toEntityList(List<Cours> coursList);
 
 }
+*/
