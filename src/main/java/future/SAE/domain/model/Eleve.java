@@ -18,12 +18,12 @@ public class Eleve extends Utilisateur
         super();
     }
 
-    public Eleve(String unNom, String unPrenom, int unIdentifiant, String unEmail, String unMdp)
+    public Eleve(String unNom, String unPrenom, String unIdentifiant, String unEmail, String unMdp)
     {
         super(unNom, unPrenom, unIdentifiant, unEmail, unMdp);
     }
 
-    public Eleve(String unNom, String unPrenom, int unIdentifiant, String unEmail, String unMdp, Formation uneFormation, List<InscriptionCours> listeInscriptionCours)
+    public Eleve(String unNom, String unPrenom, String unIdentifiant, String unEmail, String unMdp, Formation uneFormation, List<InscriptionCours> listeInscriptionCours)
     {
         super(unNom, unPrenom, unIdentifiant, unEmail, unMdp);
         this.formation = uneFormation;

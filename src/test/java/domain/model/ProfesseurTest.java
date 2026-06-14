@@ -15,7 +15,7 @@ public class ProfesseurTest
 {
 
     String nom,prenom,email,mdp;
-    int identifiant;
+    String identifiant;
     Professeur p;
 
     @BeforeEach
@@ -23,7 +23,7 @@ public class ProfesseurTest
     {
         nom = "Edoh-Dagnon";
         prenom = "Clarence";
-        identifiant = 1 ;
+        identifiant = "clarence.edoh-dagnon" ;
         email = "clarence@example.com";
         mdp = "motdepasse";
         p = new Professeur(nom, prenom, identifiant, email, mdp);
@@ -73,7 +73,7 @@ public class ProfesseurTest
         p.ajouterCoursDispense(null);
         assertEquals(2, p.getCoursDispenses().size());
 
-        Professeur autreProf = new Professeur("Dupont", "Jean", 2, "jean@example.com", "pass");
+        Professeur autreProf = new Professeur("Dupont", "Jean", "dupont.jean", "jean@example.com", "pass");
         Cours coursDunAutre = new Cours("Base de données", autreProf, f1);
 
         IllegalArgumentException exception = assertThrows(
@@ -136,7 +136,7 @@ public class ProfesseurTest
     public void testSupprimerCoursDispense_MauvaisProfesseur() {
         Formation f1 = new Formation(1, "BUT Informatique", p, Semestre.S1);
 
-        Professeur autreProf = new Professeur("Dupont", "Jean", 2, "jean@example.com", "pass");
+        Professeur autreProf = new Professeur("Dupont", "Jean", "dupont.jean", "jean@example.com", "pass");
         Cours coursDunAutre = new Cours("Base de données", autreProf, f1);
 
         IllegalArgumentException exception = assertThrows(

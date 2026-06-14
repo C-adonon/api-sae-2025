@@ -9,13 +9,13 @@ import lombok.Setter;
 @Setter
 public abstract class Utilisateur
 {
-    private UUID idUser;
-    private int identifiant;
+    private UUID id;
+    private String identifiant;
     private String nom;
     private String prenom;
     private String email;
     private String motDePasse;
-    private LocalDateTime dateCreation = LocalDateTime.now();
+    private LocalDateTime dateCreation;
 
     //constructeur vide
     public Utilisateur()
@@ -23,13 +23,14 @@ public abstract class Utilisateur
 
     }
 
-    public Utilisateur(String unNom, String unPrenom, int unIdentifiant, String unEmail, String unMdp)
+    public Utilisateur(String unNom, String unPrenom, String unIdentifiant, String unEmail, String unMdp)
     {
         this.nom = unNom;
         this.prenom = unPrenom;
         this.identifiant = unIdentifiant;
         this.email = unEmail;
         this.motDePasse = unMdp;
+        this.dateCreation = LocalDateTime.now();
     }
 
     public boolean modifierMdp(String ancienMdp, String newMdp)

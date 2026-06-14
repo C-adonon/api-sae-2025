@@ -19,7 +19,7 @@ public class Professeur extends Utilisateur
     }
 
     //constructeur avec héritage
-    public Professeur(String unNom, String unPrenom, int unIdentifiant, String unEmail, String unMdp)
+    public Professeur(String unNom, String unPrenom, String unIdentifiant, String unEmail, String unMdp)
     {
         super(unNom, unPrenom, unIdentifiant, unEmail, unMdp);
     }
@@ -55,7 +55,7 @@ public class Professeur extends Utilisateur
 
     public String toString()
     {
-        return "Professeur" + super.toString();
+        return "Professeur" + "\n" +super.toString();
     }
 
     public void nommerResponsableDe(Formation uneFormation){
