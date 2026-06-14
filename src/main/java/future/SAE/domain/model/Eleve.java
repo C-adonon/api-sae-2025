@@ -18,16 +18,14 @@ public class Eleve extends Utilisateur
         super();
     }
 
-    //constructeur d'un utilisateur ayant pour role ELEVE
     public Eleve(String unNom, String unPrenom, int unIdentifiant, String unEmail, String unMdp)
     {
-        super(unNom, unPrenom, unIdentifiant, unEmail, unMdp, Role.ELEVE);
+        super(unNom, unPrenom, unIdentifiant, unEmail, unMdp);
     }
 
-    //constructeur d'un utilisateur ayant pour role ELEVE qui est relie a une formation et une liste
     public Eleve(String unNom, String unPrenom, int unIdentifiant, String unEmail, String unMdp, Formation uneFormation, List<InscriptionCours> listeInscriptionCours)
     {
-        super(unNom, unPrenom, unIdentifiant, unEmail, unMdp, Role.ELEVE);
+        super(unNom, unPrenom, unIdentifiant, unEmail, unMdp);
         this.formation = uneFormation;
         this.inscriptions = listeInscriptionCours;
     }

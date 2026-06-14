@@ -13,7 +13,6 @@ public class UtilisateurRequeteDTO
     private String prenom;
     private String email;
     private String motDePasse;
-    private Role role;
     private UUID formationId;
 
 }

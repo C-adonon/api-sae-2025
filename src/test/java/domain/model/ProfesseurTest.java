@@ -51,7 +51,7 @@ public class ProfesseurTest
         assertEquals(p, formation.getResponsable());
     }
     @Test
-    public void testAjouterCours(){
+    public void testAjouter_SupprimerCours(){
         Formation f1 = new Formation(1, "BUT Informatique", p, Semestre.S1);
         // Vérifier que la liste est vide au départ
         assertEquals(0, p.getCoursDispenses().size());
@@ -99,9 +99,52 @@ public class ProfesseurTest
                 IllegalArgumentException.class,
                 () -> p.modifierMdp("mauvaisAncienMdp", "NouveauSuperMdp456")
         );
-        assertEquals(mdp, p.getMotDePasse()); // Invariant : le mdp n'a pas bougé
+        assertEquals(mdp, p.getMotDePasse());
+    }
+
+    @Test
+    public void testSupprimerCoursDispense_Success() {
+        Formation f1 = new Formation(1, "BUT Informatique", p, Semestre.S1);
+        Cours cours1 = new Cours("Algorithmique", p, f1);
+
+
+        p.ajouterCoursDispense(cours1);
+        assertEquals(1, p.getCoursDispenses().size());
+
+
+        p.supprimerCoursDispense(cours1);
+
+
+        assertEquals(0, p.getCoursDispenses().size());
+        assertNull(cours1.getProfesseur());
+    }
+
+    @Test
+    public void testSupprimerCoursDispense_Null() {
+        Formation f1 = new Formation(1, "BUT Informatique", p, Semestre.S1);
+        Cours cours1 = new Cours("Algorithmique", p, f1);
+        p.ajouterCoursDispense(cours1);
+
+
+        p.supprimerCoursDispense(null);
+
+
+        assertEquals(1, p.getCoursDispenses().size());
+    }
+
+    @Test
+    public void testSupprimerCoursDispense_MauvaisProfesseur() {
+        Formation f1 = new Formation(1, "BUT Informatique", p, Semestre.S1);
+
+        Professeur autreProf = new Professeur("Dupont", "Jean", 2, "jean@example.com", "pass");
+        Cours coursDunAutre = new Cours("Base de données", autreProf, f1);
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> p.supprimerCoursDispense(coursDunAutre)
+        );
+        assertEquals("Impossible de supprimer ce cours : il n'est pas dispensé par ce professeur.", exception.getMessage());
     }
 
 
-    
 }

@@ -33,7 +33,4 @@ public interface UtilisateurRepository extends JpaRepository<UtilisateurJPA, UUI
     //Les eleves n'ayant pas fini le cours dans l'ordre alphabetique
     @Query("SELECT suivi.eleve FROM SuiviCoursJPA suivi WHERE suivi.cours.idCours = :idCours AND suivi.progressionGlobale < 100")
     List<EleveJPA> findElevesCoursNonTermine(@Param("idCours") Long idCours);
-
-    //verifie si un professeur existe par son mail et son role
-    boolean existsByEmailAndRole(String email, Role role);
 }

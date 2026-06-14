@@ -34,10 +34,6 @@ public class UtilisateurJPA {
     @Column(name = "mot_de_passe", nullable = false)
     private String motDePasse;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, insertable = false, updatable = false)
-    private Role role;
-
     @Column(name = "date_creation", nullable = false)
     private LocalDateTime dateCreation = LocalDateTime.now();
 
@@ -45,5 +41,3 @@ public class UtilisateurJPA {
 
     }
 }
-
-

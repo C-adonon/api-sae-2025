@@ -36,6 +36,23 @@ public class Professeur extends Utilisateur
         this.coursDispenses.add(unCours);
     }
 
+    public void supprimerCoursDispense(Cours unCours)
+    {
+        if (unCours == null) {
+            return;
+        }
+
+        // On vérifie si le cours est bien dispensé par ce prof (soit par la liste, soit par la référence)
+        if (!this.coursDispenses.contains(unCours) || (unCours.getProfesseur() != null && !unCours.getProfesseur().equals(this))) {
+            throw new IllegalArgumentException("Impossible de supprimer ce cours : il n'est pas dispensé par ce professeur.");
+        }
+
+        this.coursDispenses.remove(unCours);
+        if (unCours.getProfesseur() == this) {
+            unCours.setProfesseur(null);
+        }
+    }
+
     public String toString()
     {
         return "Professeur" + super.toString();
