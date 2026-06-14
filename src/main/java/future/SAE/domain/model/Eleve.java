@@ -34,7 +34,7 @@ public class Eleve extends Utilisateur
     }
 
     //inscription à une formation
-    public inscriptionFormation(Formation uneFormation)
+    public void inscriptionFormation(Formation uneFormation)
     {
         this.formation = uneFormation;
     }
