@@ -14,7 +14,7 @@ public class SectionTest {
     private Section section;
 
     @BeforeEach
-    void setUp() {
+    void init() {
         section = new Section(1, "Introduction au DDD", "Ce chapitre présente les bases.");
     }
 
