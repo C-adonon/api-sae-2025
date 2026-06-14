@@ -18,7 +18,16 @@ public class TestEleve
     @Test
     public void iscritEleve()
     {
-        Eleve v = new Eleve("ADONON", "Chloe", 12512557, "chloe.adonon@edu.univ.fr", "Chl0e2000!", "Informatique", );
+        //On initialise une formation et une liste d'inscription
+        Formation f = new Formation("Informatique");
+        List<InscriptionCours> maListe = new ArrayList<>();
+
+        //On initialise un eleve avec la formation et la liste d'inscription créée
+        Eleve v = new Eleve("ADONON", "Chloe", 12512557, "chloe.adonon@edu.univ.fr", "Chl0e2000!", f, mesInscriptions);
+
+        Assert.isTrue(v.getFormation().equals(f), "L'élève est en informatique");
+        Assert.isTrue(e.getInscriptions().equals(maListe), "L'élève fais parti de la liste d'inscription");
+
 
     }
 }
