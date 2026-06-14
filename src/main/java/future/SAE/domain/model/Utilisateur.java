@@ -22,7 +22,6 @@ public class Utilisateur
     //constructeur vide
     public Utilisateur()
     {
-
     }
     //constructeur d'un utilisateur avec un role: professeur ou eleve
     public Utilisateur(String unNom, String unPrenom, int unIdentifiant, String unEmail, String unMdp, Role unRole)
@@ -44,6 +43,7 @@ public class Utilisateur
         this.email = unEmail;
         this.motDePasse = unMdp;
     }
+
     // affichage de l'utilisateur lors des test
     public String toString()
     {
