@@ -1,27 +1,61 @@
 package domain.model;
+import future.SAE.domain.model.Fichier;
 import future.SAE.domain.model.Section;
+import future.SAE.domain.valueObject.Type;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SectionTest {
-    public static void main() {
-        /*
-        System.out.print("TEST START\n");
+    private Section section;
 
-        // TEST CONSTRUCTEURS
-        Section s1 = new Section(1, "Introduction");
-        System.out.print(s1.toString() + "\n");
-        Section s2 = new Section(2, "Section 2", "Le texte de la section 2");
-        System.out.print(s2.toString() + "\n");
-        Section s3 = new Section(3, "Section 3", "Le texte de la section 3", true);
-        System.out.print(s3.toString() + "\n");
+    @BeforeEach
+    void setUp() {
+        section = new Section(1, "Introduction au DDD", "Ce chapitre présente les bases.");
+    }
 
-        // TEST FERMER/OUVRIR SECTION
-        s1.ouvrirSection();
-        System.out.print("La section 1 est ouverte : " + s1.getOuverte() + "\n");
-        s3.fermerSection();
-        System.out.print("La section 3 est ouverte: " + s3.getOuverte() + "\n");
+    @Test
+    void testInitialisationParDefaut() {
+        assertEquals(1, section.getOrdre());
+        assertEquals("Introduction au DDD", section.getTitre());
+        // une nouvelle section n'est pas visible par les élèves
+        assertFalse(section.isOuverte());
+        // La liste des fichiers doit être vide, mais pas null
+        assertNotNull(section.getFichiers());
+        assertTrue(section.getFichiers().isEmpty());
+    }
 
-        System.out.print("TEST END\n");
+    @Test
+    @DisplayName("Doit permettre d'ouvrir et de fermer une section")
+    void testChangementEtatOuverture() {
 
-         */
+        section.ouvrirSection();
+        assertTrue(section.isOuverte());
+
+        section.fermerSection();
+        assertFalse(section.isOuverte());
+    }
+
+    @Test
+    void testAjouterFichier_Succes() {
+        Fichier fichier = new Fichier("Support PDF", "Chemin/vers/le/pdf", null,Type.PDF);
+
+        section.ajouterFichier(fichier);
+
+
+        assertEquals(1, section.getFichiers().size());
+        assertTrue(section.getFichiers().contains(fichier));
+    }
+
+    @Test
+    @DisplayName("Doit ignorer l'ajout si le fichier est null")
+    void testAjouterFichier_Null() {
+        section.ajouterFichier(null);
+
+        assertEquals(0, section.getFichiers().size());
     }
 }
