@@ -2,7 +2,6 @@ package future.SAE.domain.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import future.SAE.domain.valueObject.Role;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,7 +21,7 @@ public class Professeur extends Utilisateur
     //constructeur avec héritage
     public Professeur(String unNom, String unPrenom, int unIdentifiant, String unEmail, String unMdp)
     {
-        super(unNom, unPrenom, unIdentifiant, unEmail, unMdp, Role.PROFESSEUR);
+        super(unNom, unPrenom, unIdentifiant, unEmail, unMdp);
     }
 
     public void ajouterCoursDispense(Cours unCours)

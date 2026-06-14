@@ -39,18 +39,15 @@ public class ProfesseurTest
     }
 
     @Test
-    //à revoir
     public void testDevenirResponsableFormation() {
-        // Arrange
+
         Formation formation = new Formation(1, "BUT Informatique", null, Semestre.S1);
 
-        // Act - On utilise une méthode sémantique métier plutôt qu'un setter bête
         p.nommerResponsableDe(formation);
 
-        // Assert
         assertNotNull(p.getFormationSupervisee());
         assertEquals("BUT Informatique", p.getFormationSupervisee().getNom());
-        // la formation doit aussi savoir que 'prof' est son responsable !
+        // la formation doit aussi savoir que 'p' est son responsable
         assertEquals(p, formation.getResponsable());
     }
     @Test

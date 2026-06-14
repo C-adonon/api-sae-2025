@@ -3,7 +3,6 @@ package future.SAE.infrastructure.persistence;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import future.SAE.domain.valueObject.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
