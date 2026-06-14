@@ -1,5 +1,6 @@
 package domain.model;
 
+import future.SAE.domain.exception.CoursDejaAssigneException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -76,11 +77,11 @@ public class ProfesseurTest
         Professeur autreProf = new Professeur("Dupont", "Jean", "dupont.jean", "jean@example.com", "pass");
         Cours coursDunAutre = new Cours("Base de données", autreProf, f1);
 
-        IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class,
+        CoursDejaAssigneException exception = assertThrows(
+                CoursDejaAssigneException.class,
                 () -> p.ajouterCoursDispense(coursDunAutre)
         );
-        assertEquals("Impossible d'ajouter ce cours : il est dispensé par un autre professeur.", exception.getMessage());
+        assertEquals("Impossible d'ajouter le cours '" + coursDunAutre.getNom() + "' : il est déjà dispensé par un autre professeur.", exception.getMessage());
     }
 
     @Test
@@ -139,11 +140,11 @@ public class ProfesseurTest
         Professeur autreProf = new Professeur("Dupont", "Jean", "dupont.jean", "jean@example.com", "pass");
         Cours coursDunAutre = new Cours("Base de données", autreProf, f1);
 
-        IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class,
+        CoursDejaAssigneException exception = assertThrows(
+                CoursDejaAssigneException.class,
                 () -> p.supprimerCoursDispense(coursDunAutre)
         );
-        assertEquals("Impossible de supprimer ce cours : il n'est pas dispensé par ce professeur.", exception.getMessage());
+        assertEquals("Impossible d'ajouter le cours '" + coursDunAutre.getNom() + "' : il est déjà dispensé par un autre professeur.", exception.getMessage());
     }
 
 

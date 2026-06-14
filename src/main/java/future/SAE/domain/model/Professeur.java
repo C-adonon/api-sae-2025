@@ -2,6 +2,7 @@ package future.SAE.domain.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import future.SAE.domain.exception.CoursDejaAssigneException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,7 +31,7 @@ public class Professeur extends Utilisateur
             return;
 
         if (unCours.getProfesseur() != null && !unCours.getProfesseur().equals(this)) {
-            throw new IllegalArgumentException("Impossible d'ajouter ce cours : il est dispensé par un autre professeur.");
+            throw new CoursDejaAssigneException(unCours.getNom());
         }
         
         this.coursDispenses.add(unCours);
@@ -44,7 +45,7 @@ public class Professeur extends Utilisateur
 
         // On vérifie si le cours est bien dispensé par ce prof (soit par la liste, soit par la référence)
         if (!this.coursDispenses.contains(unCours) || (unCours.getProfesseur() != null && !unCours.getProfesseur().equals(this))) {
-            throw new IllegalArgumentException("Impossible de supprimer ce cours : il n'est pas dispensé par ce professeur.");
+            throw new CoursDejaAssigneException(unCours.getNom());
         }
 
         this.coursDispenses.remove(unCours);
