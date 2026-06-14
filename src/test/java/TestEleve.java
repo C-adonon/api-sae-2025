@@ -14,4 +14,11 @@ public class TestEleve
         Assert.isTrue(e.getIdentifiant() == 12301458), "Son id est 12301458");
         Assert.isTrue(e.getEmail().equals("yasmine.bendjebbour@edu.univ.fr"), "Adresse mail valide");
     }
+
+    @Test
+    public void iscritEleve()
+    {
+        Eleve v = new Eleve("ADONON", "Chloe", 12512557, "chloe.adonon@edu.univ.fr", "Chl0e2000!", "Informatique", );
+
+    }
 }
