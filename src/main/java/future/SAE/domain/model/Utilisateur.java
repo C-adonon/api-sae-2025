@@ -1,6 +1,6 @@
 package future.SAE.domain.model;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 import future.SAE.domain.valueObject.Role;
 import lombok.Getter;
@@ -8,38 +8,46 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Eleve extends Utilisateur
+public class Utilisateur
 {
-    private Formation formation;
-    private List<InscriptionCours> inscriptions = new ArrayList<>();
+    private UUID idUser;
+    private int identifiant;
+    private String nom;
+    private String prenom;
+    private String email;
+    private String motDePasse;
+    private Role role;
+    private LocalDateTime dateCreation = LocalDateTime.now();
 
-    //constructeur avec heritage
-    public Eleve()
+    //constructeur vide
+    public Utilisateur()
     {
-        super();
     }
 
-    //constructeur d'un utilisateur ayant pour role ELEVE
-    public Eleve(String unNom, String unPrenom, int unIdentifiant, String unEmail, String unMdp)
+    //constructeur d'un utilisateur avec un role: professeur ou eleve
+    public Utilisateur(String unNom, String unPrenom, int unIdentifiant, String unEmail, String unMdp, Role unRole)
     {
-        super(unNom, unPrenom, unIdentifiant, unEmail, unMdp, Role.ELEVE);
+        this.nom = unNom;
+        this.prenom = unPrenom;
+        this.identifiant = unIdentifiant;
+        this.email = unEmail;
+        this.motDePasse = unMdp;
+        this.role = unRole;
     }
 
-    //constructeur d'un utilisateur ayant pour role ELEVE qui est relie a une formation et une liste
-    public Eleve(String unNom, String unPrenom, int unIdentifiant, String unEmail, String unMdp, Formation uneFormation, List<InscriptionCours> listeInscriptionCours)
+    //constructeur d'un utilisateur sans role
+    public Utilisateur(String unNom, String unPrenom, int unIdentifiant, String unEmail, String unMdp)
     {
-        super(unNom, unPrenom, unIdentifiant, unEmail, unMdp, Role.ELEVE);
-        this.formation = uneFormation;
-        this.inscriptions = listeInscriptionCours;
+        this.nom = unNom;
+        this.prenom = unPrenom;
+        this.identifiant = unIdentifiant;
+        this.email = unEmail;
+        this.motDePasse = unMdp;
     }
 
-    //inscription à une formation
-    public inscriptionFormation(Formation uneFormation)
-    {
-        this.formation = uneFormation;
-    }
+    // affichage de l'utilisateur lors des test
     public String toString()
     {
-        return "Eleve " + super.toString() + " fait partie de la formation " + this.formation + " et de la liste " + this.inscriptions;
+        return "L'utilisateur " + this.nom + this.prenom + " a pour identifiant " + this.identifiant + " et son mail est " + this.email;
     }
 }
