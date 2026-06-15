@@ -1,12 +1,8 @@
-package domain.model;
+package future.SAE.domain.model;
 
 import future.SAE.domain.exception.CoursDejaAssigneException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import future.SAE.domain.model.Cours;
-import future.SAE.domain.model.Formation;
-import future.SAE.domain.model.Professeur;
 import future.SAE.domain.valueObject.Semestre;
 
 import static org.junit.jupiter.api.Assertions.*;

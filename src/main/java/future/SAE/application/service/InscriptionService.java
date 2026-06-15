@@ -27,8 +27,8 @@ public class InscriptionService {
 
     public boolean inscrireEleveAuCours(Cours cours, Eleve eleve) {
         try {
-            InscriptionCoursJPA inscription = inscriptionCoursMapper.toEntity(new InscriptionCours(cours, eleve));
-            inscriptionCoursRepository.save(inscription);
+            InscriptionCoursJPA inscriptions = inscriptionCoursMapper.toEntity(new InscriptionCours(cours, eleve));
+            inscriptionCoursRepository.save(inscriptions);
             return true;
         } catch (Exception e) {
             return false;
@@ -37,11 +37,11 @@ public class InscriptionService {
 
     public boolean desinscrireEleveDuCours(Long idCours, UUID idEleve) {
         try {
-            var inscription =
+            var inscriptions =
             inscriptionCoursRepository.findByCoursIdCoursAndEleveIdUser(idCours,
             idEleve);
-            if (inscription != null) {
-            inscriptionCoursRepository.delete(inscription);
+            if (inscriptions != null) {
+            inscriptionCoursRepository.delete(inscriptions);
             return true;
         }
             return false;
