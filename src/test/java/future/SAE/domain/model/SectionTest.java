@@ -1,6 +1,5 @@
-package domain.model;
-import future.SAE.domain.model.Fichier;
-import future.SAE.domain.model.Section;
+package future.SAE.domain.model;
+
 import future.SAE.domain.valueObject.Type;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
