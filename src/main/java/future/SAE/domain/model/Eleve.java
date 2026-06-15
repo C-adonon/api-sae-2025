@@ -30,6 +30,11 @@ public class Eleve extends Utilisateur
         this.inscriptions = listeInscriptionCours;
     }
 
+    //inscription à une formation
+    public inscriptionFormation(Formation uneFormation)
+    {
+        this.formation = uneFormation;
+    }
     public String toString()
     {
         return "Eleve " + super.toString() + " fait partie de la formation " + this.formation + " et de la liste " + this.inscriptions;

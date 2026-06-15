@@ -20,7 +20,6 @@ public abstract class Utilisateur
     //constructeur vide
     public Utilisateur()
     {
-
     }
 
     public Utilisateur(String unNom, String unPrenom, String unIdentifiant, String unEmail, String unMdp)
@@ -41,6 +40,7 @@ public abstract class Utilisateur
         }
         throw new IllegalArgumentException("L'ancien mot de passe est incorrect.");
     }
+
     // affichage de l'utilisateur lors des test
     public String toString()
     {
