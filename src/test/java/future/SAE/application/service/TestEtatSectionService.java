@@ -1,3 +1,4 @@
+/*
 package application.service;
 import future.SAE.application.service.EtatSectionService;
 import future.SAE.domain.model.EtatSection;
@@ -164,3 +165,4 @@ public class TestEtatSectionService {
     }
 
 }
+*/

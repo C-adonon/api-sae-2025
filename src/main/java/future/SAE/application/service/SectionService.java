@@ -1,3 +1,4 @@
+/*
 package future.SAE.application.service;
 
 import future.SAE.domain.model.Section;
@@ -60,4 +61,4 @@ public class SectionService {
         }
         sectionRepository.deleteById(id);
     }
-}
+}*/

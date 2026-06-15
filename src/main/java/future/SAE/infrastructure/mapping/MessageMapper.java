@@ -1,3 +1,4 @@
+/*
 package future.SAE.infrastructure.mapping;
 
 import java.util.List;
@@ -19,3 +20,4 @@ public interface MessageMapper {
     List<MessageJPA> toEntityList(List<Message> messageList);
 
 }
+*/

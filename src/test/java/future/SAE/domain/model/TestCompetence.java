@@ -1,4 +1,4 @@
-package domain.model;
+package future.SAE.domain.model;
 import future.SAE.domain.model.Formation;
 import future.SAE.domain.model.Competence;
 import org.junit.jupiter.api.Test;

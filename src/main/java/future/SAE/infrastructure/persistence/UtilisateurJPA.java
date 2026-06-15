@@ -3,7 +3,6 @@ package future.SAE.infrastructure.persistence;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import future.SAE.domain.valueObject.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,10 +34,6 @@ public class UtilisateurJPA {
     @Column(name = "mot_de_passe", nullable = false)
     private String motDePasse;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, insertable = false, updatable = false)
-    private Role role;
-
     @Column(name = "date_creation", nullable = false)
     private LocalDateTime dateCreation = LocalDateTime.now();
 
@@ -46,5 +41,3 @@ public class UtilisateurJPA {
 
     }
 }
-
-

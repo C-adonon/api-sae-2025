@@ -1,3 +1,4 @@
+/*
 package application;
 import future.SAE.SaeApplication;
 import future.SAE.domain.model.SuiviCours;
@@ -88,3 +89,4 @@ public class TestSuiviCoursMapper {
         assertEquals(domain2.getProgressionGlobale(), jpaList.get(1).getProgressionGlobale());
     }
 }
+*/

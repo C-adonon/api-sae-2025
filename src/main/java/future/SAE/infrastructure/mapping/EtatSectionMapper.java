@@ -1,3 +1,4 @@
+/*
 package future.SAE.infrastructure.mapping;
 
 import java.util.List;
@@ -19,4 +20,4 @@ public interface EtatSectionMapper {
 
     List<EtatSectionJPA> toEntityList(List<EtatSection> etatSectionList);
 
-}
+}*/
