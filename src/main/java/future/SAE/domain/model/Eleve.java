@@ -35,6 +35,7 @@ public class Eleve extends Utilisateur
     {
         this.formation = uneFormation;
     }
+
     public String toString()
     {
         return "Eleve " + super.toString() + " fait partie de la formation " + this.formation + " et de la liste " + this.inscriptions;
