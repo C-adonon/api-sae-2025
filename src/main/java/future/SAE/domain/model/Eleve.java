@@ -55,6 +55,6 @@ public class Eleve extends Utilisateur
 
     public String toString()
     {
-        return "Eleve " + super.toString() + " fait partie de la formation " + this.formation + " et de la liste " + this.inscriptions;
+        return "Eleve " + super.toString() + " fait partie de la formation " + this.formation + " et est inscrit à " + this.inscriptions.size() + " cours.";
     }
 }

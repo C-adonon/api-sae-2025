@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Fichier {
-    private Long idFichier;
+    private Long id;
     private String titre;
     private String description;
     private String cheminFichier;
