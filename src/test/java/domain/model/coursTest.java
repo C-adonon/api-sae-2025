@@ -1,3 +1,5 @@
+package future.SAE.domain.model;
+
 public class coursTest
 {
     @Test
@@ -10,5 +12,8 @@ public class coursTest
         Assert.isTrue(c.getResponsable.equals(p), "Le responsable du cours est Clarence");
         Assert.isTrue(c.getFormation.equals("Reseau"), "C'est un cours de la formation informatique");
     }
+
+    @Test
+
 
 }
