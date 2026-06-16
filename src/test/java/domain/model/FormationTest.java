@@ -7,8 +7,7 @@ import future.SAE.domain.valueObject.Semestre;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class FormationTest
 {
@@ -43,11 +42,18 @@ public class FormationTest
     public void ajouterCours()
     {
         f.ajouterCours(c);
-
         assertTrue(f.getCours().contains(c));
-
+        assertEquals(2, f.getCours().size());
     }
 
     @Test
-    public void
+    public void supprimerCours()
+    {
+        f.ajouterCours(c);
+
+        boolean res = f.supprimerCours(c);
+
+        assertTrue(res);
+        assertFalse(f.getCours().contains(c));
+    }
 }

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import future.SAE.domain.exception.CoursDejaPresentException;
 import future.SAE.domain.valueObject.Semestre;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,6 +45,20 @@ public class Formation {
         }
         this.cours.add(unCours);
         unCours.setFormation(this);
+    }
+
+    public boolean supprimerCours(Cours unCours)
+    {
+        if(unCours == null)
+        {
+            return false;
+        }
+        boolean supprime = this.cours.remove(unCours);
+        if(supprime)
+        {
+            unCours.setFormation(null);
+        }
+        return supprime;
     }
 
     @Override
