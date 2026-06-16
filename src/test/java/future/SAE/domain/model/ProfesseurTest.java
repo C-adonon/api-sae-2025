@@ -1,6 +1,7 @@
 package future.SAE.domain.model;
 
 import future.SAE.domain.exception.CoursDejaAssigneException;
+import future.SAE.domain.exception.MotDePasseIncorrectException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import future.SAE.domain.valueObject.Semestre;
@@ -92,8 +93,8 @@ public class ProfesseurTest
 
     @Test
     public void testModifierMotDePasse_AncienIncorrect() {
-        IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class,
+        MotDePasseIncorrectException exception = assertThrows(
+                MotDePasseIncorrectException.class,
                 () -> p.modifierMdp("mauvaisAncienMdp", "NouveauSuperMdp456")
         );
         assertEquals(mdp, p.getMotDePasse());

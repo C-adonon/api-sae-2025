@@ -1,6 +1,9 @@
 package future.SAE.domain.model;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import future.SAE.domain.exception.MotDePasseIncorrectException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +17,7 @@ public class Utilisateur
     private String prenom;
     private String email;
     private String motDePasse;
-    private LocalDateTime dateCreation = LocalDateTime.now();
+    private Timestamp dateCreation;
 
     //constructeur vide
     public Utilisateur()
@@ -29,6 +32,7 @@ public class Utilisateur
         this.identifiant = unIdentifiant;
         this.email = unEmail;
         this.motDePasse = unMdp;
+        this.dateCreation = Timestamp.valueOf(LocalDateTime.now());
     }
 
     public boolean modifierMdp(String ancienMdp, String newMdp)
@@ -37,7 +41,7 @@ public class Utilisateur
             this.motDePasse = newMdp;
             return true;
         }
-        throw new IllegalArgumentException("L'ancien mot de passe est incorrect.");
+        throw new MotDePasseIncorrectException();
     }
     // affichage de l'utilisateur lors des test
     public String toString()
