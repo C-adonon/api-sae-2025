@@ -26,6 +26,7 @@ public class CoursTest
         f = new Formation(1, "Informatique", p, Semestre.S1);
         c = new Cours(nom, p, f);
     }
+
     @Test
     public void creerCours()
     {
@@ -33,6 +34,7 @@ public class CoursTest
         assertEquals(c.getProfesseur(), p);
         assertEquals(c.getFormation(), f);
     }
+
     @Test
     public void ajouterSectionCours()
     {
@@ -47,7 +49,6 @@ public class CoursTest
     {
         Section s1 = new Section(1,"Table de routage");
         Section s2 = new Section(1,"Adresse IP");
-
         c.ajouterSection(s1);
 
         try{
