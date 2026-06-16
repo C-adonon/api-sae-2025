@@ -1,6 +1,6 @@
 package future.SAE.domain.model;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +11,7 @@ public class InscriptionCours {
     private Long idInscriptionCours;
     private Cours cours;
     private Eleve eleve;
-    private LocalDateTime dateInscription = LocalDateTime.now();
+    private Timestamp dateInscription = new Timestamp(System.currentTimeMillis());
 
     public InscriptionCours() {
     }

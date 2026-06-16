@@ -13,22 +13,21 @@ public class Competence {
     private String description;
     private Formation formation;
 
-    public Competence(){
+    public Competence() {
     }
 
-    public Competence(int unNumero, String unLibelle, Formation uneFormation){
+    public Competence(int unNumero, String unLibelle, Formation uneFormation) {
         this.numero = unNumero;
         this.libelle = unLibelle;
         this.formation = uneFormation;
     }
 
-    public Competence(int unNumero, String unLibelle, Formation uneFormation, String uneDescription){
+    public Competence(int unNumero, String unLibelle, Formation uneFormation, String uneDescription) {
         this.numero = unNumero;
         this.libelle = unLibelle;
         this.description = uneDescription;
         this.formation = uneFormation;
     }
-
 
     public String toString() {
         return "Compétence C" + this.getNumero() + "\n"
