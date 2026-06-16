@@ -4,7 +4,7 @@ import future.SAE.application.exception.IdentifiantsInvalidesException;
 import future.SAE.application.interfaces.IAuthentificationService;
 import future.SAE.application.interfaces.ISecurityProvider;
 import future.SAE.domain.model.Utilisateur;
-import future.SAE.domain.repository.IUtilisateurRepository;
+import future.SAE.domain.interfaces.IUtilisateurRepository;
 import org.springframework.stereotype.Service;
 
 @Service

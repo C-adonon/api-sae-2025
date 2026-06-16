@@ -9,8 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import future.SAE.infrastructure.persistence.EleveJPA;
-import future.SAE.infrastructure.persistence.UtilisateurJPA;
+import future.SAE.infrastructure.persistence.entity.EleveJPA;
+import future.SAE.infrastructure.persistence.entity.UtilisateurJPA;
 
 @Repository
 public interface UtilisateurRepository extends JpaRepository<UtilisateurJPA, UUID>

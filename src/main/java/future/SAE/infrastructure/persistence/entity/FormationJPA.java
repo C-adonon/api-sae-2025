@@ -1,4 +1,4 @@
-package future.SAE.infrastructure.persistence;
+package future.SAE.infrastructure.persistence.entity;
 
 import future.SAE.domain.valueObject.Semestre;
 import jakarta.persistence.*;

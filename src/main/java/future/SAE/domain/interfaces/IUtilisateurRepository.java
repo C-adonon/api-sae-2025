@@ -1,4 +1,4 @@
-package future.SAE.domain.repository;
+package future.SAE.domain.interfaces;
 
 import future.SAE.domain.model.Utilisateur;
 import java.util.Optional;
