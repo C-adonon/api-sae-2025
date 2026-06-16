@@ -6,8 +6,8 @@ import java.util.UUID;
 
 public interface IUtilisateurRepository {
 
-    public abstract Optional<Utilisateur> trouverParIdentifiant(String identifiant);
-    public abstract Optional<Utilisateur> trouverParId(UUID id);
-    public abstract Optional<Utilisateur> trouverParEmail(String email);
-    public abstract Utilisateur sauvegarder(Utilisateur utilisateur);
+    public Optional<Utilisateur> trouverParIdentifiant(String identifiant);
+    public Optional<Utilisateur> trouverParId(UUID id);
+    public Optional<Utilisateur> trouverParEmail(String email);
+    public Utilisateur sauvegarder(Utilisateur utilisateur);
 }
