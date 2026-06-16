@@ -43,8 +43,9 @@ public class Section {
         this.ouverte = false;
     }
 
-    public void ouvrirSection() {
+    public boolean ouvrirSection() {
         this.ouverte = true;
+        return false;
     }
 
     public void ajouterFichier(Fichier unFichier) {

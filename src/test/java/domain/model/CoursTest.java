@@ -59,4 +59,15 @@ public class CoursTest
         }
     }
 
+    @Test
+    public void supprimerSection()
+    {
+        Section s = new Section(2, "Introduction");
+        c.ajouterSection(s);
+
+        boolean res = c.supprimerSection(s);
+
+        assertTrue(res);
+        assertFalse(c.getSections().contains(s));
+    }
 }
