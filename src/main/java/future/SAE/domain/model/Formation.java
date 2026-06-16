@@ -17,7 +17,7 @@ public class Formation {
     private int annee;
     private Semestre semestre;
     private Professeur responsable;
-    private List<Competence> competences = new ArrayList<>();
+    private List<Cours> cours = new ArrayList<>();
     private LocalDateTime dateCreation = LocalDateTime.now();
     private LocalDateTime dateModification;
 
@@ -30,6 +30,20 @@ public class Formation {
         this.nom = nom;
         this.semestre = semestre;
         this.responsable = unResponsable;
+    }
+
+    public void ajouterCours(Cours unCours)
+    {
+        if(unCours == null)
+        {
+            throw new IllegalArgumentException("Impossible d'ajouter un cours soit vide");
+        }
+        if(this.cours.contains(unCours))
+        {
+            throw new CoursDejaPresentException(unCours.getNom());
+        }
+        this.cours.add(unCours);
+        unCours.setFormation(this);
     }
 
     @Override
