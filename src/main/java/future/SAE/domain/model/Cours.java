@@ -47,15 +47,18 @@ public class Cours {
         this.publique = isPublique;
     }
 
-    public boolean supprimerSection(Section uneSection) {
+    public boolean supprimerSection(Section uneSection)
+    {
         return this.sections.remove(uneSection);
     }
 
-    public boolean ajouterSection(Section uneSection) {
+    public boolean ajouterSection(Section uneSection)
+    {
         return this.sections.add(uneSection);
     }
 
-    public void setDateModification() {
+    public void setDateModification()
+    {
         this.dateModification = LocalDateTime.now();
     }
 }
