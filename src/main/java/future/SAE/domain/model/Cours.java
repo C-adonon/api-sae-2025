@@ -1,6 +1,6 @@
 package future.SAE.domain.model;
 
-import java.time.LocalDateTime;
+import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +18,8 @@ public class Cours {
     private Formation formation;
     private List<Section> sections = new ArrayList<>();
     private List<Section> inscriptions = new ArrayList<>();
-    private LocalDateTime dateCreation = LocalDateTime.now();
-    private LocalDateTime dateModification;
+    private Timestamp dateCreation;
+    private Timestamp dateModification;
 
     // Constructeurs
     public Cours() {
@@ -52,13 +52,30 @@ public class Cours {
         return this.sections.remove(uneSection);
     }
 
-    public boolean ajouterSection(Section uneSection)
+    public void ajouterSection(Section uneSection)
     {
-        return this.sections.add(uneSection);
+        if(uneSection == null)
+        {
+            throw new SectionInvalideExeption();
+        }
+        for (Section s : this.sections)
+        {
+            if(s.getOrdre() == uneSection.getOrdre())
+            {
+                throw new OrdreSectionExistantException(uneSection.getOrdre());
+            }
+        }
+        this.sections.add(uneSection);
+        uneSection.setCours(this);
     }
 
-    public void setDateModification()
+    public boolean ouvrirSection(Section uneSection)
     {
-        this.dateModification = LocalDateTime.now();
+        return uneSection.ouvrirSection();
+    }
+
+    public String toString()
+    {
+        return "Le cours de " + this.nom + " est dispensé par " + this.professeur + " dans la formation " + this.formation ;
     }
 }

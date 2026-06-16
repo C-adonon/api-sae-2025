@@ -1,5 +1,6 @@
 package domain.model;
 
+import future.SAE.domain.exception.OrdreSectionExistantException;
 import future.SAE.domain.model.Cours;
 import future.SAE.domain.model.Formation;
 import future.SAE.domain.model.Professeur;
@@ -41,5 +42,21 @@ public class CoursTest
         assertEquals(1, c.getSections().size());
     }
 
+    @Test
+    public void sectionMemeOrdre()
+    {
+        Section s1 = new Section(1,"Table de routage");
+        Section s2 = new Section(1,"Adresse IP");
+
+        c.ajouterSection(s1);
+
+        try{
+            c.ajouterSection(s2);
+            fail("Une exception doit être levé");
+        }
+        catch(OrdreSectionExistantException e)
+        {
+        }
+    }
 
 }
