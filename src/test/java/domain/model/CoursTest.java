@@ -1,6 +1,7 @@
 package future.SAE.domain.model;
 
-public class coursTest
+import
+public class CoursTest
 {
     private String nom;
     private String description;
