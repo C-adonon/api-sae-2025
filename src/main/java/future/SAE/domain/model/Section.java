@@ -48,7 +48,8 @@ public class Section {
     }
 
     public void ajouterFichier(Fichier unFichier) {
-        if(unFichier == null) return;
+        if (unFichier == null)
+            return;
         this.fichiers.add(unFichier);
         unFichier.setSection(this);
     }
