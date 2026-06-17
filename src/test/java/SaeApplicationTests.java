@@ -1,5 +1,5 @@
 import future.SAE.application.interfaces.ISecurityProvider;
-import future.SAE.domain.repository.IUtilisateurRepository;
+import future.SAE.domain.interfaces.IUtilisateurRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

@@ -1,5 +1,6 @@
 package future.SAE.application.interfaces;
 
 public interface ISecurityProvider {
-    String hacher(String motDePasseEnClair);
+    public String hacher(String motDePasseEnClair);
+    public boolean verifier(String motDePasseClair, String motDePasseHache);
 }
