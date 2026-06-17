@@ -1,3 +1,4 @@
+/*
 package future.SAE.application.mapping;
 
 
@@ -22,3 +23,4 @@ public interface MessageDTOMapper {
 
     List<MessageReponseDTO> toDTOList(List<Message> messageList);
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package future.SAE.application.mapping;
 
 import java.util.List;
@@ -19,3 +20,4 @@ public interface InscriptionCoursDTOMapper {
 
     InscriptionCours toDomain(InscriptionCoursRequeteDTO inscriptionCoursDto);
 }
+*/

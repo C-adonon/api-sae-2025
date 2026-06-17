@@ -1,3 +1,4 @@
+/*
 package future.SAE.api.controller;
 
 import future.SAE.api.dto.SectionReponseDTO;
@@ -63,3 +64,4 @@ public class SectionController {
         return ResponseEntity.noContent().build();
     }
 }
+*/

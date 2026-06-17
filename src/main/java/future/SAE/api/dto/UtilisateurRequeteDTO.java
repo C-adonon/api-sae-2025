@@ -1,7 +1,6 @@
 package future.SAE.api.dto;
 import java.util.UUID;
 
-import future.SAE.domain.valueObject.Role;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +13,6 @@ public class UtilisateurRequeteDTO
     private String prenom;
     private String email;
     private String motDePasse;
-    private Role role;
     private UUID formationId;
 
 }

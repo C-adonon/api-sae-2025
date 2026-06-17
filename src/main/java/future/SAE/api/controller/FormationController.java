@@ -1,3 +1,4 @@
+/*
 package future.SAE.api.controller;
 
 import future.SAE.api.dto.FormationReponseDTO;
@@ -54,3 +55,4 @@ public class FormationController {
         return ResponseEntity.noContent().build();
     }
 }
+*/

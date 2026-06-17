@@ -1,3 +1,4 @@
+/*
 package future.SAE.application.mapping;
 
 import org.mapstruct.Mapper;
@@ -47,4 +48,4 @@ public interface UtilisateurDTOMapper {
     // --- LISTES ---
     List<EleveReponseDTO> toEleveResponseList(List<Eleve> domainList);
     List<ProfesseurReponseDTO> toProfesseurResponseList(List<Professeur> domainList);
-}
+}*/

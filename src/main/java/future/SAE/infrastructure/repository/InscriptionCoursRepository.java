@@ -1,3 +1,4 @@
+/*
 package future.SAE.infrastructure.repository;
 
 import java.util.List;
@@ -6,7 +7,7 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import future.SAE.infrastructure.persistence.InscriptionCoursJPA;
+import future.SAE.infrastructure.persistence.entity.InscriptionCoursJPA;
 
 @Repository
 public interface InscriptionCoursRepository extends JpaRepository<InscriptionCoursJPA, Long> {
@@ -21,3 +22,4 @@ public interface InscriptionCoursRepository extends JpaRepository<InscriptionCou
     int countByEleveIdUser(UUID idUser);
 
 }
+*/

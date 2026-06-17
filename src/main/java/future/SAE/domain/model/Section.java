@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Section {
-    private Long idSection;
+    private Long id;
     private int ordre;
     private String titre;
     private String texte;
@@ -45,5 +45,11 @@ public class Section {
 
     public void ouvrirSection() {
         this.ouverte = true;
+    }
+
+    public void ajouterFichier(Fichier unFichier) {
+        if(unFichier == null) return;
+        this.fichiers.add(unFichier);
+        unFichier.setSection(this);
     }
 }

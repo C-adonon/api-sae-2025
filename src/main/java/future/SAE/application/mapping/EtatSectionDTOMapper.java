@@ -1,3 +1,4 @@
+/*
 package future.SAE.application.mapping;
 
 
@@ -16,3 +17,4 @@ public interface EtatSectionDTOMapper {
 
     EtatSection toDomain(EtatSectionRequeteDTO etatSectionDto);
  }
+*/
