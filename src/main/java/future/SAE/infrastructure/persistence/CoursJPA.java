@@ -1,6 +1,5 @@
 package future.SAE.infrastructure.persistence;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="cours")
+@Table(name = "cours")
 @Getter
 @Setter
 public class CoursJPA {
@@ -34,19 +33,20 @@ public class CoursJPA {
     @JoinColumn(name = "id_formation", nullable = false)
     private FormationJPA formation;
 
-    @OneToMany(mappedBy = "cours", cascade = CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(mappedBy = "cours", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("ordre ASC")
     private List<SectionJPA> sections = new ArrayList<>();
 
-    @OneToMany(mappedBy ="cours")
+    @OneToMany(mappedBy = "cours")
     private List<InscriptionCoursJPA> inscriptions = new ArrayList<>();
 
-    @Column(name= "date_creation")
-    private LocalDateTime dateCreation = LocalDateTime.now();
-    
-    @Column(name= "date_modification")
-    private LocalDateTime dateModification;
+    @Column(name = "date_creation")
+    private java.sql.Timestamp dateCreation = java.sql.Timestamp.from(java.time.Instant.now());
 
-    public CoursJPA(){}
+    @Column(name = "date_modification")
+    private java.sql.Timestamp date_modification = java.sql.Timestamp.from(java.time.Instant.now());
+
+    public CoursJPA() {
+    }
 
 }
