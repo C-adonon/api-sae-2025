@@ -1,3 +1,4 @@
+/*
 package future.SAE.infrastructure.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,3 +14,4 @@ public interface CompetenceRepository extends JpaRepository<CompetenceJPA, Long>
     void removeByIdCompetence(Long idCompetence);
     List<CompetenceJPA> findByFormation_Id(Long idFormation);
 }
+*/

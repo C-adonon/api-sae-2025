@@ -17,15 +17,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EleveJPA extends UtilisateurJPA {
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_formation")
-    private FormationJPA formation;
 
-    @OneToMany(mappedBy = "eleve")
-    private List<InscriptionCoursJPA> inscriptions = new ArrayList<>();
-
-    public EleveJPA() {
-        super();
-    }
 
 }

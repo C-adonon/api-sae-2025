@@ -1,3 +1,4 @@
+/*
 package future.SAE.infrastructure.repository;
 
 import java.util.List;
@@ -18,4 +19,4 @@ public interface MessageRepository extends JpaRepository<MessageJPA, UUID> {
     List<MessageJPA> findByDestinatairesIdUserOrderByDateAsc(UUID idUser);
 
     List<MessageJPA> findByDestinatairesIdUserOrderByDateDesc(UUID idUser);
-}
+}*/

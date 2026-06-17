@@ -1,23 +1,18 @@
 package future.SAE.infrastructure.persistence.entity;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @DiscriminatorValue("PROFESSEUR")
 @Getter
 @Setter
+@NoArgsConstructor
 public class ProfesseurJPA extends UtilisateurJPA {
-    @OneToMany(mappedBy = "professeur")
-    private List<CoursJPA> coursDispenses = new ArrayList<>();
 
-    public ProfesseurJPA() {
-        super();
-    }
 }

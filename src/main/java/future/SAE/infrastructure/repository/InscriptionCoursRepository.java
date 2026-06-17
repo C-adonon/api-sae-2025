@@ -1,3 +1,4 @@
+/*
 package future.SAE.infrastructure.repository;
 
 import java.util.List;
@@ -21,3 +22,4 @@ public interface InscriptionCoursRepository extends JpaRepository<InscriptionCou
     int countByEleveIdUser(UUID idUser);
 
 }
+*/

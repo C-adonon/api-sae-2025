@@ -1,3 +1,4 @@
+/*
 package future.SAE.infrastructure.repository;
 
 import java.util.List;
@@ -16,3 +17,4 @@ public interface CoursRepository extends JpaRepository<CoursJPA, Long> {
 
     List<CoursJPA> findByInscriptions_Eleve_IdUser(UUID idUser);
 }
+*/

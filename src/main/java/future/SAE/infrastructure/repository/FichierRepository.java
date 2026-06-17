@@ -1,3 +1,4 @@
+/*
 package future.SAE.infrastructure.repository;
 
 import java.util.List;
@@ -9,4 +10,4 @@ import future.SAE.infrastructure.persistence.entity.FichierJPA;
 public interface FichierRepository extends JpaRepository<FichierJPA, Long> {
 
     List<FichierJPA> findBySectionIdSection(Long idSection);
-}
+}*/

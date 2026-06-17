@@ -1,3 +1,4 @@
+/*
 package future.SAE.infrastructure.repository;
 
 import java.util.List;
@@ -13,3 +14,4 @@ public interface SectionRepository extends JpaRepository<SectionJPA, Long> {
 
     List<SectionJPA> findByCoursIdCours(Long idCours);
 }
+*/

@@ -11,7 +11,12 @@ import java.util.UUID;
 @Entity
 @Table(name = "utilisateur")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE) // Une seule table pour tout le monde
-@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING) // La colonne qui dira si c'est un prof ou un élève
+@DiscriminatorColumn(
+        name = "type_utilisateur",
+        discriminatorType = DiscriminatorType.STRING,
+        columnDefinition = "VARCHAR(255)"
+) // La colonne qui dira si c'est un prof ou un élève
+
 @Getter
 @Setter
 @NoArgsConstructor

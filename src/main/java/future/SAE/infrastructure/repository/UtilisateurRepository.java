@@ -1,36 +1,46 @@
 package future.SAE.infrastructure.repository;
 
-import java.util.List;
+import future.SAE.domain.model.Utilisateur;
+import future.SAE.domain.interfaces.IUtilisateurRepository;
+import future.SAE.infrastructure.data.JpaUtilisateurRepository;
+import future.SAE.infrastructure.persistence.entity.UtilisateurJPA;
+import future.SAE.infrastructure.mapping.UtilisateurMapper;
+import org.springframework.stereotype.Repository;
+
 import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
-
-import future.SAE.infrastructure.persistence.entity.EleveJPA;
-import future.SAE.infrastructure.persistence.entity.UtilisateurJPA;
-
 @Repository
-public interface UtilisateurRepository extends JpaRepository<UtilisateurJPA, UUID>
-{
-    Optional<UtilisateurJPA> findByEmail(String email);
-    Optional<UtilisateurJPA> findByIdentifiant(int identifiant);
+public class UtilisateurRepository implements IUtilisateurRepository {
 
-    //Les eleves d'une formation
-    @Query("SELECT e FROM EleveJPA e WHERE e.formation.id = :idFormation")
-    List<EleveJPA> findAllElevesByFormation_Id(@Param("idFormation") Long idFormation);
+    private final JpaUtilisateurRepository jpaRepository;
+    private final UtilisateurMapper mapper;
 
-    //Les eleves d'un cours dans l'ordre alphabetique
-    @Query("SELECT i.eleve FROM InscriptionCoursJPA i WHERE i.cours.idCours = :idCours ORDER BY i.eleve.nom ASC")
-    List<EleveJPA> findElevesInscritsAuCours(@Param("idCours") Long idCours);
+    // Injection via Spring
+    public UtilisateurRepository(JpaUtilisateurRepository jpaRepository, UtilisateurMapper mapper) {
+        this.jpaRepository = jpaRepository;
+        this.mapper = mapper;
+    }
 
-    //Les eleves ayant fini le cours dans l'ordre alphabetique
-    @Query("SELECT suivi.eleve FROM SuiviCoursJPA suivi WHERE suivi.cours.idCours = :idCours AND suivi.progressionGlobale = 100")
-    List<EleveJPA> findElevesCoursTermine(@Param("idCours") Long idCours);
+    @Override
+    public Optional<Utilisateur> trouverParIdentifiant(String identifiant) {
+        return jpaRepository.findByIdentifiant(identifiant).map(mapper::toDomain);
+    }
 
-    //Les eleves n'ayant pas fini le cours dans l'ordre alphabetique
-    @Query("SELECT suivi.eleve FROM SuiviCoursJPA suivi WHERE suivi.cours.idCours = :idCours AND suivi.progressionGlobale < 100")
-    List<EleveJPA> findElevesCoursNonTermine(@Param("idCours") Long idCours);
+    @Override
+    public Optional<Utilisateur> trouverParId(UUID id) {
+        return jpaRepository.findById(id).map(mapper::toDomain);
+    }
+
+    @Override
+    public Optional<Utilisateur> trouverParEmail(String email) {
+        return jpaRepository.findByEmail(email).map(mapper::toDomain);
+    }
+
+    @Override
+    public Utilisateur sauvegarder(Utilisateur utilisateur) {
+        UtilisateurJPA entity = mapper.toEntity(utilisateur);
+        UtilisateurJPA savedEntity = jpaRepository.save(entity);
+        return mapper.toDomain(savedEntity);
+    }
 }
