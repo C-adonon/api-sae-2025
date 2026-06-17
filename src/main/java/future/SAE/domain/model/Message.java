@@ -1,6 +1,7 @@
 package future.SAE.domain.model;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -19,7 +20,7 @@ public class Message {
     private Utilisateur expediteur;
     private Message messageParent;
     private List<Message> commentaires = new ArrayList<>();
-    private LocalDateTime date;
+    private Timestamp date;
 
     public Message() {
 
@@ -31,7 +32,7 @@ public class Message {
         this.texte = unMessage;
         this.destinataires = listeDestinataires;
         this.expediteur = unExpediteur;
-        this.date = LocalDateTime.now();
+        this.date = new Timestamp(System.currentTimeMillis());
     }
 
     public Message(String unObjet, String unMessage, Message unMessageParent, ArrayList<Utilisateur> listeDestinataires,
@@ -41,7 +42,7 @@ public class Message {
         this.messageParent = unMessageParent;
         this.destinataires = listeDestinataires;
         this.expediteur = unExpediteur;
-        this.date = LocalDateTime.now();
+        this.date = new Timestamp(System.currentTimeMillis());
     }
 
     public boolean commenter() {
@@ -54,6 +55,16 @@ public class Message {
 
     public boolean supprimer() {
         return true;
+    }
+
+    public void ajouterDestinataire(Utilisateur u) {
+        if (u != null && !destinataires.contains(u))
+            destinataires.add(u);
+    }
+
+    public void ajouterCommentaire(Message m) {
+        if (m != null)
+            commentaires.add(m);
     }
 
     @Override

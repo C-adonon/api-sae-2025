@@ -1,6 +1,6 @@
 package future.SAE.domain.model;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import future.SAE.domain.valueObject.Type;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +14,7 @@ public class Fichier {
     private String cheminFichier;
     private Type type;
     private Section section;
-    private LocalDateTime datePublication = LocalDateTime.now();
+    private Timestamp datePublication = new Timestamp(System.currentTimeMillis());
 
     public Fichier() {
     }

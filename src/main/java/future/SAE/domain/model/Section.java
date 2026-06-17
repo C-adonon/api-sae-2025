@@ -43,12 +43,14 @@ public class Section {
         this.ouverte = false;
     }
 
-    public void ouvrirSection() {
+    public boolean ouvrirSection() {
         this.ouverte = true;
+        return false;
     }
 
     public void ajouterFichier(Fichier unFichier) {
-        if(unFichier == null) return;
+        if (unFichier == null)
+            return;
         this.fichiers.add(unFichier);
         unFichier.setSection(this);
     }
