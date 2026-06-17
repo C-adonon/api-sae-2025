@@ -6,7 +6,7 @@ import future.SAE.application.interfaces.IInscriptionService;
 import future.SAE.application.interfaces.ISecurityProvider;
 import future.SAE.domain.model.Professeur;
 import future.SAE.domain.model.Utilisateur;
-import future.SAE.domain.repository.IUtilisateurRepository;
+import future.SAE.domain.interfaces.IUtilisateurRepository;
 import org.springframework.stereotype.Service;
 
 @Service

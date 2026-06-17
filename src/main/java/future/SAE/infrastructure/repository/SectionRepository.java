@@ -1,3 +1,4 @@
+/*
 package future.SAE.infrastructure.repository;
 
 import java.util.List;
@@ -5,7 +6,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import future.SAE.infrastructure.persistence.SectionJPA;
+import future.SAE.infrastructure.persistence.entity.SectionJPA;
 
 @Repository
 public interface SectionRepository extends JpaRepository<SectionJPA, Long> {
@@ -13,3 +14,4 @@ public interface SectionRepository extends JpaRepository<SectionJPA, Long> {
 
     List<SectionJPA> findByCoursIdCours(Long idCours);
 }
+*/

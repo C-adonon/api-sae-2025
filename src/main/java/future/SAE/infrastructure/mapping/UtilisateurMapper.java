@@ -1,61 +1,43 @@
-/*
 package future.SAE.infrastructure.mapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-
-import java.util.List;
 
 import future.SAE.domain.model.Eleve;
 import future.SAE.domain.model.Professeur;
 import future.SAE.domain.model.Utilisateur;
-import future.SAE.infrastructure.persistence.EleveJPA;
-import future.SAE.infrastructure.persistence.ProfesseurJPA;
-import future.SAE.infrastructure.persistence.UtilisateurJPA;
+import future.SAE.infrastructure.persistence.entity.EleveJPA;
+import future.SAE.infrastructure.persistence.entity.ProfesseurJPA;
+import future.SAE.infrastructure.persistence.entity.UtilisateurJPA;
+import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring", uses = { FormationMapper.class})
-public interface UtilisateurMapper
-{
-    default Utilisateur mapUtilisateurToDomain(UtilisateurJPA jpa)
-    {
-        if(jpa == null)
+@Mapper(componentModel = "spring")
+public interface UtilisateurMapper {
+
+    ProfesseurJPA toProfesseurEntity(Professeur professeur);
+    EleveJPA toEleveEntity(Eleve eleve);
+
+    Professeur toProfesseurDomain(ProfesseurJPA entity);
+    Eleve toEleveDomain(EleveJPA entity);
+
+    default UtilisateurJPA toEntity(Utilisateur utilisateur) {
+        if (utilisateur == null) {
             return null;
-        if(jpa instanceof EleveJPA)
-            return toDomain((EleveJPA) jpa);
-        if(jpa instanceof ProfesseurJPA)
-            return toDomain((ProfesseurJPA) jpa);
-        return null;
+        }
+        if (utilisateur instanceof Professeur) {
+            return toProfesseurEntity((Professeur) utilisateur);
+        } else if (utilisateur instanceof Eleve) {
+            return toEleveEntity((Eleve) utilisateur);
+        }
+        throw new IllegalArgumentException("Type d'utilisateur non supporté");
     }
 
-    default UtilisateurJPA mapUtilisateurToEntity(Utilisateur domain)
-    {
-        if(domain == null)
+    default Utilisateur toDomain(UtilisateurJPA entity) {
+        if (entity == null) {
             return null;
-        if(domain instanceof Eleve)
-            return toEntity((Eleve) domain);
-        if(domain instanceof Professeur)
-            return toEntity((Professeur) domain);
-        return null;
+        }
+        if (entity instanceof ProfesseurJPA) {
+            return toProfesseurDomain((ProfesseurJPA) entity);
+        } else if (entity instanceof EleveJPA) {
+            return toEleveDomain((EleveJPA) entity);
+        }
+        throw new IllegalArgumentException("Type d'entité JPA non supporté");
     }
-
-    Eleve toDomain(EleveJPA eleveJPA);
-    EleveJPA toEntity(Eleve eleve);
-
-    Professeur toDomain(ProfesseurJPA professeurJPA);
-
-    @Named("toDomainSansCours")
-    @Mapping(target = "coursDispenses", ignore = true)
-    Professeur toDomainSansCours(ProfesseurJPA professeurJPA);
-
-    ProfesseurJPA toEntity(Professeur professeur);
-
-    List<Utilisateur> toDomainListFromMessage(List<UtilisateurJPA> utilisateurJPAList);
-    List<UtilisateurJPA> toEntityListFromMessage(List<Utilisateur> utilisateurList);
-
-    List<Eleve> toDomainList(List<EleveJPA> eleveJPAList);
-    List<EleveJPA> toEntityList(List<Eleve> eleveist);
-
-    List<Professeur> toDomainListFromCours(List<ProfesseurJPA> professeurJPAList);
-    List<ProfesseurJPA> toEntityListFromCours(List<Professeur> professeurList);
 }
-*/
