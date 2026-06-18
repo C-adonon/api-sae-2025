@@ -12,17 +12,16 @@ public class Eleve extends Utilisateur
     private Formation formation;
     private List<InscriptionCours> inscriptions;
 
-    //constructeur avec heritage
+
     public Eleve()
     {
         super();
     }
 
-    public Eleve(String unNom, String unPrenom, String unIdentifiant, String unEmail, String unMdp, Formation uneFormation)
+    public Eleve(String unNom, String unPrenom, String unIdentifiant, String unEmail, String unMdp)
     {
         super(unNom, unPrenom, unIdentifiant, unEmail, unMdp);
         this.inscriptions = new ArrayList<>();
-        this.formation = uneFormation;
     }
 
     public Eleve(String unNom, String unPrenom, String unIdentifiant, String unEmail, String unMdp, Formation uneFormation, List<InscriptionCours> listeInscriptionCours)
@@ -32,7 +31,7 @@ public class Eleve extends Utilisateur
         this.inscriptions = listeInscriptionCours;
     }
 
-    //inscriptions à une formation
+
     public void inscriptionFormation(Formation uneFormation)
     {
         this.formation = uneFormation;
