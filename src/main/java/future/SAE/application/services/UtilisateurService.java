@@ -1,69 +1,68 @@
-/*
 package future.SAE.application.service;
 
+import future.SAE.application.interfaces.ISecurityProvider;
+import future.SAE.application.interfaces.IUtilisateurService;
+import future.SAE.domain.interfaces.IUtilisateurRepository;
+import future.SAE.domain.model.Cours;
+import future.SAE.domain.model.Message;
 import future.SAE.domain.model.Utilisateur;
 import future.SAE.infrastructure.mapping.UtilisateurMapper;
-import future.SAE.infrastructure.persistence.UtilisateurJPA;
 import future.SAE.infrastructure.repository.UtilisateurRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
-public class UtilisateurService {
+public class UtilisateurService implements IUtilisateurService{
 
-    private final UtilisateurRepository utilisateurRepository;
-    private final UtilisateurMapper utilisateurMapper;
+    private final IUtilisateurRepository utilisateurRepository;
+    private final ICoursRepository coursRepository;
+    private final IMessageRepository messageRepository;
+    private final ISecurityProvider securityProvider;
 
-    public UtilisateurService(UtilisateurRepository utilisateurRepository, UtilisateurMapper utilisateurMapper) {
+    public UtilisateurService(IUtilisateurRepository utilisateurRepository, ICoursRepository coursRepository, IMessageRepository messageRepository, ISecurityProvider securityProvider)
+    {
         this.utilisateurRepository = utilisateurRepository;
-        this.utilisateurMapper = utilisateurMapper;
+        this.coursRepository = coursRepository;
+        this.messageRepository = messageRepository;
+        this.securityProvider = securityProvider;
     }
 
-    @Transactional
-    public Utilisateur createUtilisateur(Utilisateur utilisateur) {
-        if (utilisateurRepository.findByEmail(utilisateur.getEmail()).isPresent()) {
-            throw new RuntimeException("Un utilisateur avec cet email existe déjà.");
-        }
-        UtilisateurJPA jpaToSave = utilisateurMapper.mapUtilisateurToEntity(utilisateur);
-        UtilisateurJPA jpaSaved = utilisateurRepository.save(jpaToSave);
-        return utilisateurMapper.mapUtilisateurToDomain(jpaSaved);
+    @Override
+    public Utilisateur creerUtilisateur(String nom, String prenom, String identifiant, String email, String mdp)
+    {
+       String mdpHache = securityProvider.hacher(mdp);
+       Utilisateur user = new Utilisateur(nom, prenom, identifiant, email, mdpHache);
+       return utilisateurRepository.sauvegarder(user);
     }
 
-    @Transactional(readOnly = true)
-    public List<Utilisateur> getAllUtilisateurs() {
-        return utilisateurRepository.findAll().stream()
-                .map(utilisateurMapper::mapUtilisateurToDomain)
-                .collect(Collectors.toList());
+    @Override
+    public void modifierMdp(UUID id, String ancienMdp, String nouveauMdp)
+    {
+        Utilisateur user = utilisateurRepository.trouverParId(id).orElseThrow(UtilisateurIntrouvableException::new);
+        String nouveauMpdHache = securityProvider.hacher(nouveauMdp);
+        user.modifierMdp(ancienMdp, nouveauMpdHache, securityProvider);
+        utilisateurRepository.sauvegarder(user);
     }
 
-    @Transactional(readOnly = true)
-    public Utilisateur getUtilisateurById(UUID id) {
-        UtilisateurJPA utilisateurJPA = utilisateurRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("L'utilisateur avec l'id " + id + " n'existe pas."));
-        return utilisateurMapper.mapUtilisateurToDomain(utilisateurJPA);
+    @Override
+    public List<Cours> accederCours(UUID id)
+    {
+        utilisateurRepository.trouverParId(id).orElseThrow(UtilisateurIntrouvableException::new);
+        return coursRepository.trouverParUtilisateurId(id);
     }
 
-    @Transactional
-    public Utilisateur updateUtilisateur(UUID id, Utilisateur newUtilisateur) {
-        utilisateurRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Impossible de modifier : l'utilisateur avec l'ID " + id + " n'existe pas."));
-
-        UtilisateurJPA jpaToUpdate = utilisateurMapper.mapUtilisateurToEntity(newUtilisateur);
-        jpaToUpdate.setIdUser(id);
-
-        UtilisateurJPA jpaSaved = utilisateurRepository.save(jpaToUpdate);
-        return utilisateurMapper.mapUtilisateurToDomain(jpaSaved);
+    @Override
+    public List<Message> accederMessage(UUID id)
+    {
+        utilisateurRepository.trouverParId(id).orElseThrow(UtilisateurIntrouvableException::new);
+        return messageRepository.trouverParDestinataire(id);
     }
 
-    @Transactional
-    public void deleteUtilisateur(UUID id) {
-        if (!utilisateurRepository.existsById(id)) {
-            throw new RuntimeException("Impossible de supprimer : l'utilisateur " + id + " n'existe pas.");
-        }
-        utilisateurRepository.deleteById(id);
+    @Override
+    public void envoyerMessage(UUID expediteurId, UUID destinataireId, String contenu) {
+
     }
-}*/
+
+}

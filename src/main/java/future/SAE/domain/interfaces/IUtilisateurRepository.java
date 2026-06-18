@@ -10,4 +10,5 @@ public interface IUtilisateurRepository {
     public Optional<Utilisateur> trouverParId(UUID id);
     public Optional<Utilisateur> trouverParEmail(String email);
     public Utilisateur sauvegarder(Utilisateur utilisateur);
+
 }
