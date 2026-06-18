@@ -1,7 +1,9 @@
 package future.SAE.application.services;
-import future.SAE.application.service.UtilisateurService
+import future.SAE.application.services.UtilisateurService;
 
 import future.SAE.application.interfaces.ISecurityProvider;
+import future.SAE.domain.interfaces.ICoursRepository;
+import future.SAE.domain.interfaces.IMessageRepository;
 import future.SAE.domain.interfaces.IUtilisateurRepository;
 import future.SAE.domain.model.Cours;
 import future.SAE.domain.model.Message;

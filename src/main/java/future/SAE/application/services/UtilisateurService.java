@@ -1,14 +1,14 @@
-package future.SAE.application.service;
+package future.SAE.application.services;
 
+import future.SAE.application.exception.UtilisateurIntrouvableException;
 import future.SAE.application.interfaces.ISecurityProvider;
 import future.SAE.application.interfaces.IUtilisateurService;
 import future.SAE.domain.interfaces.ICoursRepository;
+import future.SAE.domain.interfaces.IMessageRepository;
 import future.SAE.domain.interfaces.IUtilisateurRepository;
 import future.SAE.domain.model.Cours;
 import future.SAE.domain.model.Message;
 import future.SAE.domain.model.Utilisateur;
-import future.SAE.infrastructure.mapping.UtilisateurMapper;
-import future.SAE.infrastructure.repository.UtilisateurRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,7 +43,7 @@ public class UtilisateurService implements IUtilisateurService{
     {
         Utilisateur user = utilisateurRepository.trouverParId(id).orElseThrow(UtilisateurIntrouvableException::new);
         String nouveauMpdHache = securityProvider.hacher(nouveauMdp);
-        user.modifierMdp(ancienMdp, nouveauMpdHache, securityProvider);
+        user.modifierMdp(ancienMdp, nouveauMpdHache);
         utilisateurRepository.sauvegarder(user);
     }
 
