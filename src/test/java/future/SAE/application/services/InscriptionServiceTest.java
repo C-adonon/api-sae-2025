@@ -3,6 +3,7 @@ package future.SAE.application.services;
 import future.SAE.application.exception.EmailDejaUtiliseException;
 import future.SAE.application.exception.IdentifiantDejaUtiliseException;
 import future.SAE.application.interfaces.ISecurityProvider;
+import future.SAE.domain.model.Eleve;
 import future.SAE.domain.model.Professeur;
 import future.SAE.domain.model.Utilisateur;
 import future.SAE.domain.interfaces.IUtilisateurRepository;
@@ -34,22 +35,17 @@ class InscriptionServiceTest {
     @Test
     @DisplayName("Doit inscrire un professeur avec succès")
     void inscrireProfesseur_Succes() {
-
         String identifiant = "PROF-001";
         String email = "prof@ecole.fr";
 
         when(utilisateurRepositoryMock.trouverParIdentifiant(identifiant)).thenReturn(Optional.empty());
         when(utilisateurRepositoryMock.trouverParEmail(email)).thenReturn(Optional.empty());
         when(securityProviderMock.hacher("motDePasseSuperSecret")).thenReturn("HASH_12345");
-
-
         when(utilisateurRepositoryMock.sauvegarder(any(Professeur.class))).thenAnswer(i -> i.getArgument(0));
-
 
         Utilisateur resultat = inscriptionService.inscrireProfesseur(
                 identifiant, "Doe", "John", email, "motDePasseSuperSecret"
         );
-
 
         assertNotNull(resultat);
         assertEquals(identifiant, resultat.getIdentifiant());
@@ -62,32 +58,27 @@ class InscriptionServiceTest {
     }
 
     @Test
-    @DisplayName("Doit lever une exception si l'identifiant existe déjà")
+    @DisplayName("Doit lever une exception si l'identifiant du prof existe déjà")
     void inscrireProfesseur_IdentifiantExistant() {
-
         String identifiant = "PROF-001";
         when(utilisateurRepositoryMock.trouverParIdentifiant(identifiant))
                 .thenReturn(Optional.of(mock(Professeur.class)));
-
 
         IdentifiantDejaUtiliseException exception = assertThrows(IdentifiantDejaUtiliseException.class, () ->
                 inscriptionService.inscrireProfesseur(identifiant, "Doe", "John", "prof@ecole.fr", "mdp123")
         );
 
-        // vérifier que le message contient bien l'identifiant
         assertTrue(exception.getMessage().contains("PROF-001"));
         verify(utilisateurRepositoryMock, never()).sauvegarder(any());
     }
 
     @Test
-    @DisplayName("Doit lever une exception si l'email existe déjà")
+    @DisplayName("Doit lever une exception si l'email du prof existe déjà")
     void inscrireProfesseur_EmailExistant() {
-
         String email = "prof@ecole.fr";
         when(utilisateurRepositoryMock.trouverParIdentifiant("PROF-002")).thenReturn(Optional.empty());
         when(utilisateurRepositoryMock.trouverParEmail(email))
                 .thenReturn(Optional.of(mock(Professeur.class)));
-
 
         EmailDejaUtiliseException exception = assertThrows(EmailDejaUtiliseException.class, () ->
                 inscriptionService.inscrireProfesseur("PROF-002", "Doe", "John", email, "mdp123")
@@ -96,4 +87,45 @@ class InscriptionServiceTest {
         assertTrue(exception.getMessage().contains("prof@ecole.fr"));
         verify(utilisateurRepositoryMock, never()).sauvegarder(any());
     }
+
+
+    @Test
+    @DisplayName("Doit inscrire un élève avec succès")
+    void inscrireEleve_Succes() {
+        String identifiant = "ELEVE-001";
+        String email = "eleve@ecole.fr";
+
+        when(utilisateurRepositoryMock.trouverParIdentifiant(identifiant)).thenReturn(Optional.empty());
+        when(utilisateurRepositoryMock.trouverParEmail(email)).thenReturn(Optional.empty());
+        when(securityProviderMock.hacher("mdpSecret123")).thenReturn("HASH_ELEVE");
+        when(utilisateurRepositoryMock.sauvegarder(any(Eleve.class))).thenAnswer(i -> i.getArgument(0));
+
+        Eleve resultat = inscriptionService.inscrireEleve(
+                identifiant, "Smith", "Alice", email, "mdpSecret123"
+        );
+
+        assertNotNull(resultat);
+        assertEquals(identifiant, resultat.getIdentifiant());
+        assertEquals("Smith", resultat.getNom());
+        assertEquals("Alice", resultat.getPrenom());
+        assertEquals("HASH_ELEVE", resultat.getMotDePasse());
+
+        verify(utilisateurRepositoryMock, times(1)).sauvegarder(any(Eleve.class));
+    }
+
+    @Test
+    @DisplayName("Doit lever une exception si l'identifiant de l'élève existe déjà")
+    void inscrireEleve_IdentifiantExistant() {
+        String identifiant = "ELEVE-001";
+        when(utilisateurRepositoryMock.trouverParIdentifiant(identifiant))
+                .thenReturn(Optional.of(mock(Eleve.class)));
+
+        IdentifiantDejaUtiliseException exception = assertThrows(IdentifiantDejaUtiliseException.class, () ->
+                inscriptionService.inscrireEleve(identifiant, "Smith", "Alice", "alice@ecole.fr", "mdp123")
+        );
+
+        assertTrue(exception.getMessage().contains("déjà utilisé"));
+        verify(utilisateurRepositoryMock, never()).sauvegarder(any());
+    }
+
 }
