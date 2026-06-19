@@ -1,69 +1,34 @@
-/*
-package future.SAE.application.service;
+package future.SAE.application.services;
 
+import future.SAE.application.interfaces.IUtilisateurService;
+import future.SAE.domain.interfaces.IUtilisateurRepository;
 import future.SAE.domain.model.Utilisateur;
-import future.SAE.infrastructure.mapping.UtilisateurMapper;
-import future.SAE.infrastructure.persistence.UtilisateurJPA;
-import future.SAE.infrastructure.repository.UtilisateurRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
-public class UtilisateurService {
+public class UtilisateurService implements IUtilisateurService {
 
-    private final UtilisateurRepository utilisateurRepository;
-    private final UtilisateurMapper utilisateurMapper;
+    private final IUtilisateurRepository utilisateurRepository;
 
-    public UtilisateurService(UtilisateurRepository utilisateurRepository, UtilisateurMapper utilisateurMapper) {
+    public UtilisateurService(IUtilisateurRepository utilisateurRepository) {
         this.utilisateurRepository = utilisateurRepository;
-        this.utilisateurMapper = utilisateurMapper;
     }
 
-    @Transactional
-    public Utilisateur createUtilisateur(Utilisateur utilisateur) {
-        if (utilisateurRepository.findByEmail(utilisateur.getEmail()).isPresent()) {
-            throw new RuntimeException("Un utilisateur avec cet email existe déjà.");
-        }
-        UtilisateurJPA jpaToSave = utilisateurMapper.mapUtilisateurToEntity(utilisateur);
-        UtilisateurJPA jpaSaved = utilisateurRepository.save(jpaToSave);
-        return utilisateurMapper.mapUtilisateurToDomain(jpaSaved);
+    @Override
+    public Utilisateur consulterProfil(UUID id) {
+        return utilisateurRepository.trouverParId(id)
+                .orElseThrow(() -> new IllegalArgumentException("Utilisateur introuvable avec l'ID : " + id));
     }
 
-    @Transactional(readOnly = true)
-    public List<Utilisateur> getAllUtilisateurs() {
-        return utilisateurRepository.findAll().stream()
-                .map(utilisateurMapper::mapUtilisateurToDomain)
-                .collect(Collectors.toList());
+    @Override
+    public Utilisateur modifierProfil(UUID id, String nouveauNom, String nouveauPrenom) {
+        Utilisateur utilisateurExistant = consulterProfil(id);
+
+        utilisateurExistant.setNom(nouveauNom);
+        utilisateurExistant.setPrenom(nouveauPrenom);
+
+        return utilisateurRepository.sauvegarder(utilisateurExistant);
     }
-
-    @Transactional(readOnly = true)
-    public Utilisateur getUtilisateurById(UUID id) {
-        UtilisateurJPA utilisateurJPA = utilisateurRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("L'utilisateur avec l'id " + id + " n'existe pas."));
-        return utilisateurMapper.mapUtilisateurToDomain(utilisateurJPA);
-    }
-
-    @Transactional
-    public Utilisateur updateUtilisateur(UUID id, Utilisateur newUtilisateur) {
-        utilisateurRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Impossible de modifier : l'utilisateur avec l'ID " + id + " n'existe pas."));
-
-        UtilisateurJPA jpaToUpdate = utilisateurMapper.mapUtilisateurToEntity(newUtilisateur);
-        jpaToUpdate.setIdUser(id);
-
-        UtilisateurJPA jpaSaved = utilisateurRepository.save(jpaToUpdate);
-        return utilisateurMapper.mapUtilisateurToDomain(jpaSaved);
-    }
-
-    @Transactional
-    public void deleteUtilisateur(UUID id) {
-        if (!utilisateurRepository.existsById(id)) {
-            throw new RuntimeException("Impossible de supprimer : l'utilisateur " + id + " n'existe pas.");
-        }
-        utilisateurRepository.deleteById(id);
-    }
-}*/
+}
