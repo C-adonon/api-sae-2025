@@ -4,6 +4,9 @@ import future.SAE.domain.valueObject.Semestre;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,10 +36,10 @@ public class FormationJPA {
     private List<CompetenceJPA> competences = new ArrayList<>();
 
     @Column(name = "date_creation", nullable = false)
-    private java.sql.Timestamp dateCreation = java.sql.Timestamp.from(java.time.Instant.now());
+    private Timestamp dateCreation = Timestamp.valueOf(LocalDateTime.now());
 
     @Column(name = "date_modification")
-    private java.sql.Timestamp dateModification;
+    private Timestamp dateModification;
 
     public FormationJPA() {
 

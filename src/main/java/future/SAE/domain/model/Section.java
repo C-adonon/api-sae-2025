@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Section {
-    private Long id;
+    private Long idSection;
     private int ordre;
     private String titre;
     private String texte;

@@ -1,5 +1,6 @@
 package future.SAE.application.services;
 
+import future.SAE.application.exception.CoursIntrouvableException;
 import future.SAE.application.interfaces.ICoursService;
 import future.SAE.domain.interfaces.ICoursRepository;
 import future.SAE.domain.model.Cours;
@@ -8,8 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CoursService implements ICoursService
-{
+public class CoursService implements ICoursService {
+
     private final ICoursRepository coursRepository;
 
     public CoursService(ICoursRepository coursRepository) {
@@ -17,37 +18,32 @@ public class CoursService implements ICoursService
     }
 
     @Override
-    public Cours creerCours(String nom)
-    {
+    public Cours creerCours(String nom) {
         Cours c = new Cours(nom, null, null);
         return coursRepository.sauvegarder(c);
     }
 
     @Override
-    public Cours modifierCours(Long id, String nouveauNom)
-    {
-        Cours c = coursRepository.trouverParId(id).orElseThrow(RuntimeException::new);
+    public Cours modifierCours(Long id, String nouveauNom) {
+
+        Cours c = coursRepository.trouverParId(id).orElseThrow(CoursIntrouvableException::new);
         c.setNom(nouveauNom);
         return coursRepository.sauvegarder(c);
     }
 
     @Override
-    public void supprimerCours(Long id)
-    {
-        Cours c = coursRepository.trouverParId(id).orElseThrow(RuntimeException::new);
+    public void supprimerCours(Long id) {
+        Cours c = coursRepository.trouverParId(id).orElseThrow(CoursIntrouvableException::new);
         coursRepository.supprimer(c);
     }
 
     @Override
-    public Cours accederCours(Long id)
-    {
-        return coursRepository.trouverParId(id).orElseThrow(RuntimeException::new);
+    public Cours accederCours(Long id) {
+        return coursRepository.trouverParId(id).orElseThrow(CoursIntrouvableException::new);
     }
 
     @Override
-    public List<Cours> listerCours()
-    {
+    public List<Cours> listerCours() {
         return coursRepository.trouverTous();
     }
-
 }
