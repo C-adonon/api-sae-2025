@@ -4,7 +4,7 @@ import future.SAE.domain.valueObject.Type;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "fichier")
 @Getter
@@ -32,8 +32,8 @@ public class FichierJPA {
     @JoinColumn(name = "id_section", nullable = false)
     private SectionJPA section;
 
-    @Column(name = "date_publication", nullable = false)
-    private LocalDateTime datePublication = LocalDateTime.now();
+    @Column(name = "date_publication")
+    private java.sql.Timestamp date_publication = java.sql.Timestamp.from(java.time.Instant.now());
 
     public FichierJPA() {
     }

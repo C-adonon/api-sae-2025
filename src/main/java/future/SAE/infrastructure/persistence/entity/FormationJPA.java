@@ -27,11 +27,16 @@ public class FormationJPA {
 
     @ManyToOne
     @JoinColumn(name = "id_responsable")
-    private UtilisateurJPA responsable;
+    private ProfesseurJPA responsable;
 
-    @ManyToMany
-    @JoinTable(name = "formation_competence", joinColumns = @JoinColumn(name = "id_formation"), inverseJoinColumns = @JoinColumn(name = "id_competence"))
+    @OneToMany(mappedBy = "formation", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CompetenceJPA> competences = new ArrayList<>();
+
+    @Column(name = "date_creation", nullable = false)
+    private java.sql.Timestamp dateCreation = java.sql.Timestamp.from(java.time.Instant.now());
+
+    @Column(name = "date_modification")
+    private java.sql.Timestamp dateModification;
 
     public FormationJPA() {
 
