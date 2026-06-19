@@ -1,23 +1,20 @@
-/*
 package future.SAE.infrastructure.mapping;
+
+import future.SAE.domain.model.Section;
+import future.SAE.infrastructure.mapping.FichierMapper;
+import future.SAE.infrastructure.persistence.entity.SectionJPA;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
-import org.mapstruct.Mapper;
-
-import future.SAE.domain.model.Section;
-import future.SAE.infrastructure.persistence.SectionJPA;
-
-@Mapper(componentModel = "spring", uses = { CoursMapper.class, FichierMapper.class })
+@Mapper(componentModel = "spring", uses = {FichierMapper.class}) // On réutilise le mapper Fichier !
 public interface SectionMapper {
+    @Mapping(target = "cours", ignore = true)
+    SectionJPA toEntity(Section domaine);
 
-    Section toDomain(SectionJPA sectionJPA);
+    @Mapping(target = "cours", ignore = true)
+    Section toDomain(SectionJPA entity);
 
-    SectionJPA toEntity(Section section);
-
-    List<Section> toDomainList(List<SectionJPA> sectionJPAList);
-
-    List<SectionJPA> toEntityList(List<Section> sectionList);
-
+    List<Section> toDomainList(List<SectionJPA> entities);
 }
-*/

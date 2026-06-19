@@ -1,6 +1,6 @@
 package future.SAE.domain.model;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,18 +18,17 @@ public class Cours {
     private boolean publique = true;
     private Professeur professeur;
     private Formation formation;
+
     private List<Section> sections = new ArrayList<>();
-    private List<Section> inscriptions = new ArrayList<>();
+    private List<Eleve> inscriptions = new ArrayList<>();
+
     private Timestamp dateCreation;
     private Timestamp dateModification;
 
-    // Constructeurs
-    public Cours()
-    {
+    public Cours() {
     }
 
-    public Cours(String unNom, Professeur unProfesseur, Formation uneFormation)
-    {
+    public Cours(String unNom, Professeur unProfesseur, Formation uneFormation) {
         this.nom = unNom;
         this.professeur = unProfesseur;
         this.formation = uneFormation;
@@ -42,8 +41,7 @@ public class Cours {
         this.publique = isPublique;
     }
 
-    public Cours(String unNom, String description, Professeur unProfesseur, boolean isPublique,
-            Formation uneFormation) {
+    public Cours(String unNom, String description, Professeur unProfesseur, boolean isPublique, Formation uneFormation) {
         this.nom = unNom;
         this.description = description;
         this.professeur = unProfesseur;
@@ -51,16 +49,12 @@ public class Cours {
         this.publique = isPublique;
     }
 
-    public void ajouterSection(Section uneSection)
-    {
-        if(uneSection == null)
-        {
+    public void ajouterSection(Section uneSection) {
+        if(uneSection == null) {
             throw new SectionInvalideException();
         }
-        for (Section s : this.sections)
-        {
-            if(s.getOrdre() == uneSection.getOrdre())
-            {
+        for (Section s : this.sections) {
+            if(s.getOrdre() == uneSection.getOrdre()) {
                 throw new OrdreSectionExistantException(uneSection.getOrdre());
             }
         }
@@ -68,26 +62,22 @@ public class Cours {
         uneSection.setCours(this);
     }
 
-    public boolean supprimerSection(Section uneSection)
-    {
-        if(uneSection == null)
-        {
+    public boolean supprimerSection(Section uneSection) {
+        if(uneSection == null) {
             return false;
         }
         boolean supprimee = this.sections.remove(uneSection);
-        if(supprimee)
-        {
+        if(supprimee) {
             uneSection.setCours(null);
         }
         return supprimee;
     }
-    public boolean ouvrirSection(Section uneSection)
-    {
+
+    public boolean ouvrirSection(Section uneSection) {
         return uneSection.ouvrirSection();
     }
 
-    public String toString()
-    {
+    public String toString() {
         return "Le cours de " + this.nom + " est dispensé par " + this.professeur + " dans la formation " + this.formation ;
     }
 }

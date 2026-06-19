@@ -1,5 +1,6 @@
 package future.SAE.api.dto;
 import java.time.LocalDateTime;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,6 @@ public class InscriptionCoursReponseDTO
 {
     private Long idInscription;
     private Long coursId;
-    private Long eleveId;
+    private UUID eleveId;
     private LocalDateTime dateInscription;
 }

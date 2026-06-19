@@ -1,5 +1,6 @@
 package future.SAE.domain.model;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +20,8 @@ public class Formation {
     private Semestre semestre;
     private Professeur responsable;
     private List<Cours> cours = new ArrayList<>();
-    private LocalDateTime dateCreation = LocalDateTime.now();
-    private LocalDateTime dateModification;
+    private Timestamp dateCreation = Timestamp.valueOf(LocalDateTime.now());
+    private Timestamp dateModification;
 
     public Formation() {
 

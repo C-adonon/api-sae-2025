@@ -1,5 +1,7 @@
 package future.SAE.infrastructure.persistence.entity;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,30 +25,29 @@ public class CoursJPA {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @Column(nullable = false)
     private boolean publique = true;
 
-    @ManyToOne
-    @JoinColumn(name = "id_professeur", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_professeur")
     private ProfesseurJPA professeur;
 
-    @ManyToOne
-    @JoinColumn(name = "id_formation", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_formation")
     private FormationJPA formation;
 
     @OneToMany(mappedBy = "cours", cascade = CascadeType.ALL, orphanRemoval = true)
-    @OrderBy("ordre ASC")
     private List<SectionJPA> sections = new ArrayList<>();
 
-    @OneToMany(mappedBy = "cours")
+    @OneToMany(mappedBy = "cours", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InscriptionCoursJPA> inscriptions = new ArrayList<>();
 
-    @Column(name = "date_creation")
-    private java.sql.Timestamp dateCreation = java.sql.Timestamp.from(java.time.Instant.now());
+    @Column(name = "date_creation", nullable = false)
+    private Timestamp dateCreation = Timestamp.valueOf(LocalDateTime.now());
 
     @Column(name = "date_modification")
-    private java.sql.Timestamp date_modification = java.sql.Timestamp.from(java.time.Instant.now());
+    private Timestamp dateModification;
 
     public CoursJPA() {
     }
-
 }
