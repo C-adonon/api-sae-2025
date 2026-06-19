@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "Objet renvoyé lors d'une connexion réussie, contenant le badge d'accès")
+@Schema(description = "Objet renvoyé lors d'une connexion réussie, contenant le token d'accès")
 public class JwtDTOReponse {
 
     @Schema(description = "Le token JWT à inclure dans le header Authorization des futures requêtes",

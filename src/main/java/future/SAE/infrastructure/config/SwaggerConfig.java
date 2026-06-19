@@ -16,7 +16,7 @@ public class SwaggerConfig {
         final String securitySchemeName = "Bearer Auth";
         return new OpenAPI()
                 .info(new Info()
-                        .title("API Scolarité - SAE")
+                        .title("API Plateforme e-learning - Projet Future SAE")
                         .version("1.0")
                         .description("Documentation interactive de l'API avec sécurité JWT."))
 
