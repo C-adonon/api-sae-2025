@@ -1,6 +1,5 @@
-package future.SAE.api.config;
+package future.SAE.infrastructure.config;
 
-import future.SAE.api.config.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

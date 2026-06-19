@@ -1,4 +1,4 @@
-package future.SAE.infrastructure.security;
+package future.SAE.infrastructure.config;
 
 import future.SAE.domain.model.Utilisateur;
 import io.jsonwebtoken.Claims;

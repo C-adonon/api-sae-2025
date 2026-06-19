@@ -12,6 +12,7 @@ import future.SAE.application.services.AuthentificationService;
 import future.SAE.application.services.InscriptionService;
 import future.SAE.domain.model.Utilisateur;
 
+import future.SAE.infrastructure.config.JwtTokenProvider;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -29,13 +30,13 @@ public class AuthentificationController {
     private final IInscriptionService inscriptionService;
     private final IAuthentificationService authentificationService;
     private final UtilisateurDTOMapper dtoMapper;
-    private final future.SAE.infrastructure.security.JwtTokenProvider jwtTokenProvider; // 👈 1. Ajout du provider
+    private final JwtTokenProvider jwtTokenProvider; // 👈 1. Ajout du provider
 
     public AuthentificationController(
             InscriptionService inscriptionService,
             AuthentificationService authentificationService,
             UtilisateurDTOMapper dtoMapper,
-            future.SAE.infrastructure.security.JwtTokenProvider jwtTokenProvider) { // 👈 2. Injection dans le constructeur
+            JwtTokenProvider jwtTokenProvider) { // 👈 2. Injection dans le constructeur
         this.inscriptionService = inscriptionService;
         this.authentificationService = authentificationService;
         this.dtoMapper = dtoMapper;
