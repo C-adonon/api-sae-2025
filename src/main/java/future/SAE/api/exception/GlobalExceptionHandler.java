@@ -2,6 +2,8 @@ package future.SAE.api.exception;
 
 import future.SAE.application.exception.EmailDejaUtiliseException;
 import future.SAE.application.exception.IdentifiantDejaUtiliseException;
+import future.SAE.application.exception.IdentifiantsInvalidesException;
+import future.SAE.application.exception.UtilisateurIntrouvableException; // 👈 N'oublie pas cet import !
 import future.SAE.domain.exception.FormationInvalideException;
 import future.SAE.domain.exception.InscriptionInvalideException;
 import org.springframework.http.HttpStatus;
@@ -17,7 +19,6 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-
     @ExceptionHandler({IdentifiantDejaUtiliseException.class, EmailDejaUtiliseException.class})
     public ResponseEntity<Map<String, String>> gererDoublons(RuntimeException ex) {
         Map<String, String> erreur = new HashMap<>();
@@ -25,11 +26,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(erreur);
     }
 
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> gererValidation(MethodArgumentNotValidException ex) {
         Map<String, String> erreurs = new HashMap<>();
-
 
         for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
             erreurs.put(fieldError.getField(), fieldError.getDefaultMessage());
@@ -41,9 +40,22 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({InscriptionInvalideException.class, FormationInvalideException.class})
     public ResponseEntity<Map<String, String>> gererErreursDomaine(RuntimeException ex) {
         Map<String, String> erreur = new HashMap<>();
-
-        erreur.put("erreur_metier", ex.getMessage());
-
+        erreur.put("erreur", ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erreur);
     }
+
+    @ExceptionHandler(IdentifiantsInvalidesException.class)
+    public ResponseEntity<Map<String, String>> gererIdentifiantsInvalides(IdentifiantsInvalidesException ex) {
+        Map<String, String> erreur = new HashMap<>();
+        erreur.put("erreur", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(erreur);
+    }
+
+    @ExceptionHandler(UtilisateurIntrouvableException.class)
+    public ResponseEntity<Map<String, String>> gererUtilisateurIntrouvable(UtilisateurIntrouvableException ex) {
+        Map<String, String> erreur = new HashMap<>();
+        erreur.put("erreur", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erreur);
+    }
+
 }

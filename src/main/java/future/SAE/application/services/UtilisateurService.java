@@ -1,5 +1,6 @@
 package future.SAE.application.services;
 
+import future.SAE.application.exception.UtilisateurIntrouvableException;
 import future.SAE.application.interfaces.IUtilisateurService;
 import future.SAE.domain.interfaces.IUtilisateurRepository;
 import future.SAE.domain.model.Utilisateur;
@@ -19,7 +20,7 @@ public class UtilisateurService implements IUtilisateurService {
     @Override
     public Utilisateur consulterProfil(UUID id) {
         return utilisateurRepository.trouverParId(id)
-                .orElseThrow(() -> new IllegalArgumentException("Utilisateur introuvable avec l'ID : " + id));
+                .orElseThrow(() -> new UtilisateurIntrouvableException("Utilisateur introuvable avec l'ID : " + id));
     }
 
     @Override
