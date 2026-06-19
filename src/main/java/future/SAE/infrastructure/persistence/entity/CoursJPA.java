@@ -1,5 +1,6 @@
 package future.SAE.infrastructure.persistence.entity;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="cours")
+@Table(name = "cours")
 @Getter
 @Setter
 public class CoursJPA {
@@ -24,29 +25,29 @@ public class CoursJPA {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @Column(nullable = false)
     private boolean publique = true;
 
-    @ManyToOne
-    @JoinColumn(name = "id_professeur", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_professeur")
     private ProfesseurJPA professeur;
 
-    @ManyToOne
-    @JoinColumn(name = "id_formation", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_formation")
     private FormationJPA formation;
 
-    @OneToMany(mappedBy = "cours", cascade = CascadeType.ALL, orphanRemoval=true)
-    @OrderBy("ordre ASC")
+    @OneToMany(mappedBy = "cours", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SectionJPA> sections = new ArrayList<>();
 
-    @OneToMany(mappedBy ="cours")
+    @OneToMany(mappedBy = "cours", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InscriptionCoursJPA> inscriptions = new ArrayList<>();
 
-    @Column(name= "date_creation")
-    private LocalDateTime dateCreation = LocalDateTime.now();
-    
-    @Column(name= "date_modification")
-    private LocalDateTime dateModification;
+    @Column(name = "date_creation", nullable = false)
+    private Timestamp dateCreation = Timestamp.valueOf(LocalDateTime.now());
 
-    public CoursJPA(){}
+    @Column(name = "date_modification")
+    private Timestamp dateModification;
 
+    public CoursJPA() {
+    }
 }

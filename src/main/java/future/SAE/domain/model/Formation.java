@@ -1,9 +1,11 @@
 package future.SAE.domain.model;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import future.SAE.domain.exception.CoursDejaPresentException;
 import future.SAE.domain.valueObject.Semestre;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,9 +19,9 @@ public class Formation {
     private int annee;
     private Semestre semestre;
     private Professeur responsable;
-    private List<Competence> competences = new ArrayList<>();
-    private LocalDateTime dateCreation = LocalDateTime.now();
-    private LocalDateTime dateModification;
+    private List<Cours> cours = new ArrayList<>();
+    private Timestamp dateCreation = Timestamp.valueOf(LocalDateTime.now());
+    private Timestamp dateModification;
 
     public Formation() {
 
@@ -30,6 +32,34 @@ public class Formation {
         this.nom = nom;
         this.semestre = semestre;
         this.responsable = unResponsable;
+    }
+
+    public void ajouterCours(Cours unCours)
+    {
+        if(unCours == null)
+        {
+            throw new IllegalArgumentException("Impossible d'ajouter un cours soit vide");
+        }
+        if(this.cours.contains(unCours))
+        {
+            throw new CoursDejaPresentException(unCours.getNom());
+        }
+        this.cours.add(unCours);
+        unCours.setFormation(this);
+    }
+
+    public boolean supprimerCours(Cours unCours)
+    {
+        if(unCours == null)
+        {
+            return false;
+        }
+        boolean supprime = this.cours.remove(unCours);
+        if(supprime)
+        {
+            unCours.setFormation(null);
+        }
+        return supprime;
     }
 
     @Override

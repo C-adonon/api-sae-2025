@@ -1,14 +1,12 @@
 package future.SAE.infrastructure.persistence.entity;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.*;
 import lombok.Setter;
 import lombok.Getter;
 
 @Entity
 @Table(name = "etat_section", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"id_section", "id_eleve"})
+        @UniqueConstraint(columnNames = { "id_section", "id_eleve" })
 })
 @Getter
 @Setter
@@ -30,8 +28,8 @@ public class EtatSectionJPA {
     private boolean estTerminee = false;
 
     @Column(name = "date_completion")
-    private LocalDateTime dateCompletion;
+    private java.sql.Timestamp date_completion = java.sql.Timestamp.from(java.time.Instant.now());
 
-    public EtatSectionJPA(){
+    public EtatSectionJPA() {
     }
 }

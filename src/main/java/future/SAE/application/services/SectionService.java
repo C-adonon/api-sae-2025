@@ -1,64 +1,79 @@
-/*
-package future.SAE.application.service;
+package future.SAE.application.services;
 
+import future.SAE.application.exception.CoursIntrouvableException;
+import future.SAE.application.exception.SectionIntrouvableException;
+import future.SAE.application.interfaces.ICoursService;
+import future.SAE.application.interfaces.ISectionService;
+import future.SAE.domain.interfaces.ICoursRepository;
+import future.SAE.domain.interfaces.ISectionRepository;
+import future.SAE.domain.model.Cours;
 import future.SAE.domain.model.Section;
-import future.SAE.infrastructure.mapping.SectionMapper;
-import future.SAE.infrastructure.persistence.SectionJPA;
-import future.SAE.infrastructure.repository.SectionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class SectionService {
+public class SectionService implements ISectionService
+{
+    private final ISectionRepository sectionRepository;
+    private final ICoursRepository coursRepository;
 
-    private final SectionRepository sectionRepository;
-    private final SectionMapper sectionMapper;
-
-    public SectionService(SectionRepository sectionRepository, SectionMapper sectionMapper) {
+    public SectionService(ISectionRepository sectionRepository, ICoursRepository coursRepository) {
         this.sectionRepository = sectionRepository;
-        this.sectionMapper = sectionMapper;
+        this.coursRepository = coursRepository;
     }
 
-    public Section createSection(Section section) {
-        SectionJPA jpaToSave = sectionMapper.toEntity(section);
-        SectionJPA jpaSaved = sectionRepository.save(jpaToSave);
-        return sectionMapper.toDomain(jpaSaved);
+    @Override
+    public Section creerSection(int ordre, String titre, String texte, Long coursId)
+    {
+        Cours c = coursRepository.trouverParId(coursId).orElseThrow(CoursIntrouvableException::new);
+        Section s = new Section(ordre, titre, texte);
+        s.setCours(c);
+        return sectionRepository.sauvegarder(s);
     }
 
-    public List<Section> getAllSections() {
-        List<SectionJPA> sectionsJPA = sectionRepository.findAll();
-        return sectionMapper.toDomainList(sectionsJPA);
+    @Override
+    public Section modifierSection(Long id, String nouveauTitre, String nouveauTexte)
+    {
+        Section s = sectionRepository.trouverParId(id).orElseThrow(SectionIntrouvableException::new);
+        s.setTitre(nouveauTitre);
+        s.setTexte(nouveauTexte);
+        return sectionRepository.sauvegarder(s);
     }
 
-    public Section getSectionById(Long id) {
-        SectionJPA sectionJPA = sectionRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("La section avec l'id " + id + " n'existe pas."));
-        return sectionMapper.toDomain(sectionJPA);
+    @Override
+    public Section accederSection(Long id)
+    {
+        return sectionRepository.trouverParId(id).orElseThrow(SectionIntrouvableException::new);
     }
 
-    public List<Section> getSectionsByCoursId(Long idCours) {
-        // On utilise la méthode du repository qui trie par ordre
-        List<SectionJPA> sectionsJPA = sectionRepository.findByCoursIdCoursOrderByOrdreAsc(idCours);
-        return sectionMapper.toDomainList(sectionsJPA);
+    @Override
+    public void supprimerSection(Long id)
+    {
+        Section s = sectionRepository.trouverParId(id).orElseThrow(SectionIntrouvableException::new);
+        sectionRepository.supprimer(s);
     }
 
-    public Section updateSection(Long id, Section newSection) {
-        sectionRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Impossible de modifier : la section avec l'ID " + id + " n'existe pas."));
-
-        SectionJPA jpaToUpdate = sectionMapper.toEntity(newSection);
-        // On force l'ID pour l'update
-        jpaToUpdate.setIdSection(id);
-
-        SectionJPA jpaSaved = sectionRepository.save(jpaToUpdate);
-        return sectionMapper.toDomain(jpaSaved);
+    @Override
+    public List<Section> listerSection()
+    {
+        return sectionRepository.trouverToutes();
     }
 
-    public void deleteSection(Long id) {
-        if (!sectionRepository.existsById(id)) {
-            throw new RuntimeException("Impossible de supprimer : la section " + id + " n'existe pas.");
-        }
-        sectionRepository.deleteById(id);
+    @Override
+    public void ouvrirSection(Long id)
+    {
+        Section s = sectionRepository.trouverParId(id).orElseThrow(SectionIntrouvableException::new);
+        s.ouvrirSection();
+        sectionRepository.sauvegarder(s);
     }
-}*/
+
+    @Override
+    public void fermerSection(Long id)
+    {
+        Section s =sectionRepository.trouverParId(id).orElseThrow(SectionIntrouvableException::new);
+        s.fermerSection();
+        sectionRepository.sauvegarder(s);
+    }
+
+}

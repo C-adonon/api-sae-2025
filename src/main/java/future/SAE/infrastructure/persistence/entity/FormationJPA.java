@@ -4,6 +4,9 @@ import future.SAE.domain.valueObject.Semestre;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,11 +30,16 @@ public class FormationJPA {
 
     @ManyToOne
     @JoinColumn(name = "id_responsable")
-    private UtilisateurJPA responsable;
+    private ProfesseurJPA responsable;
 
-    @ManyToMany
-    @JoinTable(name = "formation_competence", joinColumns = @JoinColumn(name = "id_formation"), inverseJoinColumns = @JoinColumn(name = "id_competence"))
+    @OneToMany(mappedBy = "formation", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CompetenceJPA> competences = new ArrayList<>();
+
+    @Column(name = "date_creation", nullable = false)
+    private Timestamp dateCreation = Timestamp.valueOf(LocalDateTime.now());
+
+    @Column(name = "date_modification")
+    private Timestamp dateModification;
 
     public FormationJPA() {
 

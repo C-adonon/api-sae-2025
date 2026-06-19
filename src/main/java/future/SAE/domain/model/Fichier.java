@@ -1,6 +1,8 @@
 package future.SAE.domain.model;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+
 import future.SAE.domain.valueObject.Type;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +16,7 @@ public class Fichier {
     private String cheminFichier;
     private Type type;
     private Section section;
-    private LocalDateTime datePublication = LocalDateTime.now();
+    private Timestamp datePublication;
 
     public Fichier() {
     }
@@ -24,6 +26,7 @@ public class Fichier {
         this.cheminFichier = cheminFichier;
         this.section = uneSection;
         this.type = type;
+        this.datePublication = Timestamp.valueOf(LocalDateTime.now());
     }
 
     public Fichier(String titre, String uneDescription, String cheminFichier, Section uneSection, Type type) {
@@ -32,6 +35,7 @@ public class Fichier {
         this.section = uneSection;
         this.type = type;
         this.description = uneDescription;
+        this.datePublication = Timestamp.valueOf(LocalDateTime.now());
     }
 
     @Override

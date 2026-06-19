@@ -1,77 +1,87 @@
-/*
-package future.SAE.application.service;
+package future.SAE.application.services;
 
+import future.SAE.application.exception.AccesRefuseException;
+import future.SAE.application.exception.CoursIntrouvableException;
+import future.SAE.application.interfaces.ICoursService;
+import future.SAE.application.interfaces.IUtilisateurCourantProvider;
+import future.SAE.domain.interfaces.ICoursRepository;
+import future.SAE.domain.interfaces.IInscriptionCoursRepository;
 import future.SAE.domain.model.Cours;
-import future.SAE.infrastructure.mapping.CoursMapper;
-import future.SAE.infrastructure.persistence.CoursJPA;
-import future.SAE.infrastructure.repository.CoursRepository;
+import future.SAE.domain.model.Eleve;
+import future.SAE.domain.model.Professeur;
+import future.SAE.domain.model.Utilisateur;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
-public class CoursService {
+public class CoursService implements ICoursService {
 
-    private final CoursRepository coursRepository;
-    private final CoursMapper coursMapper;
+    private final ICoursRepository coursRepository;
+    private final IInscriptionCoursRepository inscriptionRepository;
+    private final IUtilisateurCourantProvider utilisateurCourant;
 
-    public CoursService(CoursRepository repository, CoursMapper mapper){
-        this.coursRepository = repository;
-        this.coursMapper = mapper;
+    public CoursService(ICoursRepository coursRepository,
+                        IInscriptionCoursRepository inscriptionRepository,
+                        IUtilisateurCourantProvider utilisateurCourant) {
+        this.coursRepository = coursRepository;
+        this.inscriptionRepository = inscriptionRepository;
+        this.utilisateurCourant = utilisateurCourant;
     }
 
-    public Cours createCours(Cours cours){
-        CoursJPA jpaToSave = coursMapper.toEntity(cours);
-        CoursJPA jpaSaved = coursRepository.save(jpaToSave);
-        return coursMapper.toDomain(jpaSaved);
+    @Override
+    public Cours creerCours(String nom) {
+        Cours c = new Cours(nom, null, null);
+        return coursRepository.sauvegarder(c);
     }
 
-    public List<Cours> getAllCours() {
-        List<CoursJPA> coursJPA = coursRepository.findAll();
-        return coursMapper.toDomainList(coursJPA);
+    @Override
+    public Cours modifierCours(Long id, String nouveauNom) {
+
+        Cours c = coursRepository.trouverParId(id).orElseThrow(CoursIntrouvableException::new);
+        c.setNom(nouveauNom);
+        return coursRepository.sauvegarder(c);
     }
 
-    public Cours getCoursById(Long id){
-        CoursJPA coursJPA = coursRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Ce cours avec l'id " + id + " n'existe pas."));
-        return coursMapper.toDomain(coursJPA);
+    @Override
+    public void supprimerCours(Long id) {
+        Cours c = coursRepository.trouverParId(id).orElseThrow(CoursIntrouvableException::new);
+        coursRepository.supprimer(c);
     }
 
-    public List<Cours> getCoursByProfesseurId(UUID idProfesseur){
-        List<CoursJPA> coursJPA = coursRepository.findByProfesseur_IdUser(idProfesseur);
-        return coursMapper.toDomainList(coursJPA);
+    @Override
+    public Cours accederCours(Long id) {
+        Cours cours = coursRepository.trouverParId(id).orElseThrow(CoursIntrouvableException::new);
+        verifierAccesAuCours(cours);
+        return cours;
     }
 
-    public List<Cours> getCoursByFormationId(Long idFormation){
-        List<CoursJPA> coursJPA = coursRepository.findByFormation_Id(idFormation);
-        return coursMapper.toDomainList(coursJPA);
+    @Override
+    public List<Cours> listerCours() {
+        return coursRepository.trouverTous();
     }
 
-    public List<Cours> getPublicCours(){
-        List<CoursJPA> coursJPA = coursRepository.findByPubliqueTrue();
-        return coursMapper.toDomainList(coursJPA);
-    }
+    /**
+     * Règle d'accès : un professeur peut toujours consulter un cours. Un élève ne peut
+     * consulter un cours non public que s'il y est inscrit. Un cours public est ouvert
+     * à tout utilisateur authentifié.
+     */
+    private void verifierAccesAuCours(Cours cours) {
+        Utilisateur courant = utilisateurCourant.utilisateurCourant();
 
-    public List<Cours> getCoursByEleveId(UUID idEleve){
-        List<CoursJPA> coursJPA = coursRepository.findByInscriptions_Eleve_IdUser(idEleve);
-        return coursMapper.toDomainList(coursJPA);
-    }
-
-    public Cours updateCours(Long id, Cours newCours){
-        CoursJPA coursExistant = coursRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Impossible de modifier : le cours avec l'ID " + id + " n'existe pas."));
-
-        CoursJPA jpaToUpdate = coursMapper.toEntity(newCours);
-        jpaToUpdate.setIdCours(id);
-        CoursJPA jpaSaved = coursRepository.save(jpaToUpdate);
-        return coursMapper.toDomain(jpaSaved);
-    }
-
-    public void deleteCours(Long id) {
-        if (!coursRepository.existsById(id)) {
-            throw new RuntimeException("Impossible de supprimer : le cours " + id + " n'existe pas.");
+        if (courant instanceof Professeur) {
+            return;
         }
-        coursRepository.deleteById(id);
+
+        if (cours.isPublique()) {
+            return;
+        }
+
+        if (courant instanceof Eleve
+                && inscriptionRepository.estInscrit(courant.getId(), cours.getIdCours())) {
+            return;
+        }
+
+        throw new AccesRefuseException("Vous devez être inscrit à ce cours pour y accéder.");
     }
-}*/
+}
