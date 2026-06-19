@@ -1,66 +1,72 @@
-/*
-package future.SAE.application.service;
+package future.SAE.application.services;
 
+import future.SAE.application.exception.FormationIntrouvableException;
+import future.SAE.application.interfaces.IFormationService;
+import future.SAE.domain.interfaces.IFormationRepository;
+import future.SAE.domain.model.Cours;
 import future.SAE.domain.model.Formation;
-import future.SAE.infrastructure.mapping.FormationMapper;
-import future.SAE.infrastructure.persistence.FormationJPA;
-import future.SAE.infrastructure.repository.FormationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
-public class FormationService {
+public class FormationService implements IFormationService
+{
+    private final IFormationRepository formationRepository;
 
-    private final FormationRepository formationRepository;
-    private final FormationMapper formationMapper;
-
-    public FormationService(FormationRepository formationRepository, FormationMapper formationMapper) {
+    public FormationService(IFormationRepository formationRepository) {
         this.formationRepository = formationRepository;
-        this.formationMapper = formationMapper;
     }
 
-    public Formation createFormation(Formation formation) {
-        FormationJPA jpaToSave = formationMapper.toEntity(formation);
-        FormationJPA jpaSaved = formationRepository.save(jpaToSave);
-        return formationMapper.toDomain(jpaSaved);
+    @Override
+    public Formation creerFormation(int annee, String nom)
+    {
+        Formation f = new Formation();
+        f.setAnnee(annee);
+        f.setNom(nom);
+        return formationRepository.sauvegarder(f);
     }
 
-    public List<Formation> getAllFormations() {
-        List<FormationJPA> formationsJPA = formationRepository.findAll();
-        return formationMapper.toDomainList(formationsJPA);
+    @Override
+    public Formation modifierFormation(Long id, String nouveauNom)
+    {
+        Formation f = formationRepository.trouverParId(id).orElseThrow(FormationIntrouvableException::new);
+        f.setNom(nouveauNom);
+        return formationRepository.sauvegarder(f);
     }
 
-    public Formation getFormationById(Long id) {
-        FormationJPA formationJPA = formationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Cette formation avec l'id " + id + " n'existe pas."));
-        return formationMapper.toDomain(formationJPA);
+    @Override
+    public Formation accederFormation(Long id)
+    {
+        return formationRepository.trouverParId(id).orElseThrow(FormationIntrouvableException::new);
     }
 
-    public Formation getFormationByResponsableId(UUID idProfesseur) {
-        FormationJPA formationJPA = formationRepository.findByResponsableIdUser(idProfesseur);
-        if (formationJPA == null) {
-            return null;
-        }
-        return formationMapper.toDomain(formationJPA);
+    @Override
+    public List<Formation> listerFormation()
+    {
+        return formationRepository.trouverToutes();
     }
 
-    public Formation updateFormation(Long id, Formation newFormation) {
-        formationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Impossible de modifier : la formation avec l'ID " + id + " n'existe pas."));
-
-        FormationJPA jpaToUpdate = formationMapper.toEntity(newFormation);
-        jpaToUpdate.setId(id);
-
-        FormationJPA jpaSaved = formationRepository.save(jpaToUpdate);
-        return formationMapper.toDomain(jpaSaved);
+    @Override
+    public void supprimerFormation(Long id)
+    {
+        Formation f = formationRepository.trouverParId(id).orElseThrow(FormationIntrouvableException::new);
+        formationRepository.supprimer(f);
     }
 
-    public void deleteFormation(Long id) {
-        if (!formationRepository.existsById(id)) {
-            throw new RuntimeException("Impossible de supprimer : la formation " + id + " n'existe pas.");
-        }
-        formationRepository.deleteById(id);
+    @Override
+    public void ajouterCours(Long formationId, Cours cours)
+    {
+        Formation f = formationRepository.trouverParId(formationId).orElseThrow(FormationIntrouvableException::new);
+        f.ajouterCours(cours);
+        formationRepository.sauvegarder(f);
     }
-}*/
+
+    @Override
+    public void supprimerCours(Long formationId, Cours cours)
+    {
+        Formation f = formationRepository.trouverParId(formationId).orElseThrow(FormationIntrouvableException::new);
+        f.supprimerCours(cours);
+        formationRepository.sauvegarder(f);
+    }
+}
