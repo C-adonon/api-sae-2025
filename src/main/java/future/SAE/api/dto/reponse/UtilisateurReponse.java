@@ -29,4 +29,7 @@ public class UtilisateurReponse {
 
     @Schema(description = "Adresse email", example = "jean.dupont@ecole.fr")
     private String email;
+
+    @Schema(description = "Le rôle de l'utilisateur pour adapter l'interface", example = "ELEVE")
+    private String role;
 }

@@ -1,4 +1,4 @@
-package future.SAE.api.config;
+package future.SAE.infrastructure.config;
 
 import future.SAE.application.interfaces.ISecurityProvider;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

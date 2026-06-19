@@ -1,5 +1,6 @@
 package future.SAE.application.services;
 
+import future.SAE.application.exception.UtilisateurIntrouvableException;
 import future.SAE.domain.interfaces.IUtilisateurRepository;
 import future.SAE.domain.model.Eleve;
 import future.SAE.domain.model.Professeur;
@@ -64,7 +65,7 @@ class UtilisateurServiceTest {
         UUID idInconnu = UUID.randomUUID();
         when(utilisateurRepositoryMock.trouverParId(idInconnu)).thenReturn(Optional.empty());
 
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+        UtilisateurIntrouvableException exception = assertThrows(UtilisateurIntrouvableException.class, () ->
                 utilisateurService.consulterProfil(idInconnu)
         );
 
