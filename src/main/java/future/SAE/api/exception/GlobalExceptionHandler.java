@@ -2,6 +2,8 @@ package future.SAE.api.exception;
 
 import future.SAE.application.exception.EmailDejaUtiliseException;
 import future.SAE.application.exception.IdentifiantDejaUtiliseException;
+import future.SAE.domain.exception.FormationInvalideException;
+import future.SAE.domain.exception.InscriptionInvalideException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -34,5 +36,14 @@ public class GlobalExceptionHandler {
         }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erreurs);
+    }
+
+    @ExceptionHandler({InscriptionInvalideException.class, FormationInvalideException.class})
+    public ResponseEntity<Map<String, String>> gererErreursDomaine(RuntimeException ex) {
+        Map<String, String> erreur = new HashMap<>();
+
+        erreur.put("erreur_metier", ex.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erreur);
     }
 }

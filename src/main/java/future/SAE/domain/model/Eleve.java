@@ -2,6 +2,8 @@ package future.SAE.domain.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import future.SAE.domain.exception.FormationInvalideException;
+import future.SAE.domain.exception.InscriptionInvalideException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,25 +34,50 @@ public class Eleve extends Utilisateur
     }
 
 
-    public void inscriptionFormation(Formation uneFormation)
-    {
-        this.formation = uneFormation;
-    }
+    public void inscriptionCours(InscriptionCours uneInscription) {
+        if (uneInscription == null || uneInscription.getCours() == null) {
+            throw new InscriptionInvalideException("L'inscription ou le cours ne peut pas être nul.");
+        }
 
-    public void supprimerFormation(Formation uneFormation)
-    {
-        this.formation = null;
-    }
+        boolean dejaInscrit = this.inscriptions.stream()
+                .anyMatch(i -> i.getCours().equals(uneInscription.getCours()));
 
-    public void inscriptionCours(InscriptionCours uneInscription)
-    {
+        if (dejaInscrit) {
+            throw new InscriptionInvalideException("L'élève est déjà inscrit au cours : " + uneInscription.getCours().getNom());
+        }
+
         this.inscriptions.add(uneInscription);
     }
 
-    public void supprimerInscription(InscriptionCours uneInscription)
-        {
-        this.inscriptions.remove(uneInscription);
+    public void inscriptionFormation(Formation uneFormation) {
+        if (uneFormation == null) {
+            throw new FormationInvalideException("La formation ne peut pas être nulle.");
         }
+
+        if (this.formation != null && this.formation.equals(uneFormation)) {
+            throw new FormationInvalideException("L'élève est déjà inscrit à la formation : " + uneFormation.getNom());
+        }
+
+        this.formation = uneFormation;
+    }
+
+    public void supprimerFormation(Formation uneFormation) {
+        this.formation = null;
+    }
+
+    public void supprimerInscription(InscriptionCours uneInscription) {
+        if (uneInscription == null) {
+            throw new InscriptionInvalideException("L'inscription à supprimer ne peut pas être nulle.");
+        }
+
+        if (!this.inscriptions.contains(uneInscription)) {
+            throw new InscriptionInvalideException("Impossible de désinscrire : l'élève n'est pas inscrit à ce cours.");
+        }
+
+        this.inscriptions.remove(uneInscription);
+    }
+
+
 
     public String toString()
     {
