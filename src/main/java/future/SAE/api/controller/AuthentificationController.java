@@ -1,5 +1,6 @@
 package future.SAE.api.controller;
 
+import future.SAE.api.dto.reponse.JwtDTOReponse;
 import future.SAE.api.dto.reponse.UtilisateurReponse;
 import future.SAE.api.dto.requete.AuthentificationRequete;
 import future.SAE.api.dto.requete.InscriptionEleveRequete;
@@ -7,6 +8,8 @@ import future.SAE.api.dto.requete.InscriptionProfesseurRequete;
 import future.SAE.api.mapping.UtilisateurDTOMapper;
 import future.SAE.application.interfaces.IAuthentificationService;
 import future.SAE.application.interfaces.IInscriptionService;
+import future.SAE.application.services.AuthentificationService;
+import future.SAE.application.services.InscriptionService;
 import future.SAE.domain.model.Utilisateur;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,14 +29,17 @@ public class AuthentificationController {
     private final IInscriptionService inscriptionService;
     private final IAuthentificationService authentificationService;
     private final UtilisateurDTOMapper dtoMapper;
+    private final future.SAE.infrastructure.security.JwtTokenProvider jwtTokenProvider; // 👈 1. Ajout du provider
 
     public AuthentificationController(
-            IInscriptionService inscriptionService,
-            IAuthentificationService authentificationService,
-            UtilisateurDTOMapper dtoMapper) {
+            InscriptionService inscriptionService,
+            AuthentificationService authentificationService,
+            UtilisateurDTOMapper dtoMapper,
+            future.SAE.infrastructure.security.JwtTokenProvider jwtTokenProvider) { // 👈 2. Injection dans le constructeur
         this.inscriptionService = inscriptionService;
         this.authentificationService = authentificationService;
         this.dtoMapper = dtoMapper;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @PostMapping("/inscription/professeur")
@@ -67,15 +73,21 @@ public class AuthentificationController {
     }
 
     @PostMapping("/connexion")
-    @Operation(summary = "Se connecter", description = "Authentifie l'utilisateur avec son identifiant et son mot de passe. Renverra bientôt un token JWT.")
+    @Operation(summary = "Se connecter", description = "Authentifie l'utilisateur et renvoie un token JWT d'accès.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Connexion réussie"),
+            @ApiResponse(responseCode = "200", description = "Connexion réussie, token généré"),
             @ApiResponse(responseCode = "401", description = "Identifiants incorrects")
     })
-    public ResponseEntity<UtilisateurReponse> connecter(@Valid @RequestBody AuthentificationRequete requete) {
+
+    public ResponseEntity<JwtDTOReponse> connecter(@Valid @RequestBody AuthentificationRequete requete) {
+        // L'AuthentificationService vérifie si le mot de passe correspond au hash en BD
         Utilisateur utilisateurConnecte = authentificationService.authentifier(
                 requete.getIdentifiant(), requete.getMotDePasse()
         );
-        return ResponseEntity.ok(dtoMapper.toResponse(utilisateurConnecte));
+
+        // Token
+        String token = jwtTokenProvider.genererToken(utilisateurConnecte);
+
+        return ResponseEntity.ok(new JwtDTOReponse(token));
     }
 }
