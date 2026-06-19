@@ -36,7 +36,7 @@ public class UtilisateurRepositoryTest {
         assertEquals("Doe", profTrouve.get().getNom());
         assertEquals("PROF-001", profTrouve.get().getIdentifiant());
 
-        // Assert crucial : La base de données a dû générer un UUID pour cet utilisateur !
+
         assertNotNull(profSauvegarde.getId(), "L'ID ne devrait pas être nul après la sauvegarde");
         assertEquals(profSauvegarde.getId(), profTrouve.get().getId());
     }
@@ -44,10 +44,9 @@ public class UtilisateurRepositoryTest {
     @Test
     @DisplayName("Doit retourner un Optional vide si l'utilisateur est introuvable")
     void trouverParIdentifiant_Inconnu() {
-        // Act : On cherche un identifiant qui n'a jamais été sauvegardé
         Optional<Utilisateur> resultat = utilisateurRepository.trouverParIdentifiant("FANTOME-404");
 
-        // Assert : Spring Data doit nous renvoyer un Optional.empty()
+
         assertTrue(resultat.isEmpty(), "Le résultat devrait être vide pour un utilisateur inexistant");
     }
 

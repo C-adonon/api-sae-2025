@@ -1,136 +1,93 @@
 package future.SAE.application.services;
-import future.SAE.application.services.UtilisateurService;
 
-import future.SAE.application.interfaces.ISecurityProvider;
-import future.SAE.domain.interfaces.ICoursRepository;
-import future.SAE.domain.interfaces.IMessageRepository;
+import future.SAE.application.exception.UtilisateurIntrouvableException;
 import future.SAE.domain.interfaces.IUtilisateurRepository;
-import future.SAE.domain.model.Cours;
-import future.SAE.domain.model.Message;
+import future.SAE.domain.model.Eleve;
+import future.SAE.domain.model.Professeur;
 import future.SAE.domain.model.Utilisateur;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class UtilisateurServiceTest
-{
-    @Mock private IUtilisateurRepository utilisateurRepository;
-    @Mock private ICoursRepository coursRepository;
-    @Mock private IMessageRepository messageRepository;
-    @Mock private ISecurityProvider securityProvider;
+class UtilisateurServiceTest {
+
+    @Mock
+    private IUtilisateurRepository utilisateurRepositoryMock;
 
     @InjectMocks
     private UtilisateurService utilisateurService;
 
-    private UUID id;
-    private UUID expId;
-    private UUID destId;
+    @Test
+    @DisplayName("Doit consulter le profil d'un Professeur avec succès")
+    void consulterProfil_Professeur_Succes() {
+        UUID idProf = UUID.randomUUID();
+        Professeur profMock = new Professeur("Doe", "John", "PROF-001", "john@ecole.fr", "hash");
 
-    private void appelModifierMdpIntrouvable()
-    {
-        utilisateurService.modifierMdp(id, "Marseille", "Toulouse");
-    }
+        when(utilisateurRepositoryMock.trouverParId(idProf)).thenReturn(Optional.of(profMock));
 
-    private void appelAccederCoursIntrouvable()
-    {
-        utilisateurService.accederCours(id);
-    }
+        Utilisateur resultat = utilisateurService.consulterProfil(idProf);
 
-    private void appelAccederMessageIntrouvable()
-    {
-        utilisateurService.accederMessage(id);
-    }
-
-    private void appelEnvoyerMessageExpediteurIntrouvale()
-    {
-        utilisateurService.envoyerMessage(expId, UUID.randomUUID(), "Hello");
-    }
-
-    private void appelEnvoyerMessageDestinataireIntrouvale()
-    {
-        utilisateurService.envoyerMessage(expId, destId, "Hello");
+        assertNotNull(resultat);
+        assertEquals("Doe", resultat.getNom());
+        assertTrue(resultat instanceof Professeur, "Le résultat doit être une instance de Professeur");
+        verify(utilisateurRepositoryMock, times(1)).trouverParId(idProf);
     }
 
     @Test
-    void creerUtilisateur()
-    {
-        when(securityProvider.hacher("Chloe-2000!")).thenReturn("Chl0e2000!");
-        when(utilisateurRepository.sauvegarder(any())).thenReturn(new Utilisateur("Adonon", "Chloe", "14702581", "chloe.adonon@edu.univ-paris13.fr", "Chl0e2000!"));
+    @DisplayName("Doit consulter le profil d'un Élève avec succès")
+    void consulterProfil_Eleve_Succes() {
+        UUID idEleve = UUID.randomUUID();
+        Eleve eleveMock = new Eleve("Smith", "Alice", "ELEVE-001", "alice@ecole.fr", "hash");
 
-        Utilisateur result = utilisateurService.creerUtilisateur("Adonon", "Chloe", "14702581", "chloe.adonon@edu.univ-paris13.fr", "Chloe-2000!");
+        when(utilisateurRepositoryMock.trouverParId(idEleve)).thenReturn(Optional.of(eleveMock));
 
-        assertThat(result.getMotDePasse()).isEqualTo("Chl0e2000!");
-        verify(securityProvider).hacher("Chloe-2000!");
-        verify(utilisateurRepository).sauvegarder(any());
+        Utilisateur resultat = utilisateurService.consulterProfil(idEleve);
+
+        assertNotNull(resultat);
+        assertEquals("Alice", resultat.getPrenom());
+        assertTrue(resultat instanceof Eleve, "Le résultat doit être une instance d'Eleve");
     }
 
     @Test
-    void modifierMdpSiMdpIncorrect()
-    {
-        id = UUID.randomUUID();
-        Utilisateur user = new Utilisateur("Adonon", "Chloe", "14702581", "chloe.adonon@edu.univ-paris13.fr", "Chl0e2000!");
-        when(utilisateurRepository.trouverParId(id)).thenReturn(Optional.of(user));
-        when(securityProvider.hacher("Chloe-2000!")).thenReturn("Chloe-2000!");
-        when(securityProvider.verifier("Chl0e2000!", "Chl0e2000!")).thenReturn(true);
+    @DisplayName("Doit lever une exception si l'utilisateur est introuvable")
+    void consulterProfil_Introuvable() {
+        UUID idInconnu = UUID.randomUUID();
+        when(utilisateurRepositoryMock.trouverParId(idInconnu)).thenReturn(Optional.empty());
 
-        utilisateurService.modifierMdp(id, "Chloe-2000!", "Chl0e2000!");
+        UtilisateurIntrouvableException exception = assertThrows(UtilisateurIntrouvableException.class, () ->
+                utilisateurService.consulterProfil(idInconnu)
+        );
 
-        verify(utilisateurRepository).sauvegarder(user);
+        assertTrue(exception.getMessage().contains("introuvable"));
     }
 
     @Test
-    void accederCoursListe()
-    {
-        id = UUID.randomUUID();
-        Utilisateur user = new Utilisateur("Bendjebbour", "Yasmine", "12301458", "yasmine.bendjebbour@edu.univ-paris13.fr", "Y@smine2005.");
-        List<Cours> c = List.of(new Cours("Java", null, null), new Cours("Python", null, null));
-        when(utilisateurRepository.trouverParId(id)).thenReturn(Optional.of(user));
-        when(coursRepository.trouverParUtilisateurId(id)).thenReturn(c);
+    @DisplayName("Doit modifier le nom et prénom d'un utilisateur existant")
+    void modifierProfil_Succes() {
+        UUID idUser = UUID.randomUUID();
+        Eleve eleveExistant = new Eleve("AncienNom", "AncienPrenom", "ELEVE-002", "test@ecole.fr", "hash");
 
-        List<Cours> res = utilisateurService.accederCours(id);
+        when(utilisateurRepositoryMock.trouverParId(idUser)).thenReturn(Optional.of(eleveExistant));
+        when(utilisateurRepositoryMock.sauvegarder(any(Utilisateur.class))).thenAnswer(i -> i.getArgument(0));
 
-        assertThat(res).hasSize(2);
-        verify(coursRepository).trouverParUtilisateurId(id);
-    }
+        Utilisateur resultat = utilisateurService.modifierProfil(idUser, "NouveauNom", "NouveauPrenom");
 
-    @Test
-    void accederMessage()
-    {
-        id = UUID.randomUUID();
-        Utilisateur user = new Utilisateur("Edoh-Dagnon", "Clarence", "13601859", "clarence.edohdagnon@edu.univ-paris13.fr", "Cl@rence2006.");
-        List<Message> m = List.of(new Message(), new Message());
-        when(utilisateurRepository.trouverParId(id)).thenReturn(Optional.of(user));
-        when(messageRepository.trouverParDestinataire(id)).thenReturn(m);
+        assertNotNull(resultat);
+        assertEquals("NouveauNom", resultat.getNom());
+        assertEquals("NouveauPrenom", resultat.getPrenom());
+        assertEquals("test@ecole.fr", resultat.getEmail()); // L'email ne doit pas avoir changé
 
-        List<Message> res = utilisateurService.accederMessage(id);
-
-        assertThat(res).hasSize(2);
-
-        verify(messageRepository).trouverParDestinataire(id);
-    }
-
-    void envoyerMessage()
-    {
-        expId = UUID.randomUUID();
-        destId = UUID.randomUUID();
-        Utilisateur exp = new Utilisateur("Edoh-Dagnon", "Clarence", "13601859", "clarence.edohdagnon@edu.univ-paris13.fr", "Cl@rence2006.");
-        when(utilisateurRepository.trouverParId(expId)).thenReturn(Optional.of(exp));
-        when(utilisateurRepository.trouverParId(destId)).thenReturn(Optional.of(new Utilisateur()));
-
-        utilisateurService.envoyerMessage(expId, destId, "Hello");
-
-        verify(messageRepository).sauvegarder(any(Message.class));
+        verify(utilisateurRepositoryMock, times(1)).sauvegarder(eleveExistant);
     }
 }
